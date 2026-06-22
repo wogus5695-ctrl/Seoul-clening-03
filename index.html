@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 파비콘 및 앱 아이콘 (네이버 서치어드바이저 및 모바일 최적화) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    
+    <!-- 네이버 서치어드바이저 및 SEO 메타 태그 (동적 치환 타겟) -->
+    <title id="seo-title" data-seo="target">서울 입주청소 전문 클린폼 | 프리미엄 청소 대행</title>
+    <meta name="description" id="seo-desc" data-seo="target" content="서울, 경기, 인천 프리미엄 청소 대행. 입주청소부터 특수청소까지, 완벽한 공간을 만드는 클린폼(CLEAN FORME).">
+    <meta property="og:title" id="seo-og-title" data-seo="target" content="서울 입주청소 전문 클린폼 | 프리미엄 청소 대행">
+    <meta property="og:description" id="seo-og-desc" data-seo="target" content="서울, 경기, 인천 프리미엄 청소 대행. 입주청소부터 특수청소까지, 완벽한 공간을 만드는 클린폼(CLEAN FORME).">
+    <meta property="og:image" content="./hero_bg.png">
+    <meta property="og:type" content="website">
+    
+    <!-- Pretendard 웹 폰트 (CDN 연동) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- 글로벌 CSS -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- 미니멀 상단 투명 헤더 -->
+    <header class="header">
+        <div class="logo">CLEAN FORME</div>
+    </header>
+
+    <main>
+        <!-- Hero 비주얼 (풀스크린 가로 와이드 블록) -->
+        <section class="hero" id="hero-section">
+            <!-- 동적 SEO 변환용 백그라운드 이미지 태그 -->
+            <img id="hero-bg-img" class="hero-bg-img" src="./hero_bg.png" alt="수도권 종합청소 전문 클린폼">
+            
+            <!-- 인터랙티브 클린 효과 캔버스 -->
+            <canvas id="clean-canvas"></canvas>
+            
+            <div class="hero-content">
+                <h1 id="hero-heading" data-seo="target">서울 입주청소 전문 클린폼</h1>
+                <ul class="hero-features">
+                    <li>프리미엄 장비와 친환경 세제 사용</li>
+                    <li>10년 이상의 전문 인력 투입</li>
+                    <li>서울/경기/인천 수도권 전역 서비스</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 1. Pain Point (후킹) 섹션 -->
+        <section class="pain-points section-padding">
+            <h2 id="pain-point-heading" class="section-title text-center">수도권 전 지역, 고객님들이 클린폼만 고집하는 3가지 이유</h2>
+            <div class="pain-point-cards">
+                <article class="pain-card">
+                    <div class="pain-icon">🤝</div>
+                    <h3>하청/독촉 없음</h3>
+                    <p>외주 없이 100% 본사 직영 팀이 책임지고 투입됩니다.</p>
+                </article>
+                <article class="pain-card">
+                    <div class="pain-icon">🛡️</div>
+                    <h3>사고 대비 완벽 보장</h3>
+                    <p>파손/예약 사고 대비 전 직원 영업배상책임보험 가입 완료.</p>
+                </article>
+                <article class="pain-card">
+                    <div class="pain-icon">💯</div>
+                    <h3>100% 무상 AS</h3>
+                    <p>작업 결과 불만족 시 100% 무상 재작업 AS를 보장합니다.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2. 동적 작업 범위 & 프로세스 섹션 -->
+        <section class="process-section section-padding">
+            <h2 id="process-heading" class="section-title text-center">종합청소 전문 케어 프로세스</h2>
+            <div id="process-steps" class="process-grid">
+                <!-- JS 변환 렌더링 영역 (4 STEP) -->
+                <div class="process-card"><div class="step-num">STEP 1</div><div class="step-desc">현장 맞춤형 전문 진단 및 견적 산출</div></div>
+                <div class="process-card"><div class="step-num">STEP 2</div><div class="step-desc">각 구역별 오염도에 따른 특수 장비 투입</div></div>
+                <div class="process-card"><div class="step-num">STEP 3</div><div class="step-desc">구조물 손상 없는 안전하고 완벽한 세척</div></div>
+                <div class="process-card"><div class="step-num">STEP 4</div><div class="step-desc">고객 검수 및 불만족 시 즉각적인 AS 진행</div></div>
+            </div>
+        </section>
+
+        <!-- 3. 미드 페이지 강박적 CTA 유도 섹션 -->
+        <section class="mid-cta section-padding">
+            <div class="mid-cta-inner">
+                <p id="mid-cta-text">🚨 더 이상 비교하느라 시간 낭비하지 마세요. 지금 바로 전화하시면 수도권 담당 팀장이 1분 만에 가견적을 뽑아드립니다.</p>
+                <a href="tel:1588-0000" class="btn-mid-cta">1분 직통 전화 연결</a>
+            </div>
+        </section>
+
+        <!-- 4. 아코디언 스타일 동적 FAQ 섹션 -->
+        <section class="faq-section section-padding">
+            <h2 class="section-title text-center">자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-accordion">
+                <details>
+                    <summary id="faq-q1">수도권 종합청소 비용 산정 기준은 어떻게 되나요?</summary>
+                    <div class="faq-answer">
+                        평수, 오염도, 현장 층고에 따라 상이하므로 정확한 견적은 직통 전화로 1분 만에 확인하실 수 있습니다.
+                    </div>
+                </details>
+                <details>
+                    <summary id="faq-q2">야간이나 주말에도 수도권 작업이 가능한가요?</summary>
+                    <div class="faq-answer">
+                        클린폼은 365일 24시간 연중무휴로 운영되어 사장님들의 영업시간을 완벽히 배려합니다.
+                    </div>
+                </details>
+                <details>
+                    <summary>세금계산서 및 현금영수증 발행이 가능한가요?</summary>
+                    <div class="faq-answer">
+                        네, 모든 결제 건에 대해 부가세 별도로 세금계산서 및 현금영수증 100% 정상 발행 가능합니다.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 12개 동적 작업 매칭 구역 (풀스크린 레이아웃) -->
+        <section class="services">
+            
+            <!-- Service Block 1 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 입주청소</h2>
+                    <ul class="service-details">
+                        <li>신축 아파트 공사 분진 완벽 제거</li>
+                        <li>친환경 탈취 및 새집증후군 예방</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 2 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 이사청소</h2>
+                    <ul class="service-details">
+                        <li>전 거주자의 생활 오염 흔적 제거</li>
+                        <li>주방 기름때 및 욕실 물때 정밀 세척</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 3 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 상가/사무실청소</h2>
+                    <ul class="service-details">
+                        <li>넓은 면적의 바닥 왁스 코팅 작업</li>
+                        <li>정기 관리 및 쾌적한 업무 환경 조성</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 4 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 거주청소</h2>
+                    <ul class="service-details">
+                        <li>일상 생활 중 발생하는 묵은 때 제거</li>
+                        <li>가구 및 짐 이동 없는 안전한 청소</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 5 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1523413651479-59cb1f1ece87?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 부분청소</h2>
+                    <ul class="service-details">
+                        <li>욕실, 주방 등 특정 구역 집중 케어</li>
+                        <li>단시간 내 높은 퀄리티의 청결 유지</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 6 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 준공/인테리어청소</h2>
+                    <ul class="service-details">
+                        <li>인테리어 시공 후 미세먼지 및 본드 자국 제거</li>
+                        <li>입주 전 완벽한 마감 처리</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 7 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 원룸/오피스텔청소</h2>
+                    <ul class="service-details">
+                        <li>소형 평수에 맞춘 합리적인 맞춤 청소</li>
+                        <li>빌트인 가전 내외부 정밀 세척</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 8 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 쓰레기집청소</h2>
+                    <ul class="service-details">
+                        <li>대량의 폐기물 및 방치된 오염물 완벽 수거</li>
+                        <li>강력한 살균 및 악취 제거 솔루션</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 9 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 화재청소</h2>
+                    <ul class="service-details">
+                        <li>화재 분진 및 그을음 특수 약품 세척</li>
+                        <li>유해 가스 및 매연 냄새 탈취 작업</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 10 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 특수청소</h2>
+                    <ul class="service-details">
+                        <li>고도화된 장비와 화학 약품을 이용한 오염 제거</li>
+                        <li>일반 청소로 해결 불가능한 구역 복원</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 11 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 에어컨/가전청소</h2>
+                    <ul class="service-details">
+                        <li>에어컨 완전 분해 및 고압 세척</li>
+                        <li>세탁기, 냉장고 내부 곰팡이 및 세균 박멸</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Service Block 12 -->
+            <article class="service-block">
+                <div class="service-bg" style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h2 class="service-title" data-seo="target">서울 줄눈/상판코팅</h2>
+                    <ul class="service-details">
+                        <li>물때와 곰팡이 방지를 위한 욕실 줄눈 시공</li>
+                        <li>주방 상판 오염 방지용 나노 코팅</li>
+                    </ul>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <!-- 모바일/PC 즉각 전화 통화 연결 CTA (Footer) -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="tel:1588-0000" class="cta-call">
+                <div class="cta-info pc-only">
+                    <span class="cta-label">프리미엄 공간 컨설팅</span>
+                    <span class="cta-text">지금 바로 무료 견적 상담하기</span>
+                </div>
+                <!-- 모바일 전용 원터치 동적 텍스트 -->
+                <div class="cta-info mo-only-purser" id="mo-cta-dynamic">
+                    <span class="cta-text">👉 <span id="cta-dynamic-text" data-seo="target">[동탄 준공청소]</span> 1분 직통 전화 견적</span>
+                </div>
+                <div class="cta-number pc-only">1588-0000</div>
+            </a>
+        </div>
+    </footer>
+
+    <!-- URL 파라미터 기반 동적 SEO 치환 엔진 -->
+    <script src="./seo-engine.js"></script>
+
+    <!-- 인터랙티브 안티그래비티 클린 효과 스크립트 (Vanilla JS) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('clean-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let animationFrameId;
+
+            // 모바일 환경 예외 처리 (1024px 이하 또는 터치 환경)
+            const isMobile = () => window.innerWidth <= 1024 || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            // 마우스 추적 (기본 위치는 화면 밖)
+            let mouse = { x: -1000, y: -1000, radius: 250 };
+
+            const initCanvas = () => {
+                if (isMobile()) {
+                    canvas.style.display = 'none';
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    return false;
+                } else {
+                    canvas.style.display = 'block';
+                    return true;
+                }
+            };
+
+            const resize = () => {
+                if (!initCanvas()) return;
+                const hero = document.getElementById('hero-section');
+                width = canvas.width = hero.offsetWidth;
+                height = canvas.height = hero.offsetHeight;
+                createParticles();
+            };
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 12 + 4; // 4 ~ 16px 크기
+                    this.density = (Math.random() * 20) + 1; // 반발력 밀도
+                    
+                    // 아주 느리고 부드러운 기본 이동 속도 (미니멀리즘 유지)
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    
+                    // 시안 블루(#00E5FF)와 다크 그레이 색상 (투명도 0.15~0.3)
+                    const isCyan = Math.random() > 0.4;
+                    const opacity = (Math.random() * 0.15 + 0.15).toFixed(2);
+                    this.color = isCyan ? `rgba(0, 229, 255, ${opacity})` : `rgba(100, 100, 100, ${opacity})`;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+
+                update() {
+                    // 기본 떠다님 (중력 무시)
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // 화면 경계선 부드러운 반사
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    // 마우스 척력(Push force) 연산
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    
+                    // 마우스 커서 주변 장벽(반발력) 효과
+                    if (distance < maxDistance) {
+                        // 거리에 비례하여 밀어내는 힘 적용
+                        let pushX = forceDirectionX * force * (this.density * 0.5);
+                        let pushY = forceDirectionY * force * (this.density * 0.5);
+                        
+                        this.x -= pushX;
+                        this.y -= pushY;
+                    }
+
+                    this.draw();
+                }
+            }
+
+            const createParticles = () => {
+                particles = [];
+                const numParticles = 25; // 20~30개
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push(new Particle());
+                }
+            };
+
+            const animate = () => {
+                if (!initCanvas()) return;
+                // 이전 프레임을 부드럽게 지워 잔상 효과 방지
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                }
+                animationFrameId = requestAnimationFrame(animate);
+            };
+
+            window.addEventListener('resize', resize);
+            
+            // Hero 섹션 안에서의 마우스 움직임만 감지
+            const hero = document.getElementById('hero-section');
+            if(hero) {
+                hero.addEventListener('mousemove', (e) => {
+                    const rect = hero.getBoundingClientRect();
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                });
+
+                hero.addEventListener('mouseleave', () => {
+                    // 마우스가 떠나면 힘 장벽 제거
+                    mouse.x = -1000;
+                    mouse.y = -1000;
+                });
+            }
+
+            resize();
+            if (initCanvas()) {
+                animate();
+            }
+        });
+    </script>
+</body>
+</html>
