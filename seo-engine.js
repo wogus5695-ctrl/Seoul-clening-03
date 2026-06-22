@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskData = TASK_MATRIX[displayTask] || TASK_MATRIX['종합청소'];
     
     // 2. 변환 텍스트 셋업
-    const titleStr = `${displayLoc} ${displayTask} 전문 ${SITE_CONFIG.BRAND_NAME} | 프리미엄 청소 대행`;
-    const descStr = `${displayLoc} 지역 최고 수준의 ${displayTask} 서비스. ${taskData.points.join(', ')}. 완벽한 공간을 만드는 ${SITE_CONFIG.BRAND_NAME}.`;
-    const h1Str = `${displayLoc} ${displayTask}의 기준, ${SITE_CONFIG.BRAND_NAME}`;
-    const ctaStr = `📞 ${displayLoc} ${displayTask} 1분 직통 견적 (클릭)`;
+    const titleStr = `${displayLoc} ${displayTask} 전문 ${SITE_CONFIG.BRAND_NAME} | 외벽·유리창·준공·특수청소`;
+    const descStr = `${SITE_CONFIG.BRAND_NAME}은 ${displayLoc} 지역의 ${displayTask} 상담을 제공합니다. ${taskData.points.join(', ')}. 현장 상태와 오염도 기준으로 견적 범위를 안내합니다.`;
+    const h1Str = `${displayLoc} ${displayTask} 전문 ${SITE_CONFIG.BRAND_NAME}`;
+    const ctaStr = `👉 ${displayLoc} ${displayTask} 1분 직통 견적`;
 
     // 4. 실시간 동적 치환 (DOM Manipulation)
     
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hero Features
     const heroFeatures = document.querySelector('.hero-features');
-    if (heroFeatures && taskData.points.length === 3) {
+    if (heroFeatures) {
         heroFeatures.innerHTML = taskData.points.map(point => `<li>${point}</li>`).join('');
     }
 
@@ -48,10 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // CTA Texts
-    const moCta = document.getElementById('mo-cta-dynamic');
-    if (moCta) moCta.innerHTML = `<span class="cta-text">${ctaStr}</span>`;
-    
-    document.querySelectorAll('.pc-only.cta-text, .pc-only .cta-text').forEach(el => el.innerText = ctaStr);
+    const moCta = document.getElementById('cta-dynamic-text');
+    if (moCta) moCta.innerText = `${displayLoc} ${displayTask}`;
+
+    // 연락처 하드코딩 제거 및 치환
+    document.querySelectorAll('a[href^="tel:"]').forEach(el => el.setAttribute('href', `tel:${SITE_CONFIG.CONTACT_PHONE}`));
+    document.querySelectorAll('a[href^="sms:"]').forEach(el => el.setAttribute('href', `sms:${SITE_CONFIG.CONTACT_SMS}`));
+    document.querySelectorAll('.phone-display').forEach(el => el.innerText = SITE_CONFIG.CONTACT_PHONE);
 
     // ----------------------------------------------------
     // [고도화 섹션 동적 변환 로직]

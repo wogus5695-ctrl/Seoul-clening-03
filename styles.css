@@ -140,6 +140,15 @@ a {
     color: var(--color-accent);
 }
 
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
 .hero-features li {
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     font-weight: var(--font-weight-light);
@@ -426,6 +435,13 @@ a {
     color: var(--color-text-main);
     margin-bottom: 2rem;
     line-height: 1.5;
+}
+
+.mid-cta-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .btn-mid-cta {
