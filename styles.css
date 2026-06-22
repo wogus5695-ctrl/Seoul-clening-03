@@ -234,13 +234,35 @@ a {
 }
 
 /* =========================================
-   Footer (Sticky Call To Action)
+   Footer / Sticky CTA (Mobile & PC)
    ========================================= */
 .footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index: 1000;
+}
+
+.footer-links {
+    text-align: center;
+    padding: 10px;
+    background-color: #0a0a0a;
+}
+
+.footer-links a {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-text-main);
+}
+
+.footer-inner {
     padding: 24px var(--padding-side);
     background: linear-gradient(to top, rgba(17,17,17,1) 30%, rgba(17,17,17,0) 100%);
     z-index: 100;

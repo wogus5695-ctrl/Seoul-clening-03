@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wogus5695-ctrl.github.io/Seoul-clening-03/sitemap.xml
