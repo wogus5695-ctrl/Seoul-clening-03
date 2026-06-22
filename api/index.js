@@ -1,14 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
+const { SITE_CONFIG } = require('../js/config.js');
 
 module.exports = (req, res) => {
+    // 최종 응답 전송 헬퍼 (연락처 치환 일원화)
+    function sendHtml(htmlContent) {
+        if (SITE_CONFIG && SITE_CONFIG.CONTACT_PHONE) {
+            htmlContent = htmlContent.replace(/href="tel:1588-0000"/g, "href=\"tel:" + SITE_CONFIG.CONTACT_PHONE + "\"");
+            htmlContent = htmlContent.replace(/1588-0000/g, SITE_CONFIG.CONTACT_PHONE);
+        }
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        return res.status(200).send(htmlContent);
+    }
     // 1. URLSearchParams 또는 req.query.k 로 k 값을 가져옵니다.
     // Vercel Serverless Function 에서는 req.query.k 로 query parameter에 직접 접근할 수 있습니다.
     const keywordRaw = req.query.k || '';
     
     // index.html 파일을 동적으로 읽습니다.
-    const htmlPath = path.join(__dirname, '../index.html');
+    const htmlPath = path.join(process.cwd(), 'index.html');
     let html = '';
     try {
         html = fs.readFileSync(htmlPath, 'utf8');
@@ -27,8 +37,7 @@ module.exports = (req, res) => {
         // head 닫는 태그 직전에 강제 삽입
         html = html.replace(/<\/head>/i, `${canonicalTags}\n</head>`);
         
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        return res.status(200).send(html);
+        return sendHtml(html);
     }
 
     // k 값 디코딩 및 파싱
@@ -264,6 +273,5 @@ module.exports = (req, res) => {
     html = html.replace(/<div id="footer-related-links" class="footer-chips">([\s\S]*?)<\/div>/i, 
         `<div id="footer-related-links" class="footer-chips">\n                            ${linksHtml}\n                        </div>`);
 
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.status(200).send(html);
+    return sendHtml(html);
 };

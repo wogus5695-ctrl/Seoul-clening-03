@@ -1,6 +1,23 @@
 {
   "cleanUrls": true,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": [
+        "index.html",
+        "js/config.js",
+        "js/data/services.js"
+      ]
+    }
+  },
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
     {
       "source": "/gyeonggi/:path*",
       "destination": "/index.html"
