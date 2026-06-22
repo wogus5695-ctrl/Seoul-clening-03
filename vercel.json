@@ -4,6 +4,10 @@
     {
       "source": "/gyeonggi/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/",
+      "destination": "/api/index"
     }
   ]
 }
