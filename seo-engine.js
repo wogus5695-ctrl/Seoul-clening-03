@@ -12,13 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayLoc = loc || '수도권';
     const displayTask = taskName || '종합청소';
     
-    // 외부 매트릭스(js/data/tasks.js)에서 데이터 추출
-    const taskData = TASK_MATRIX[displayTask] || TASK_MATRIX['종합청소'];
+    // 외부 매트릭스(js/data/services.js)에서 데이터 추출
+    const taskData = SERVICES_DATA.find(s => s.serviceNameKo === displayTask) || SERVICES_DATA.find(s => s.serviceNameKo === '종합청소');
     
     // 2. 변환 텍스트 셋업
-    const titleStr = `${displayLoc} ${displayTask} 전문 ${SITE_CONFIG.BRAND_NAME} | 외벽·유리창·준공·특수청소`;
-    const descStr = `${SITE_CONFIG.BRAND_NAME}은 ${displayLoc} 지역의 ${displayTask} 상담을 제공합니다. ${taskData.points.join(', ')}. 현장 상태와 오염도 기준으로 견적 범위를 안내합니다.`;
-    const h1Str = `${displayLoc} ${displayTask} 전문 ${SITE_CONFIG.BRAND_NAME}`;
+    const titleStr = taskData.metaTitleTemplate.replace('{loc}', displayLoc).replace('{task}', displayTask);
+    const descStr = taskData.metaDescriptionTemplate.replace('{loc}', displayLoc).replace('{task}', displayTask);
+    const h1Str = taskData.heroTitle;
+    const subtitleStr = taskData.heroDescription;
     const ctaStr = `👉 ${displayLoc} ${displayTask} 1분 직통 견적`;
 
     // 4. 실시간 동적 치환 (DOM Manipulation)
@@ -33,18 +34,43 @@ document.addEventListener('DOMContentLoaded', () => {
     setContent('seo-og-desc', descStr);
     setInner('hero-heading', h1Str);
 
+    const subtitleEl = document.querySelector('.hero-subtitle');
+    if (subtitleEl) subtitleEl.innerText = subtitleStr;
+
     // Hero Features
     const heroFeatures = document.querySelector('.hero-features');
     if (heroFeatures) {
-        heroFeatures.innerHTML = taskData.points.map(point => `<li>${point}</li>`).join('');
+        heroFeatures.innerHTML = taskData.shortBullets.map(point => `<li>${point}</li>`).join('');
     }
 
     // Hero Background
     const heroImgEl = document.getElementById('hero-bg-img');
     if (heroImgEl) {
-        const imagePath = displayTask === '종합청소' ? './hero_bg.png' : `./images/${taskData.image}`;
+        const imagePath = displayTask === '종합청소' ? './hero_bg.png' : `./images/${taskData.imageKey}`;
         heroImgEl.setAttribute('src', imagePath);
         heroImgEl.setAttribute('alt', `${displayLoc} ${displayTask} 전문 클린폼 작업 사례`);
+    }
+
+    // Process Cards (workScope mapping)
+    const processCards = document.querySelectorAll('.process-card .step-desc');
+    if (processCards.length === 4 && taskData.workScope && taskData.workScope.length >= 4) {
+        processCards.forEach((card, index) => {
+            card.innerText = taskData.workScope[index];
+        });
+    }
+
+    // FAQ mapping
+    if (taskData.faq && taskData.faq.length >= 2) {
+        const faqQ1 = document.getElementById('faq-q1');
+        const faqQ2 = document.getElementById('faq-q2');
+        if (faqQ1) {
+            faqQ1.innerText = taskData.faq[0].q;
+            faqQ1.nextElementSibling.innerText = taskData.faq[0].a;
+        }
+        if (faqQ2) {
+            faqQ2.innerText = taskData.faq[1].q;
+            faqQ2.nextElementSibling.innerText = taskData.faq[1].a;
+        }
     }
 
     // CTA Texts
@@ -65,22 +91,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const painLocStr = loc ? `${loc} 사장님들이` : `수도권 고객님들이`;
     setInner('pain-point-heading', `수도권 전 지역, ${painLocStr} 클린폼만 고집하는 3가지 이유`);
 
-    // 2. 프로세스 섹션
-    setInner('process-heading', `${displayTask} 전문 케어 프로세스`);
-    const processSteps = document.getElementById('process-steps');
-    if (processSteps && taskData.process) {
-        processSteps.innerHTML = taskData.process.map((step, idx) => `
-            <div class="process-card">
-                <div class="step-num">STEP ${idx + 1}</div>
-                <div class="step-desc">${step}</div>
-            </div>
-        `).join('');
+    // ----------------------------------------------------
+    // [서비스 그룹 동적 렌더링 로직]
+    // ----------------------------------------------------
+    const servicesContainer = document.getElementById('services-container');
+    if (servicesContainer && typeof SERVICES_DATA !== 'undefined') {
+        const groupsInfo = {
+            "건물 외부 청소": {
+                desc: "외벽·유리창·어닝·간판처럼 외부 노출이 많은 구역은 오염이 빠르게 쌓이고, 접근 방식에 따라 장비 구성이 달라집니다.",
+                bg: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop"
+            },
+            "바닥·상업공간 청소": {
+                desc: "상가, 사무실, 매장 바닥은 오염도와 재질에 따라 세척 방식과 코팅 여부를 구분해야 합니다.",
+                bg: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop"
+            },
+            "공사·이전 청소": {
+                desc: "준공·인테리어 후 공간은 공사 분진, 본드 자국, 마감 오염을 일반 청소와 다르게 확인해야 합니다.",
+                bg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop"
+            },
+            "고난도 특수 청소": {
+                desc: "화재, 쓰레기집, 고오염 현장은 일반 청소보다 악취·폐기물·오염도 기준을 먼저 확인해야 합니다.",
+                bg: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2000&auto=format&fit=crop"
+            }
+        };
+
+        let servicesHtml = '';
+        const groupNames = Object.keys(groupsInfo);
+        
+        groupNames.forEach(groupName => {
+            const groupServices = SERVICES_DATA.filter(s => s.groupName === groupName);
+            if(groupServices.length === 0) return;
+            
+            const info = groupsInfo[groupName];
+            
+            let cardsHtml = '<div class="service-cards-grid">';
+            groupServices.forEach(s => {
+                cardsHtml += `
+                    <div class="s-card">
+                        <h3>${s.serviceNameKo}</h3>
+                        <p>${s.heroDescription}</p>
+                    </div>
+                `;
+            });
+            cardsHtml += '</div>';
+
+            servicesHtml += `
+                <article class="service-block group-block">
+                    <div class="service-bg" style="background-image: url('${info.bg}');"></div>
+                    <div class="service-content">
+                        <h2 class="service-title">${groupName}</h2>
+                        <p class="service-group-desc">${info.desc}</p>
+                        ${cardsHtml}
+                    </div>
+                </article>
+            `;
+        });
+        
+        servicesContainer.innerHTML = servicesHtml;
     }
-
-    // 3. 미드 페이지 긴급 CTA
-    setInner('mid-cta-text', `🚨 더 이상 비교하느라 시간 낭비하지 마세요. 지금 바로 전화하시면 ${displayLoc} 담당 팀장이 1분 만에 가견적을 뽑아드립니다.`);
-
-    // 4. FAQ 섹션 동적 키워드
-    setInner('faq-q1', `${displayLoc} ${displayTask} 비용 산정 기준은 어떻게 되나요?`);
-    setInner('faq-q2', `야간이나 주말에도 ${displayLoc} 작업이 가능한가요?`);
 });

@@ -229,7 +229,61 @@ a {
     color: var(--color-text-muted);
     margin-bottom: 1rem;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.service-group-desc {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.service-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 2rem;
+}
+
+.s-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.s-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-accent);
+}
+
+.s-card h3 {
+    color: var(--color-text-main);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.s-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.s-card p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: keep-all;
 }
 
 .service-details li::before {
