@@ -3,10 +3,55 @@
 // 의존성: js/config.js, js/data/tasks.js, js/data/regions.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. URL 파라미터 파싱
+    // 임시 Slug 역맵핑 헬퍼 (실제 프로덕션에서는 매핑 테이블 객체로 분리 권장)
+    const slugMap = {
+        "수정구": "sujeong", "중원구": "jungwon", "분당구": "bundang",
+        "장안구": "jangan", "권선구": "gwonseon", "팔달구": "paldal", "영통구": "yeongtong",
+        "정자동": "jeongja-dong", "판교동": "pangyo-dong", "광교동": "gwanggyo-dong", "중앙동": "jungang-dong",
+        "분당동": "bundang-dong", "서현동": "seohyeon-dong", "영통동": "yeongtong-dong"
+    };
+    function getSlug(koreanStr) {
+        if (slugMap[koreanStr]) return slugMap[koreanStr];
+        return koreanStr.replace(/[동구시]$/, '').toLowerCase() + (koreanStr.endsWith('동') ? '-dong' : '');
+    }
+
+    // 1. 기존 파라미터 기반 추출
     const urlParams = new URLSearchParams(window.location.search);
-    let loc = urlParams.get('loc') || '';
-    let taskName = urlParams.get('task') || '';
+    let loc = urlParams.get('loc');
+    let taskName = urlParams.get('task');
+
+    // 2. 패스 기반 동적 라우팅 추출 (예: /gyeonggi/seongnam/bundang/exterior-cleaning)
+    const pathParts = window.location.pathname.split('/').filter(p => p);
+    if (pathParts.length >= 3 && pathParts[0] === 'gyeonggi') {
+        const citySlug = pathParts[1];
+        const serviceSlug = pathParts[pathParts.length - 1];
+
+        if (typeof SERVICES_DATA !== 'undefined') {
+            const foundService = SERVICES_DATA.find(s => s.serviceSlug === serviceSlug);
+            if (foundService) taskName = foundService.serviceNameKo;
+            else console.error("404 Not Found: Service slug doesn't exist");
+        }
+
+        if (typeof GYEONGGI_REGIONS !== 'undefined') {
+            const region = GYEONGGI_REGIONS.find(r => r.citySlug === citySlug);
+            if (region) {
+                if (pathParts.length === 3) {
+                    loc = region.cityVariants[0]; // 시 단위
+                } else if (pathParts.length === 4) {
+                    const midSlug = pathParts[2];
+                    const dist = region.districts.find(d => (d.slug || getSlug(d.name)) === midSlug);
+                    if (dist) loc = dist.name; // 구 단위
+                    else loc = region.dongs.find(d => getSlug(d) === midSlug); // 구가 없는 직속 동
+                } else if (pathParts.length === 5) {
+                    const dongSlug = pathParts[3];
+                    loc = region.districts.flatMap(d => d.dongs || []).find(d => getSlug(d) === dongSlug);
+                }
+                if (!loc) console.error("404 Not Found: Region slug doesn't exist");
+            } else {
+                console.error("404 Not Found: City slug doesn't exist");
+            }
+        }
+    }
     
     // 디폴트 텍스트 매핑 (빈 값이면 수도권 종합청소)
     const displayLoc = loc || '수도권';
