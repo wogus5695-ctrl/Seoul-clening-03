@@ -3,12 +3,16 @@
 */
 
 :root {
-    /* Brand Colors */
-    --color-bg-base: #111111;         /* 미드나잇 블랙 */
-    --color-bg-surface: #1a1a1a;
-    --color-text-main: #ffffff;
-    --color-text-muted: rgba(255, 255, 255, 0.7);
-    --color-accent: #00E5FF;          /* 일렉트릭 시안 블루 */
+    /* Brand Colors (Light Theme Base) */
+    --color-bg-base: #F7FAFC;          /* 라이트 그레이 기본 배경 */
+    --color-bg-surface: #FFFFFF;       /* 화이트 섹션 배경 */
+    --color-bg-helper: #EEF7F8;        /* 보조 배경 */
+    --color-text-main: #111827;        /* 텍스트 기본 */
+    --color-text-muted: #4B5563;       /* 본문 텍스트 */
+    --color-accent: #00CFE8;           /* 포인트 컬러 (시안) */
+    --color-accent-dark: #0891A3;      /* 포인트 진한색 */
+    --color-border: #DDE7EA;           /* 라인 컬러 */
+    --color-cta-text: #062025;         /* CTA 텍스트 */
     
     /* Typography */
     --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -1153,3 +1157,335 @@ a {
     }
 }
 
+
+/* =========================================
+   Light Theme Override Styles (Added by Antigravity)
+   ========================================= */
+
+/* Hero 영역 텍스트 및 로고 다크 테마 강제 고정 (오버레이 위에 있으므로 가독성 위해 흰색 유지) */
+.header, .hero {
+    color: #ffffff;
+}
+.logo {
+    color: #ffffff !important;
+}
+.hero-content h1 {
+    color: #ffffff;
+}
+.hero-subtitle {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+.hero-features li {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+.hero-features li::before {
+    background-color: var(--color-accent);
+    box-shadow: 0 0 10px rgba(0, 207, 232, 0.5);
+}
+.hero::after {
+    /* 오버레이 강도를 조절하여 히어로 이미지가 약간 더 밝게 보이도록 함 */
+    background: linear-gradient(90deg, rgba(17,17,17,0.75) 0%, rgba(17,17,17,0.3) 100%);
+}
+
+/* Header gradient adjust for white top text on dark transparent header */
+.header {
+    background: linear-gradient(to bottom, rgba(17,17,17,0.7), rgba(17,17,17,0));
+}
+
+/* Service Block Light Transition */
+.service-block::after {
+    /* 어두운 그라데이션에서 밝고 청량한 흰색 그라데이션으로 교체 */
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.5) 100%);
+}
+.service-title {
+    color: var(--color-text-main) !important;
+}
+.service-group-desc {
+    color: var(--color-text-muted) !important;
+}
+.service-details li {
+    color: var(--color-text-muted) !important;
+}
+
+/* Service Cards */
+.s-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+.s-card:hover {
+    background: #EEF7F8;
+    border-color: var(--color-accent);
+}
+.s-card h3 {
+    color: var(--color-text-main) !important;
+}
+.s-card p {
+    color: var(--color-text-muted) !important;
+}
+
+/* Why Section */
+.pain-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+.pain-card h3 {
+    color: var(--color-accent-dark) !important;
+}
+.pain-card p {
+    color: var(--color-text-muted) !important;
+}
+
+/* Process Section */
+.process-card {
+    background: linear-gradient(135deg, var(--color-bg-surface), #EEF7F8);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+.step-num {
+    color: var(--color-accent-dark) !important;
+}
+.step-desc {
+    color: var(--color-text-main) !important;
+}
+
+/* Estimate Factors */
+.estimate-factors-section {
+    background-color: var(--color-bg-base) !important;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+.factor-card {
+    background: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+.factor-card strong {
+    color: var(--color-accent-dark) !important;
+}
+.factor-card p {
+    color: var(--color-text-muted) !important;
+}
+.task-specific-factors {
+    background: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.task-specific-factors h3 {
+    color: var(--color-accent-dark) !important;
+}
+.task-specific-factors li {
+    color: var(--color-text-muted) !important;
+}
+
+/* FAQ Section */
+.faq-accordion details {
+    background-color: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border);
+}
+.faq-accordion summary {
+    color: var(--color-text-main) !important;
+}
+.faq-accordion summary::after {
+    color: var(--color-accent-dark) !important;
+}
+.faq-answer {
+    color: var(--color-text-muted) !important;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Related Links */
+.related-links-section {
+    background-color: var(--color-bg-base) !important;
+}
+.links-group h3 {
+    color: var(--color-text-main) !important;
+    border-left: 3px solid var(--color-accent);
+}
+.links-grid a {
+    background: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-muted) !important;
+}
+.links-grid a:hover {
+    background: #EEF7F8 !important;
+    color: var(--color-accent-dark) !important;
+    border-color: var(--color-accent) !important;
+}
+
+/* Mid CTA & Final CTA */
+.mid-cta {
+    background: linear-gradient(90deg, #EEF7F8 0%, var(--color-bg-surface) 100%) !important;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+#mid-cta-text {
+    color: var(--color-text-main) !important;
+}
+.btn-mid-cta {
+    background-color: var(--color-accent) !important;
+    color: var(--color-cta-text) !important;
+    box-shadow: 0 4px 15px rgba(0, 207, 232, 0.2);
+}
+.btn-mid-cta:hover {
+    box-shadow: 0 6px 20px rgba(0, 207, 232, 0.35);
+    background-color: var(--color-accent-dark) !important;
+    color: #ffffff !important;
+}
+
+.final-cta-section {
+    background-color: var(--color-bg-base) !important;
+    border-top: 1px solid var(--color-border);
+}
+.cta-card {
+    background: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
+}
+.cta-card h2 {
+    color: var(--color-accent-dark) !important;
+}
+.cta-notice {
+    background: #EEF7F8 !important;
+    border-left: 4px solid var(--color-accent-dark) !important;
+    color: var(--color-text-main) !important;
+}
+.btn-cta.phone-link {
+    background: var(--color-accent) !important;
+    color: var(--color-cta-text) !important;
+    border: 1px solid var(--color-accent) !important;
+}
+.btn-cta.phone-link:hover {
+    background: var(--color-accent-dark) !important;
+    border-color: var(--color-accent-dark) !important;
+    color: #ffffff !important;
+}
+.btn-cta.sms-link {
+    background: var(--color-bg-base) !important;
+    color: var(--color-text-main) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.btn-cta.sms-link:hover {
+    background: #EEF7F8 !important;
+}
+.btn-cta.sms-photo-link {
+    background: #EEF7F8 !important;
+    color: var(--color-accent-dark) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.btn-cta.sms-photo-link:hover {
+    background: var(--color-accent) !important;
+    color: var(--color-cta-text) !important;
+    border-color: var(--color-accent) !important;
+}
+
+/* Footer Light Mode Override */
+.footer {
+    background-color: var(--color-bg-surface) !important;
+    color: var(--color-text-main) !important;
+    border-top: 1px solid var(--color-border);
+}
+.footer-col h3 {
+    color: var(--color-accent-dark) !important;
+}
+.footer-col p {
+    color: var(--color-text-muted) !important;
+}
+.footer-brand h2 {
+    color: var(--color-accent-dark) !important;
+}
+.footer-brand p {
+    color: var(--color-text-muted) !important;
+}
+.footer-links-col a {
+    color: var(--color-text-muted) !important;
+}
+.footer-links-col a:hover {
+    color: var(--color-accent-dark) !important;
+}
+.footer-chip {
+    background: var(--color-bg-base) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-muted) !important;
+}
+.footer-chip:hover {
+    background: #EEF7F8 !important;
+    color: var(--color-accent-dark) !important;
+    border-color: var(--color-accent) !important;
+}
+.footer-chip.view-all-link {
+    background: #EEF7F8 !important;
+    color: var(--color-accent-dark) !important;
+    border-color: var(--color-accent) !important;
+}
+.footer-chip.view-all-link:hover {
+    background: var(--color-accent) !important;
+    color: var(--color-cta-text) !important;
+}
+.footer-bottom {
+    border-top: 1px solid var(--color-border) !important;
+}
+.footer-bottom-links a {
+    color: var(--color-text-muted) !important;
+}
+.footer-bottom-links a:hover {
+    color: var(--color-text-main) !important;
+}
+.footer-copy {
+    color: var(--color-text-muted) !important;
+}
+
+/* PC Hero CTA Card */
+.hero-cta-container {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid var(--color-border) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04) !important;
+}
+.btn-pc-cta {
+    background: var(--color-accent) !important;
+    color: var(--color-cta-text) !important;
+    box-shadow: 0 4px 15px rgba(0, 207, 232, 0.2) !important;
+}
+.btn-pc-cta:hover {
+    box-shadow: 0 6px 20px rgba(0, 207, 232, 0.35) !important;
+    background-color: var(--color-accent-dark) !important;
+    color: #ffffff !important;
+}
+.pc-cta-subtext {
+    color: var(--color-text-muted) !important;
+}
+
+/* Need Situation Section */
+.need-situation-section {
+    background-color: var(--color-bg-surface) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+}
+.need-situation-content p {
+    color: var(--color-text-muted) !important;
+}
+
+/* Work Scope Section */
+.work-scope-section {
+    background-color: var(--color-bg-base) !important;
+}
+.work-scope-item {
+    background: var(--color-bg-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text-main) !important;
+    border-left: 3px solid var(--color-accent) !important;
+}
+.work-scope-item:hover {
+    background: #EEF7F8 !important;
+    border-color: var(--color-accent) !important;
+}
+
+/* Mobile responsive overlay overrides */
+@media (max-width: 1024px) {
+    .hero::after {
+        background: linear-gradient(0deg, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.3) 100%) !important;
+    }
+    .service-block::after {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.6) 100%) !important;
+    }
+}
