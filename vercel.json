@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/gyeonggi/:path*",
+      "destination": "/index.html"
+    }
+  ]
+}

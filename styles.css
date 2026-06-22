@@ -677,3 +677,244 @@ a {
         color: var(--color-accent);
     }
 }
+
+/* =========================================
+   New SEO & Conversion Section Styles
+   ========================================= */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--padding-side);
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 2. Need Situation Section */
+.need-situation-section {
+    background-color: var(--color-bg-surface);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.need-situation-content p {
+    max-width: 850px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+/* 4. Work Scope Section */
+.work-scope-section {
+    background-color: var(--color-bg-base);
+}
+.work-scope-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+.work-scope-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 3px solid var(--color-accent);
+}
+.work-scope-item:hover {
+    background: rgba(0, 229, 255, 0.05);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+/* 5. Estimate Factors Section */
+.estimate-factors-section {
+    background-color: var(--color-bg-surface);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.estimate-factors-section .section-subtitle {
+    color: var(--color-text-muted);
+    margin-top: -15px;
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+}
+.factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+.factor-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.2s ease;
+}
+.factor-card:hover {
+    border-color: rgba(0, 229, 255, 0.4);
+}
+.factor-card strong {
+    display: block;
+    color: var(--color-accent);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+.factor-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+.task-specific-factors {
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+.task-specific-factors h3 {
+    color: var(--color-accent);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+}
+.task-specific-factors ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.task-specific-factors li {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    margin-bottom: 10px;
+}
+
+/* 7. Related Links Section */
+.related-links-section {
+    background-color: var(--color-bg-base);
+}
+.related-links-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.links-group h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--color-accent);
+    padding-left: 10px;
+}
+.links-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.links-grid a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    transition: all 0.2s ease;
+}
+.links-grid a:hover {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+/* 8. Final CTA Section */
+.final-cta-section {
+    background-color: var(--color-bg-surface);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.cta-card {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 50px 30px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.cta-card h2 {
+    color: var(--color-accent);
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.cta-notice {
+    margin: 25px 0;
+    padding: 18px;
+    background: rgba(0, 229, 255, 0.05);
+    border-left: 4px solid var(--color-accent);
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--color-text-main);
+    line-height: 1.6;
+}
+.cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+.btn-cta {
+    padding: 15px 30px;
+    font-weight: bold;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+    flex: 1 1 200px;
+    max-width: 250px;
+}
+.btn-cta.phone-link {
+    background: var(--color-accent);
+    color: #111;
+    border: 1px solid var(--color-accent);
+}
+.btn-cta.phone-link:hover {
+    background: #00b8cc;
+    border-color: #00b8cc;
+    transform: translateY(-2px);
+}
+.btn-cta.sms-link {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.btn-cta.sms-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+.btn-cta.sms-photo-link {
+    background: rgba(0, 229, 255, 0.08);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+}
+.btn-cta.sms-photo-link:hover {
+    background: rgba(0, 229, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .cta-card {
+        padding: 30px 15px;
+    }
+    .cta-card h2 {
+        font-size: 1.6rem;
+    }
+    .btn-cta {
+        max-width: 100%;
+    }
+}
+
