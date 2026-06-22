@@ -4,7 +4,7 @@ const { generateRoutes } = require('./generate-routes.js');
 
 // 환경변수에서 사이트 기본 URL을 가져오거나, 임시 Vercel 도메인 등을 폴백으로 사용
 // 예: 실제 서버 환경이나 CI/CD 에서는 NEXT_PUBLIC_SITE_URL을 주입하여 사용
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://wogus5695-ctrl.github.io/Seoul-clening-03';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
 
 const routes = generateRoutes();
 

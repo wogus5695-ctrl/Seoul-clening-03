@@ -24,7 +24,8 @@ const TASKS = [
     "유리창청소", "바닥왁스코팅", "간판청소", "준공청소", "특수청소", "쓰레기집청소", "종합청소"
 ];
 
-const BASE_URL = 'https://wogus5695-ctrl.github.io/Seoul-clening-03/index.html'; // Adjust base URL as needed
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
+const RELATIVE_BASE_URL = '/index.html';
 
 // 2. Generate Links Array
 let links = [];
@@ -32,9 +33,10 @@ for (const regionGroup in REGION_DATA) {
     const locations = REGION_DATA[regionGroup];
     for (const loc of locations) {
         for (const task of TASKS) {
-            const url = `${BASE_URL}?loc=${encodeURIComponent(loc)}&task=${encodeURIComponent(task)}`;
+            const relativeUrl = `${RELATIVE_BASE_URL}?loc=${encodeURIComponent(loc)}&task=${encodeURIComponent(task)}`;
+            const absoluteUrl = `${SITE_URL}${relativeUrl}`;
             const label = `${loc} ${task}`;
-            links.push({ url, label });
+            links.push({ relativeUrl, absoluteUrl, label });
         }
     }
 }
@@ -61,7 +63,7 @@ const hubHtml = `
     <h1>클린폼 전체 서비스 네트워크</h1>
     <p style="text-align:center; margin-bottom: 30px;">수도권 전 지역의 전문 청소 서비스를 제공합니다.</p>
     <div class="grid">
-        ${links.map(l => `<a href="${l.url}">${l.label}</a>`).join('\n        ')}
+        ${links.map(l => `<a href="${l.relativeUrl}">${l.label}</a>`).join('\n        ')}
     </div>
     <a href="./index.html" class="back-link">메인으로 돌아가기</a>
 </body>
@@ -74,18 +76,18 @@ fs.writeFileSync(path.join(__dirname, '../seo-hub.html'), hubHtml, 'utf8');
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>${BASE_URL.replace('/index.html', '/')}</loc>
+        <loc>${SITE_URL}/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>${BASE_URL.replace('/index.html', '/seo-hub.html')}</loc>
+        <loc>${SITE_URL}/seo-hub.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     ${links.map(l => `
     <url>
-        <loc>${l.url.replace(/&/g, '&amp;')}</loc>
+        <loc>${l.absoluteUrl.replace(/&/g, '&amp;')}</loc>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>`).join('')}
@@ -96,7 +98,7 @@ fs.writeFileSync(path.join(__dirname, '../sitemap.xml'), sitemapXml, 'utf8');
 // 5. Generate robots.txt
 const robotsTxt = `User-agent: *
 Allow: /
-Sitemap: https://wogus5695-ctrl.github.io/Seoul-clening-03/sitemap.xml`;
+Sitemap: ${SITE_URL}/sitemap.xml`;
 
 fs.writeFileSync(path.join(__dirname, '../robots.txt'), robotsTxt, 'utf8');
 
