@@ -1023,6 +1023,8 @@ a {
     align-items: center;
     gap: 10px;
     z-index: 10;
+    margin-top: 36px;
+    align-self: flex-start;
 }
 
 .btn-pc-cta {
