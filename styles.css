@@ -299,35 +299,13 @@ a {
 /* =========================================
    Footer / Sticky CTA (Mobile & PC)
    ========================================= */
-.sticky-cta-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.sticky-cta-inner {
-    padding: 24px var(--padding-side);
-    background: linear-gradient(to top, rgba(17,17,17,1) 30%, rgba(17,17,17,0) 100%);
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.sticky-cta-inner {
-    width: 100%;
-    max-width: 1000px;
-}
-
 /* =========================================
    New Info-style Scrolling Footer
    ========================================= */
 .footer {
     background-color: #0c0c0e;
     color: var(--color-text-main);
-    padding: 60px 0 160px 0; /* padding bottom 160px to clear desktop sticky CTA */
+    padding: 60px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -713,7 +691,7 @@ a {
     
     /* Services (Single Column Timeline Layout) */
     .services {
-        padding-bottom: 65px; /* Sticky CTA 공간 확보 */
+        padding-bottom: 0;
     }
     
     .service-block {
@@ -738,22 +716,9 @@ a {
         margin-bottom: 1.2rem;
     }
 
-    /* Mobile Sticky CTA (Bottom Fixed, Height 65px) */
-    .sticky-cta-bar {
-        padding: 0;
-        background: none;
-        height: 65px; /* 모바일 전용 높이 고정, 터치영역 48px 이상 확보 */
-    }
-
-    .sticky-cta-inner {
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-    }
-
     /* Info-style Scrolling Footer on Mobile */
     .footer {
-        padding: 40px 0 95px 0; /* 95px bottom padding to prevent overlap with sticky CTA */
+        padding: 40px 0;
         background-color: #0c0c0e;
     }
 
@@ -776,40 +741,6 @@ a {
 
     .footer-bottom-links a {
         margin-right: 0;
-    }
-
-    .cta-call {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        padding: 0;
-        background-color: var(--color-bg-base);
-        border: none;
-        border-top: 2px solid var(--color-accent); /* 시안 블루 테두리 */
-        backdrop-filter: none;
-    }
-
-    .cta-call:hover {
-        transform: none;
-        box-shadow: none;
-    }
-
-    #mo-cta-dynamic {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-    
-    #mo-cta-dynamic .cta-text {
-        font-size: 1.15rem;
-        font-weight: var(--font-weight-bold);
-        color: var(--color-accent);
     }
 }
 
