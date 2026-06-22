@@ -392,9 +392,15 @@ document.addEventListener('DOMContentLoaded', () => {
         midCtaText.innerHTML = `${displayLoc} ${displayTask} 견적 상담<br>오염도와 면적에 따라 투명하게 산정되는 맞춤 견적`;
     }
 
-    // CTA Texts
-    const moCta = document.getElementById('cta-dynamic-text');
-    if (moCta) moCta.innerText = `${displayLoc} ${displayTask}`;
+    // PC/모바일 신규 CTA 타이틀 동적 치환
+    const pcCtaHeading = document.getElementById('pc-cta-heading');
+    if (pcCtaHeading) {
+        pcCtaHeading.innerText = `${displayLoc} ${displayTask} 견적 상담`;
+    }
+    const moCtaText = document.getElementById('mo-cta-text');
+    if (moCtaText) {
+        moCtaText.innerText = `${displayLoc} ${displayTask} 상담`;
+    }
 
     // 연락처 하드코딩 제거 및 치환
     if (SITE_CONFIG.CONTACT_PHONE) {

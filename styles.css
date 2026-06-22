@@ -984,3 +984,207 @@ a {
     }
 }
 
+/* =========================================
+   PC Hero CTA Card & Mobile Floating CTA
+   ========================================= */
+.mo-only {
+    display: none !important;
+}
+
+/* Hero Flex Layout Container */
+.hero-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-content {
+    max-width: 680px;
+}
+
+/* PC Hero Right CTA Card */
+.hero-cta-card {
+    background: rgba(12, 12, 14, 0.75);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 380px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hero-cta-card h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+.hero-cta-card .cta-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin: 0;
+    word-break: keep-all;
+}
+
+.hero-cta-card .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hero-cta-card .btn-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.hero-cta-card .btn-cta.phone-link {
+    background: var(--color-accent);
+    color: #000;
+    border: 1px solid var(--color-accent);
+}
+
+.hero-cta-card .btn-cta.phone-link:hover {
+    background: #00b8cc;
+    border-color: #00b8cc;
+    transform: translateY(-2px);
+}
+
+.hero-cta-card .btn-cta.sms-link {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-cta-card .btn-cta.sms-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.hero-cta-card .btn-cta.sms-photo-link {
+    background: rgba(0, 229, 255, 0.08);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+}
+
+.hero-cta-card .btn-cta.sms-photo-link:hover {
+    background: rgba(0, 229, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+    .pc-only {
+        display: none !important;
+    }
+    .mo-only {
+        display: flex !important;
+    }
+    
+    .hero-container {
+        display: block;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+
+    body {
+        padding-bottom: 96px; /* Extra padding to avoid floating CTA covering footer links */
+    }
+
+    /* Mobile Floating CTA */
+    .mo-floating-cta {
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        height: 64px;
+        background: rgba(12, 12, 14, 0.95);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        border-radius: 12px;
+        padding: 8px 16px;
+        z-index: 999;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .mo-cta-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .mo-cta-text-wrapper {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .mo-cta-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+
+    .mo-cta-buttons {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .btn-mo-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .btn-mo-cta.mo-phone-link {
+        background-color: var(--color-accent);
+        color: #000;
+    }
+
+    .btn-mo-cta.mo-sms-link {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+}
+

@@ -38,15 +38,28 @@
             <!-- 인터랙티브 클린 효과 캔버스 -->
             <canvas id="clean-canvas"></canvas>
             
-            <div class="hero-content">
-                <h1 id="hero-heading" data-seo="target">수도권 종합청소 전문 클린폼</h1>
-                <p class="hero-subtitle">외벽청소부터 준공청소, 바닥관리, 특수청소까지<br>현장 상태에 맞춰 필요한 작업만 정확하게 안내합니다.</p>
-                <ul class="hero-features">
-                    <li>서울·경기·인천 수도권 전 지역 상담 가능</li>
-                    <li>현장 사진·평수·오염도 기준 견적 안내</li>
-                    <li>작업별 장비·약품·인력 구성 분리</li>
-                    <li>세금계산서·현금영수증 발행 가능</li>
-                </ul>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 id="hero-heading" data-seo="target">수도권 종합청소 전문 클린폼</h1>
+                    <p class="hero-subtitle">외벽청소부터 준공청소, 바닥관리, 특수청소까지<br>현장 상태에 맞춰 필요한 작업만 정확하게 안내합니다.</p>
+                    <ul class="hero-features">
+                        <li>서울·경기·인천 수도권 전 지역 상담 가능</li>
+                        <li>현장 사진·평수·오염도 기준 견적 안내</li>
+                        <li>작업별 장비·약품·인력 구성 분리</li>
+                        <li>세금계산서·현금영수증 발행 가능</li>
+                    </ul>
+                </div>
+
+                <!-- PC 우측 CTA 카드 -->
+                <div class="hero-cta-card pc-only">
+                    <h2 id="pc-cta-heading">수도권 종합청소 견적 상담</h2>
+                    <p class="cta-desc">사진·면적·주소를 남겨주시면 작업 가능 여부와 예상 견적 범위를 먼저 안내합니다.</p>
+                    <div class="cta-buttons">
+                        <a href="tel:" class="btn-cta phone-link">📞 전화 상담</a>
+                        <a href="sms:" class="btn-cta sms-link">💬 문자 견적</a>
+                        <a href="sms:" class="btn-cta sms-photo-link">📸 사진 견적 요청</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -252,6 +265,19 @@
             </div>
         </footer>
     </main>
+
+    <!-- 모바일 전용 하단 플로팅 CTA -->
+    <div class="mo-floating-cta mo-only">
+        <div class="mo-cta-container">
+            <div class="mo-cta-text-wrapper">
+                <span id="mo-cta-text" class="mo-cta-title">수도권 종합청소 상담</span>
+            </div>
+            <div class="mo-cta-buttons">
+                <a href="tel:" class="btn-mo-cta mo-phone-link">📞 전화 상담</a>
+                <a href="sms:" class="btn-mo-cta mo-sms-link">💬 문자 견적</a>
+            </div>
+        </div>
+    </div>
 
 
 
