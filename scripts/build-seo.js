@@ -29,7 +29,8 @@ TARGET_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
-            const url = `/index.html?loc=${encodeURIComponent(cVar)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
             links.push({ url, label: `${cVar} ${s.serviceNameKo}`, regionName: region.city });
         });
     });
@@ -38,7 +39,8 @@ TARGET_REGIONS.forEach(region => {
     region.districts.forEach(dist => {
         dist.variants.forEach(dVar => {
             coreServices.forEach(s => {
-                const url = `/index.html?loc=${encodeURIComponent(dVar)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
                 links.push({ url, label: `${dVar} ${s.serviceNameKo}`, regionName: region.city });
             });
         });
@@ -217,8 +219,9 @@ TARGET_REGIONS.forEach(region => {
 
     // 1. City level links
     coreServices.forEach(s => {
-        const url1 = `/index.html?loc=${encodeURIComponent(cityName)}&task=${encodeURIComponent(s.serviceNameKo)}`;
-        const url2 = `/index.html?loc=${encodeURIComponent(cityShort)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+        const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+        const url1 = `/?k=${encodeURIComponent(cityName + '-' + urlTask)}`;
+        const url2 = `/?k=${encodeURIComponent(cityShort + '-' + urlTask)}`;
         hubHtml += `                <a href="${url1}">${cityName} ${s.serviceNameKo}</a>\n`;
         hubHtml += `                <a href="${url2}">${cityShort} ${s.serviceNameKo}</a>\n`;
     });
@@ -237,8 +240,9 @@ TARGET_REGIONS.forEach(region => {
             `;
             // 2. District level links
             coreServices.forEach(s => {
-                const url1 = `/index.html?loc=${encodeURIComponent(distName)}&task=${encodeURIComponent(s.serviceNameKo)}`;
-                const url2 = `/index.html?loc=${encodeURIComponent(distShort)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                const url1 = `/?k=${encodeURIComponent(distName + '-' + urlTask)}`;
+                const url2 = `/?k=${encodeURIComponent(distShort + '-' + urlTask)}`;
                 hubHtml += `                    <a href="${url1}">${distName} ${s.serviceNameKo}</a>\n`;
                 hubHtml += `                    <a href="${url2}">${distShort} ${s.serviceNameKo}</a>\n`;
             });

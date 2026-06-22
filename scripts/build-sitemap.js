@@ -28,7 +28,8 @@ TARGET_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
-            const url = `/index.html?loc=${encodeURIComponent(cVar)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
             links.push({ url });
         });
     });
@@ -37,7 +38,8 @@ TARGET_REGIONS.forEach(region => {
     region.districts.forEach(dist => {
         dist.variants.forEach(dVar => {
             coreServices.forEach(s => {
-                const url = `/index.html?loc=${encodeURIComponent(dVar)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
                 links.push({ url });
             });
         });

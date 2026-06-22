@@ -32,10 +32,50 @@ document.addEventListener('DOMContentLoaded', () => {
         return batchim === 0 ? '가' : '이';
     }
 
-    // 1. 기존 파라미터 기반 추출 (우선 적용)
+    function getKeywordUrl(locStr, taskStr) {
+        const urlTask = taskStr.replace(/\s+/g, '');
+        return `/?k=${encodeURIComponent(locStr + '-' + urlTask)}`;
+    }
+
+    // 1. 기존 ?k= 파라미터 기반 추출 (우선 적용)
     const urlParams = new URLSearchParams(window.location.search);
-    let loc = urlParams.get('loc');
-    let taskName = urlParams.get('task');
+    const keywordRaw = urlParams.get('k');
+    let loc = null;
+    let taskName = null;
+
+    if (keywordRaw) {
+        const keyword = decodeURIComponent(keywordRaw);
+        const hyphenIndex = keyword.indexOf('-');
+        if (hyphenIndex !== -1) {
+            loc = keyword.substring(0, hyphenIndex).trim();
+            const taskPart = keyword.substring(hyphenIndex + 1).replace(/-/g, '').trim();
+            const taskMap = {
+                "외벽청소": "외벽청소",
+                "유리창청소": "유리창청소",
+                "화재청소": "화재청소",
+                "바닥왁스코팅": "바닥왁스코팅",
+                "바닥청소": "바닥청소",
+                "어닝청소": "어닝청소",
+                "간판청소": "간판청소",
+                "인테리어후청소": "인테리어 후 청소",
+                "준공청소": "준공청소",
+                "후드청소": "후드청소",
+                "쓰레기집청소": "쓰레기집청소",
+                "특수청소": "특수청소",
+                "종합청소": "종합청소"
+            };
+            taskName = taskMap[taskPart] || taskPart;
+        } else {
+            loc = "수도권";
+            taskName = keyword.trim();
+        }
+    }
+
+    // 백업용 기존 파라미터 추출
+    if (!loc && !taskName) {
+        loc = urlParams.get('loc');
+        taskName = urlParams.get('task');
+    }
 
     // 2. 패스 기반 동적 라우팅 추출 (백업용)
     const pathParts = window.location.pathname.split('/').filter(p => p);
@@ -210,7 +250,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setContent('seo-og-desc', descStr);
 
     // Canonical & URL injection
-    const canonicalUrl = window.location.origin + window.location.pathname;
+    let canonicalUrl = window.location.origin + window.location.pathname;
+    if (keywordRaw) {
+        canonicalUrl = window.location.origin + '/?k=' + encodeURIComponent(decodeURIComponent(keywordRaw));
+    } else if (urlParams.get('loc') && urlParams.get('task')) {
+        canonicalUrl = window.location.origin + '/?k=' + encodeURIComponent(decodeURIComponent(urlParams.get('loc')) + '-' + decodeURIComponent(urlParams.get('task')).replace(/\s+/g, ''));
+    }
+    
     let canonicalTag = document.querySelector('link[rel="canonical"]');
     if (!canonicalTag) {
         canonicalTag = document.createElement('link');
@@ -351,37 +397,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 : currentCity.dongs.filter(d => d !== currentDong);
             
             siblingDongs.slice(0, 6).forEach(dong => {
-                const url = `/index.html?loc=${encodeURIComponent(dong)}&task=${encodeURIComponent(displayTask)}`;
+                const url = getKeywordUrl(dong, displayTask);
                 linksList.push({ label: `${dong} ${displayTask}`, url });
             });
         } else if (currentDistrict) {
             const siblingDistricts = currentCity.districts.filter(d => d.name !== currentDistrict.name);
             siblingDistricts.forEach(dist => {
-                const url = `/index.html?loc=${encodeURIComponent(dist.variants[0])}&task=${encodeURIComponent(displayTask)}`;
+                const url = getKeywordUrl(dist.variants[0], displayTask);
                 linksList.push({ label: `${dist.variants[0]} ${displayTask}`, url });
             });
             
             if (currentDistrict.dongs) {
                 currentDistrict.dongs.slice(0, 4).forEach(dong => {
-                    const url = `/index.html?loc=${encodeURIComponent(dong)}&task=${encodeURIComponent(displayTask)}`;
+                    const url = getKeywordUrl(dong, displayTask);
                     linksList.push({ label: `${dong} ${displayTask}`, url });
                 });
             }
         } else {
             const siblingCities = GYEONGGI_REGIONS.filter(r => r.citySlug !== currentCity.citySlug);
             siblingCities.forEach(city => {
-                const url = `/index.html?loc=${encodeURIComponent(city.cityVariants[0])}&task=${encodeURIComponent(displayTask)}`;
+                const url = getKeywordUrl(city.cityVariants[0], displayTask);
                 linksList.push({ label: `${city.cityVariants[0]} ${displayTask}`, url });
             });
 
             if (currentCity.districts && currentCity.districts.length > 0) {
                 currentCity.districts.slice(0, 4).forEach(dist => {
-                    const url = `/index.html?loc=${encodeURIComponent(dist.variants[0])}&task=${encodeURIComponent(displayTask)}`;
+                    const url = getKeywordUrl(dist.variants[0], displayTask);
                     linksList.push({ label: `${dist.variants[0]} ${displayTask}`, url });
                 });
             } else if (currentCity.dongs) {
                 currentCity.dongs.slice(0, 4).forEach(dong => {
-                    const url = `/index.html?loc=${encodeURIComponent(dong)}&task=${encodeURIComponent(displayTask)}`;
+                    const url = getKeywordUrl(dong, displayTask);
                     linksList.push({ label: `${dong} ${displayTask}`, url });
                 });
             }
@@ -396,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let linksHtml = '';
         if (typeof GYEONGGI_REGIONS !== 'undefined') {
             GYEONGGI_REGIONS.forEach(city => {
-                const url = `/index.html?loc=${encodeURIComponent(city.cityVariants[0])}&task=${encodeURIComponent(displayTask)}`;
+                const url = getKeywordUrl(city.cityVariants[0], displayTask);
                 linksHtml += `<a href="${url}">${city.cityVariants[0]} ${displayTask}</a>`;
             });
         }
@@ -413,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let linksHtml = '';
         otherServices.forEach(s => {
-            const url = `/index.html?loc=${encodeURIComponent(displayLoc)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+            const url = getKeywordUrl(displayLoc, s.serviceNameKo);
             linksHtml += `<a href="${url}">${displayLoc} ${s.serviceNameKo}</a>`;
         });
         relatedTasksLinks.innerHTML = linksHtml;
@@ -486,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let cardsHtml = '<div class="service-cards-grid">';
             groupServices.forEach(s => {
-                const url = `/index.html?loc=${encodeURIComponent(displayLoc)}&task=${encodeURIComponent(s.serviceNameKo)}`;
+                const url = getKeywordUrl(displayLoc, s.serviceNameKo);
 
                 cardsHtml += `
                     <div class="s-card">
