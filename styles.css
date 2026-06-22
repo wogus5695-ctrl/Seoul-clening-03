@@ -1010,40 +1010,84 @@ a {
 
 /* PC Hero Right CTA Card */
 .hero-cta-card {
-    background: rgba(12, 12, 14, 0.75);
-    border: 1px solid rgba(0, 229, 255, 0.2);
-    border-radius: 16px;
+    background: rgba(5, 12, 14, 0.72);
+    border: 1px solid rgba(0, 220, 240, 0.35);
+    border-radius: 20px;
     padding: 30px;
     width: 100%;
-    max-width: 380px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    max-width: 360px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.hero-cta-card h2 {
-    font-size: 1.35rem;
+.hero-cta-card .cta-badge {
+    align-self: flex-start;
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--color-accent);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.hero-cta-card .cta-title {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: #fff;
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.35;
     word-break: keep-all;
 }
 
+.hero-cta-card .cta-title .cta-title-sub {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
 .hero-cta-card .cta-desc {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.55;
     margin: 0;
     word-break: keep-all;
+}
+
+.hero-cta-card .cta-checkpoints {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.hero-cta-card .cta-checkpoints li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-cta-card .cta-checkpoints li::before {
+    content: "✓";
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 0.85rem;
 }
 
 .hero-cta-card .cta-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .hero-cta-card .btn-cta {
@@ -1051,47 +1095,39 @@ a {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-weight: 700;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     cursor: pointer;
     text-align: center;
+    box-sizing: border-box;
 }
 
-.hero-cta-card .btn-cta.phone-link {
+.hero-cta-card .btn-cta.btn-main {
     background: var(--color-accent);
     color: #000;
     border: 1px solid var(--color-accent);
 }
 
-.hero-cta-card .btn-cta.phone-link:hover {
+.hero-cta-card .btn-cta.btn-main:hover {
     background: #00b8cc;
     border-color: #00b8cc;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 229, 255, 0.2);
 }
 
-.hero-cta-card .btn-cta.sms-link {
-    background: rgba(255, 255, 255, 0.05);
+.hero-cta-card .btn-cta.btn-sub {
+    background: transparent;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.hero-cta-card .btn-cta.sms-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.hero-cta-card .btn-cta.sms-photo-link {
-    background: rgba(0, 229, 255, 0.08);
-    color: var(--color-accent);
-    border: 1px solid var(--color-accent);
-}
-
-.hero-cta-card .btn-cta.sms-photo-link:hover {
-    background: rgba(0, 229, 255, 0.15);
+.hero-cta-card .btn-cta.btn-sub:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-2px);
 }
 

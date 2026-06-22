@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // PC/모바일 신규 CTA 타이틀 동적 치환
     const pcCtaHeading = document.getElementById('pc-cta-heading');
     if (pcCtaHeading) {
-        pcCtaHeading.innerText = `${displayLoc} ${displayTask} 견적 상담`;
+        pcCtaHeading.innerText = `${displayLoc} ${displayTask}`;
     }
     const moCtaText = document.getElementById('mo-cta-text');
     if (moCtaText) {
