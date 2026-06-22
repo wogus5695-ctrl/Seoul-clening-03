@@ -1,21 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
-
-const TARGET_REGIONS = [
-    { city: "성남", citySlug: "seongnam", cityVariants: ["성남시", "성남"], districts: [
-        { name: "수정구", slug: "sujeong", variants: ["수정구", "수정"] },
-        { name: "중원구", slug: "jungwon", variants: ["중원구", "중원"] },
-        { name: "분당구", slug: "bundang", variants: ["분당구", "분당"] }
-    ]},
-    { city: "과천", citySlug: "gwacheon", cityVariants: ["과천시", "과천"], districts: [] },
-    { city: "수원", citySlug: "suwon", cityVariants: ["수원시", "수원"], districts: [
-        { name: "장안구", slug: "jangan", variants: ["장안구", "장안"] },
-        { name: "권선구", slug: "gwonseon", variants: ["권선구", "권선"] },
-        { name: "팔달구", slug: "paldal", variants: ["팔달구", "팔달"] },
-        { name: "영통구", slug: "yeongtong", variants: ["영통구", "영통"] }
-    ]}
-];
+const { GYEONGGI_REGIONS } = require('../js/data/regions-gyeonggi.js');
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
 
@@ -24,7 +10,8 @@ const coreServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleani
 
 // Generate links array for sitemap
 const links = [];
-TARGET_REGIONS.forEach(region => {
+
+GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
@@ -35,13 +22,39 @@ TARGET_REGIONS.forEach(region => {
     });
 
     // 2. District level variants
-    region.districts.forEach(dist => {
-        dist.variants.forEach(dVar => {
-            coreServices.forEach(s => {
-                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
-                const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
-                links.push({ url });
+    if (region.districts && region.districts.length > 0) {
+        region.districts.forEach(dist => {
+            dist.variants.forEach(dVar => {
+                coreServices.forEach(s => {
+                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                    const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
+                    links.push({ url });
+                });
             });
+        });
+    }
+
+    // 3. Dong level variants (including Gwacheon's extraDongs)
+    let allDongsForSitemap = [];
+    if (region.districts && region.districts.length > 0) {
+        region.districts.forEach(dist => {
+            allDongsForSitemap = allDongsForSitemap.concat(dist.dongs);
+        });
+    }
+    if (region.dongs && region.dongs.length > 0) {
+        allDongsForSitemap = allDongsForSitemap.concat(region.dongs);
+    }
+    if (region.extraDongs && region.extraDongs.length > 0) {
+        allDongsForSitemap = allDongsForSitemap.concat(region.extraDongs);
+    }
+
+    const uniqueDongs = [...new Set(allDongsForSitemap)];
+
+    uniqueDongs.forEach(dong => {
+        coreServices.forEach(s => {
+            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+            links.push({ url });
         });
     });
 });
@@ -61,7 +74,7 @@ let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
     </url>
 `;
 
-// 동적 경로 추가 (240개)
+// 동적 경로 추가
 links.forEach(l => {
     sitemapXml += `    <url>
         <loc>${(BASE_URL + l.url).replace(/&/g, '&amp;')}</loc>

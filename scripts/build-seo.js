@@ -1,22 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
-
-// Gyeonggi 1st tier target regions (City & District levels with short/full variants)
-const TARGET_REGIONS = [
-    { city: "성남", citySlug: "seongnam", cityVariants: ["성남시", "성남"], districts: [
-        { name: "수정구", slug: "sujeong", variants: ["수정구", "수정"] },
-        { name: "중원구", slug: "jungwon", variants: ["중원구", "중원"] },
-        { name: "분당구", slug: "bundang", variants: ["분당구", "분당"] }
-    ]},
-    { city: "과천", citySlug: "gwacheon", cityVariants: ["과천시", "과천"], districts: [] },
-    { city: "수원", citySlug: "suwon", cityVariants: ["수원시", "수원"], districts: [
-        { name: "장안구", slug: "jangan", variants: ["장안구", "장안"] },
-        { name: "권선구", slug: "gwonseon", variants: ["권선구", "권선"] },
-        { name: "팔달구", slug: "paldal", variants: ["팔달구", "팔달"] },
-        { name: "영통구", slug: "yeongtong", variants: ["영통구", "영통"] }
-    ]}
-];
+const { GYEONGGI_REGIONS } = require('../js/data/regions-gyeonggi.js');
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
 
@@ -25,7 +10,8 @@ const coreServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleani
 
 // Generate links array
 const links = [];
-TARGET_REGIONS.forEach(region => {
+
+GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
@@ -36,13 +22,39 @@ TARGET_REGIONS.forEach(region => {
     });
 
     // 2. District level variants
-    region.districts.forEach(dist => {
-        dist.variants.forEach(dVar => {
-            coreServices.forEach(s => {
-                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
-                const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
-                links.push({ url, label: `${dVar} ${s.serviceNameKo}`, regionName: region.city });
+    if (region.districts && region.districts.length > 0) {
+        region.districts.forEach(dist => {
+            dist.variants.forEach(dVar => {
+                coreServices.forEach(s => {
+                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                    const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
+                    links.push({ url, label: `${dVar} ${s.serviceNameKo}`, regionName: region.city });
+                });
             });
+        });
+    }
+
+    // 3. Dong level variants (For Sitemap, including Gwacheon's extraDongs)
+    let allDongsForSitemap = [];
+    if (region.districts && region.districts.length > 0) {
+        region.districts.forEach(dist => {
+            allDongsForSitemap = allDongsForSitemap.concat(dist.dongs);
+        });
+    }
+    if (region.dongs && region.dongs.length > 0) {
+        allDongsForSitemap = allDongsForSitemap.concat(region.dongs);
+    }
+    if (region.extraDongs && region.extraDongs.length > 0) {
+        allDongsForSitemap = allDongsForSitemap.concat(region.extraDongs);
+    }
+
+    const uniqueDongs = [...new Set(allDongsForSitemap)];
+
+    uniqueDongs.forEach(dong => {
+        coreServices.forEach(s => {
+            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+            links.push({ url, label: `${dong} ${s.serviceNameKo}`, regionName: region.city });
         });
     });
 });
@@ -205,7 +217,7 @@ let hubHtml = `<!DOCTYPE html>
         <p class="desc">성남·과천·수원 전 지역의 전문 청소 서비스를 제공합니다.</p>
 `;
 
-TARGET_REGIONS.forEach(region => {
+GYEONGGI_REGIONS.forEach(region => {
     const cityName = region.cityVariants[0]; // 성남시
     const cityShort = region.cityVariants[1]; // 성남
     
@@ -228,7 +240,8 @@ TARGET_REGIONS.forEach(region => {
 
     hubHtml += `            </div>\n`;
 
-    if (region.districts.length > 0) {
+    // 2. District level links
+    if (region.districts && region.districts.length > 0) {
         hubHtml += `            <h3 class="category-title">2. 구 단위 키워드</h3>\n`;
         region.districts.forEach(dist => {
             const distName = dist.variants[0]; // 수정구
@@ -238,13 +251,50 @@ TARGET_REGIONS.forEach(region => {
                 <summary>${distName} / ${distShort}</summary>
                 <div class="details-content">
             `;
-            // 2. District level links
             coreServices.forEach(s => {
                 const urlTask = s.serviceNameKo.replace(/\s+/g, '');
                 const url1 = `/?k=${encodeURIComponent(distName + '-' + urlTask)}`;
                 const url2 = `/?k=${encodeURIComponent(distShort + '-' + urlTask)}`;
                 hubHtml += `                    <a href="${url1}">${distName} ${s.serviceNameKo}</a>\n`;
                 hubHtml += `                    <a href="${url2}">${distShort} ${s.serviceNameKo}</a>\n`;
+            });
+            hubHtml += `                </div>
+            </details>\n`;
+        });
+    }
+
+    // 3. Dong level links (과천은 2. 과천 동 단위 키워드 로 출력됨)
+    const hasDistricts = region.districts && region.districts.length > 0;
+    const dongSectionNum = hasDistricts ? "3" : "2";
+    hubHtml += `            <h3 class="category-title">${dongSectionNum}. ${region.city} 동 단위 청소 키워드</h3>\n`;
+
+    if (hasDistricts) {
+        region.districts.forEach(dist => {
+            dist.dongs.forEach(dong => {
+                hubHtml += `            <details open>
+                <summary>${dong}</summary>
+                <div class="details-content">
+            `;
+                coreServices.forEach(s => {
+                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                    const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+                    hubHtml += `                    <a href="${url}">${dong} ${s.serviceNameKo}</a>\n`;
+                });
+                hubHtml += `                </div>
+            </details>\n`;
+            });
+        });
+    } else {
+        // 과chen (구가 없음, dongs만 존재)
+        region.dongs.forEach(dong => {
+            hubHtml += `            <details open>
+                <summary>${dong}</summary>
+                <div class="details-content">
+            `;
+            coreServices.forEach(s => {
+                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+                hubHtml += `                    <a href="${url}">${dong} ${s.serviceNameKo}</a>\n`;
             });
             hubHtml += `                </div>
             </details>\n`;
