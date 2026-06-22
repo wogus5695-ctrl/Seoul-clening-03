@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 외부 매트릭스(js/data/services.js)에서 데이터 추출
     const taskData = SERVICES_DATA.find(s => s.serviceNameKo === displayTask) || SERVICES_DATA.find(s => s.serviceNameKo === '종합청소');
     
-    // 2. 변환 텍스트 셋업
-    const titleStr = taskData.metaTitleTemplate.replace('{loc}', displayLoc).replace('{task}', displayTask);
-    const descStr = taskData.metaDescriptionTemplate.replace('{loc}', displayLoc).replace('{task}', displayTask);
+    // 2. 변환 텍스트 셋업 (명시적 SEO 템플릿 적용)
+    const titleStr = `${displayLoc} ${displayTask} 전문 클린폼 | 수도권 종합청소 견적 상담`;
+    const descStr = `${displayLoc} ${displayTask}이 필요하다면 클린폼에서 현장 상태, 오염도, 면적 기준으로 작업 가능 여부와 견적 범위를 안내합니다. 서울·경기·인천 수도권 종합청소 상담 가능.`;
     const h1Str = taskData.heroTitle;
     const subtitleStr = taskData.heroDescription;
     const ctaStr = `👉 ${displayLoc} ${displayTask} 1분 직통 견적`;
@@ -73,10 +73,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const setInner = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
     const setContent = (id, text) => { const el = document.getElementById(id); if (el) el.setAttribute('content', text); };
 
-    setInner('seo-title', titleStr);
+    // Set title directly to document (since some browsers don't observe id on title tag)
+    document.title = titleStr;
+    const seoTitleEl = document.getElementById('seo-title');
+    if (seoTitleEl) seoTitleEl.innerText = titleStr;
+
     setContent('seo-desc', descStr);
     setContent('seo-og-title', titleStr);
     setContent('seo-og-desc', descStr);
+
+    // Canonical & URL injection
+    const canonicalUrl = window.location.origin + window.location.pathname;
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    if (!canonicalTag) {
+        canonicalTag = document.createElement('link');
+        canonicalTag.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalTag);
+    }
+    canonicalTag.setAttribute('href', canonicalUrl);
+    
+    let ogUrlTag = document.querySelector('meta[property="og:url"]');
+    if (!ogUrlTag) {
+        ogUrlTag = document.createElement('meta');
+        ogUrlTag.setAttribute('property', 'og:url');
+        document.head.appendChild(ogUrlTag);
+    }
+    ogUrlTag.setAttribute('content', canonicalUrl);
+
+    let ogImageTag = document.querySelector('meta[property="og:image"]');
+    if (!ogImageTag) {
+        ogImageTag = document.createElement('meta');
+        ogImageTag.setAttribute('property', 'og:image');
+        document.head.appendChild(ogImageTag);
+    }
+    const imagePath = displayTask === '종합청소' ? `${window.location.origin}/hero_bg.png` : `${window.location.origin}/images/${taskData.imageKey}`;
+    ogImageTag.setAttribute('content', imagePath);
     setInner('hero-heading', h1Str);
 
     const subtitleEl = document.querySelector('.hero-subtitle');
