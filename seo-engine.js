@@ -355,120 +355,35 @@ document.addEventListener('DOMContentLoaded', () => {
         faqQ3.nextElementSibling.innerText = taskFaq[2].a;
     }
 
-    // Section 8: Related Links
-    let currentCity = null;
-    let currentDistrict = null;
-    let currentDong = null;
-
-    if (typeof GYEONGGI_REGIONS !== 'undefined') {
-        for (const region of GYEONGGI_REGIONS) {
-            if (region.cityVariants.includes(displayLoc)) {
-                currentCity = region;
-                break;
-            }
-            const dist = region.districts.find(d => d.variants.includes(displayLoc));
-            if (dist) {
-                currentCity = region;
-                currentDistrict = dist;
-                break;
-            }
-            const distWithDong = region.districts.find(d => d.dongs && d.dongs.includes(displayLoc));
-            if (distWithDong) {
-                currentCity = region;
-                currentDistrict = distWithDong;
-                currentDong = displayLoc;
-                break;
-            }
-            if (region.dongs && region.dongs.includes(displayLoc)) {
-                currentCity = region;
-                currentDong = displayLoc;
-                break;
-            }
-        }
-    }
-
-    const nearbyLinks = document.getElementById('nearby-regions-links');
-    if (nearbyLinks && currentCity) {
+    // Section 8: Related Links (Footer related links)
+    const footerRelatedContainer = document.getElementById('footer-related-links');
+    if (footerRelatedContainer) {
         let linksList = [];
         
-        if (currentDong) {
-            const siblingDongs = currentDistrict 
-                ? currentDistrict.dongs.filter(d => d !== currentDong)
-                : currentCity.dongs.filter(d => d !== currentDong);
-            
-            siblingDongs.slice(0, 6).forEach(dong => {
-                const url = getKeywordUrl(dong, displayTask);
-                linksList.push({ label: `${dong} ${displayTask}`, url });
+        // 1. Current location + 4 other related tasks
+        const candidateTasks = ["준공청소", "바닥청소", "유리창청소", "특수청소", "외벽청소", "후드청소"];
+        const selectedTasks = candidateTasks.filter(t => t !== displayTask).slice(0, 4);
+        selectedTasks.forEach(task => {
+            linksList.push({
+                label: `${displayLoc} ${task}`,
+                url: getKeywordUrl(displayLoc, task)
             });
-        } else if (currentDistrict) {
-            const siblingDistricts = currentCity.districts.filter(d => d.name !== currentDistrict.name);
-            siblingDistricts.forEach(dist => {
-                const url = getKeywordUrl(dist.variants[0], displayTask);
-                linksList.push({ label: `${dist.variants[0]} ${displayTask}`, url });
-            });
-            
-            if (currentDistrict.dongs) {
-                currentDistrict.dongs.slice(0, 4).forEach(dong => {
-                    const url = getKeywordUrl(dong, displayTask);
-                    linksList.push({ label: `${dong} ${displayTask}`, url });
-                });
-            }
-        } else {
-            const siblingCities = GYEONGGI_REGIONS.filter(r => r.citySlug !== currentCity.citySlug);
-            siblingCities.forEach(city => {
-                const url = getKeywordUrl(city.cityVariants[0], displayTask);
-                linksList.push({ label: `${city.cityVariants[0]} ${displayTask}`, url });
-            });
-
-            if (currentCity.districts && currentCity.districts.length > 0) {
-                currentCity.districts.slice(0, 4).forEach(dist => {
-                    const url = getKeywordUrl(dist.variants[0], displayTask);
-                    linksList.push({ label: `${dist.variants[0]} ${displayTask}`, url });
-                });
-            } else if (currentCity.dongs) {
-                currentCity.dongs.slice(0, 4).forEach(dong => {
-                    const url = getKeywordUrl(dong, displayTask);
-                    linksList.push({ label: `${dong} ${displayTask}`, url });
-                });
-            }
-        }
-
-        const nearbyTitle = document.getElementById('nearby-links-title');
-        if (nearbyTitle) nearbyTitle.innerText = `📍 주변 지역 ${displayTask} 추천`;
-        
-        let linksHtml = linksList.map(l => `<a href="${l.url}">${l.label}</a>`).join('');
-        nearbyLinks.innerHTML = linksHtml;
-    } else if (nearbyLinks) {
-        let linksHtml = '';
-        if (typeof GYEONGGI_REGIONS !== 'undefined') {
-            GYEONGGI_REGIONS.forEach(city => {
-                const url = getKeywordUrl(city.cityVariants[0], displayTask);
-                linksHtml += `<a href="${url}">${city.cityVariants[0]} ${displayTask}</a>`;
-            });
-        }
-        nearbyLinks.innerHTML = linksHtml;
-    }
-
-    const relatedTasksLinks = document.getElementById('related-tasks-links');
-    if (relatedTasksLinks && typeof SERVICES_DATA !== 'undefined') {
-        const currentServiceSlug = taskData.serviceSlug;
-        const otherServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleaning' && s.serviceSlug !== currentServiceSlug).slice(0, 5);
-        
-        const relatedTitle = document.getElementById('related-tasks-title');
-        if (relatedTitle) relatedTitle.innerText = `🛠️ ${displayLoc} 추천 연관 작업`;
-
-        let linksHtml = '';
-        otherServices.forEach(s => {
-            const url = getKeywordUrl(displayLoc, s.serviceNameKo);
-            linksHtml += `<a href="${url}">${displayLoc} ${s.serviceNameKo}</a>`;
         });
-        relatedTasksLinks.innerHTML = linksHtml;
-    }
-
-    // Section 9: 최종 CTA
-    const finalCtaHeading = document.getElementById('final-cta-heading');
-    if (finalCtaHeading) {
-        finalCtaHeading.innerText = `${displayLoc} ${displayTask} 견적 상담`;
+        
+        // 2. 3 key regions + current task
+        const candidateLocs = ["성남", "과천", "수원"];
+        const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc);
+        selectedLocs.forEach(locVal => {
+            linksList.push({
+                label: `${locVal} ${displayTask}`,
+                url: getKeywordUrl(locVal, displayTask)
+            });
+        });
+        
+        // 3. Construct HTML
+        let linksHtml = linksList.map(l => `<a href="${l.url}" class="footer-chip">${l.label}</a>`).join('');
+        linksHtml += `<a href="./seo-hub.html" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>`;
+        footerRelatedContainer.innerHTML = linksHtml;
     }
 
     // 중간 CTA

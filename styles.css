@@ -299,7 +299,7 @@ a {
 /* =========================================
    Footer / Sticky CTA (Mobile & PC)
    ========================================= */
-.footer {
+.sticky-cta-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -307,35 +307,143 @@ a {
     z-index: 1000;
 }
 
-.footer-links {
-    text-align: center;
-    padding: 10px;
-    background-color: #0a0a0a;
-}
-
-.footer-links a {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--color-text-main);
-}
-
-.footer-inner {
+.sticky-cta-inner {
     padding: 24px var(--padding-side);
     background: linear-gradient(to top, rgba(17,17,17,1) 30%, rgba(17,17,17,0) 100%);
     z-index: 100;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
-.footer-inner {
+.sticky-cta-inner {
     width: 100%;
     max-width: 1000px;
+}
+
+/* =========================================
+   New Info-style Scrolling Footer
+   ========================================= */
+.footer {
+    background-color: #0c0c0e;
+    color: var(--color-text-main);
+    padding: 60px 0 160px 0; /* padding bottom 160px to clear desktop sticky CTA */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h3 {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.footer-col p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 8px 0;
+}
+
+.footer-brand h2 {
+    color: var(--color-accent);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.footer-links-col a {
+    display: block;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    transition: color 0.2s ease;
+}
+
+.footer-links-col a:hover {
+    color: var(--color-accent);
+}
+
+/* 관련 청소 서비스 칩 형태 */
+.footer-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.footer-chip {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    font-size: 0.85rem !important;
+    color: var(--color-text-muted) !important;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin-bottom: 0 !important;
+}
+
+.footer-chip:hover {
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--color-accent) !important;
+    border-color: var(--color-accent);
+}
+
+.footer-chip.view-all-link {
+    background: rgba(0, 229, 255, 0.05);
+    color: var(--color-accent) !important;
+    border-color: rgba(0, 229, 255, 0.2);
+    font-weight: bold;
+}
+
+.footer-chip.view-all-link:hover {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: var(--color-accent);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-bottom-links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 20px;
+    transition: color 0.2s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: var(--color-text-main);
+}
+
+.footer-copy {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
 }
 
 .cta-call {
@@ -631,16 +739,43 @@ a {
     }
 
     /* Mobile Sticky CTA (Bottom Fixed, Height 65px) */
-    .footer {
+    .sticky-cta-bar {
         padding: 0;
         background: none;
         height: 65px; /* 모바일 전용 높이 고정, 터치영역 48px 이상 확보 */
     }
 
-    .footer-inner {
+    .sticky-cta-inner {
         width: 100%;
         max-width: 100%;
         height: 100%;
+    }
+
+    /* Info-style Scrolling Footer on Mobile */
+    .footer {
+        padding: 40px 0 95px 0; /* 95px bottom padding to prevent overlap with sticky CTA */
+        background-color: #0c0c0e;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .footer-bottom-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .footer-bottom-links a {
+        margin-right: 0;
     }
 
     .cta-call {

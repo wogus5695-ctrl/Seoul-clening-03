@@ -205,49 +205,57 @@
             <!-- seo-engine.js 에서 SERVICES_DATA를 기반으로 렌더링됩니다 -->
         </section>
 
-        <!-- 8. 주변 지역/연관 작업 내부링크 섹션 -->
-        <section class="related-links-section section-padding" id="related-links-section">
+        <!-- 8. 새로운 정보형 푸터 -->
+        <footer class="footer">
             <div class="container">
-                <h2 class="section-title text-center">주변 지역 및 연관 작업 바로가기</h2>
-                <div class="related-links-container">
-                    <div class="links-group">
-                        <h3 id="nearby-links-title">📍 주변 지역 추천</h3>
-                        <div class="links-grid" id="nearby-regions-links">
-                            <!-- JS에서 동적으로 생성됩니다 -->
-                        </div>
+                <div class="footer-grid">
+                    <!-- 1) 브랜드 영역 -->
+                    <div class="footer-col footer-brand">
+                        <h2>CLEAN FORME</h2>
+                        <p>수도권 종합청소 전문 클린폼은 서울·경기·인천 전 지역의 외벽청소, 유리창청소, 준공청소, 바닥관리, 특수청소 상담을 제공합니다.<br>현장 사진, 면적, 오염도 기준으로 작업 가능 여부와 견적 범위를 안내합니다.</p>
                     </div>
-                    <div class="links-group" style="margin-top: 30px;">
-                        <h3 id="related-tasks-title">🛠️ 추천 연관 작업</h3>
-                        <div class="links-grid" id="related-tasks-links">
-                            <!-- JS에서 동적으로 생성됩니다 -->
+                    <!-- 2) 상담 안내 -->
+                    <div class="footer-col">
+                        <h3>상담 안내</h3>
+                        <p><strong>대표번호:</strong> <span class="phone-display">1588-0000</span></p>
+                        <p>사진·평수·주소 확인 후 견적 범위 안내</p>
+                        <p>야간·주말 작업은 일정 확인 후 안내</p>
+                    </div>
+                    <!-- 3) 작업 지역 -->
+                    <div class="footer-col">
+                        <h3>작업 지역</h3>
+                        <p>서울·경기·인천 수도권 전 지역</p>
+                        <p>성남·과천·수원 우선 상담 가능</p>
+                    </div>
+                    <!-- 4) 관련 청소 서비스 (동적으로 링크 교체) -->
+                    <div class="footer-col footer-links-col">
+                        <h3>관련 청소 서비스</h3>
+                        <div id="footer-related-links" class="footer-chips">
+                            <!-- JS에서 동적으로 a 태그들이 생성됩니다 -->
+                            <a href="./?k=성남-외벽청소" class="footer-chip">성남 외벽청소</a>
+                            <a href="./?k=과천-바닥청소" class="footer-chip">과천 바닥청소</a>
+                            <a href="./seo-hub.html" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- 9. 최종 CTA 섹션 -->
-        <section class="final-cta-section section-padding" id="final-cta-section">
-            <div class="container">
-                <div class="cta-card text-center">
-                    <h2 id="final-cta-heading">수도권 종합청소 견적 문의</h2>
-                    <div class="cta-notice">
-                        💡 <strong>문의 전 안내:</strong> 사진, 평수, 주소, 희망 일정을 남겨주시면 작업 가능 여부와 예상 견적 범위를 먼저 친절하게 안내해 드립니다.
+                <!-- 5) 정책 링크 및 카피라이트 -->
+                <div class="footer-bottom">
+                    <div class="footer-bottom-links">
+                        <a href="#">이용약관</a>
+                        <a href="#">개인정보처리방침</a>
+                        <a href="./seo-hub.html">서비스 지역 및 작업 안내</a>
                     </div>
-                    <div class="cta-buttons">
-                        <a href="tel:1588-0000" class="btn-cta phone-link">📞 전화 상담 문의</a>
-                        <a href="sms:1588-0000" class="btn-cta sms-link">💬 문자 견적 문의</a>
-                        <a href="sms:1588-0000" class="btn-cta sms-photo-link">📸 사진 견적 요청</a>
+                    <div class="footer-copy">
+                        &copy; 2026 CLEAN FORME. All Rights Reserved.
                     </div>
                 </div>
             </div>
-        </section>
+        </footer>
     </main>
 
-    <!-- 모바일/PC 즉각 전화 통화 연결 CTA (Footer) -->
-    <footer class="footer">
-
-        <div class="footer-inner">
+    <!-- 모바일/PC 즉각 전화 통화 연결 CTA (Sticky Bottom Bar) -->
+    <div class="sticky-cta-bar">
+        <div class="sticky-cta-inner">
             <a href="tel:" class="cta-call">
                 <div class="cta-info pc-only">
                     <span class="cta-label">수도권 종합청소 견적 상담</span>
@@ -260,7 +268,7 @@
                 <div class="cta-number pc-only phone-display">상담 연결</div>
             </a>
         </div>
-    </footer>
+    </div>
 
     <!-- 데이터 및 상수 -->
     <script src="./js/config.js"></script>
