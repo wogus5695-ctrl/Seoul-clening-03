@@ -106,53 +106,99 @@
             </div>
         </section>
 
-        <!-- 5. 견적 산정 기준 섹션 -->
-        <section class="estimate-factors-section section-padding">
+        <!-- 5. 클린폼에서 가능한 청소 작업 섹션 -->
+        <section class="possible-works-section section-padding" id="possible-works-section">
             <div class="container">
-                <h2 class="section-title text-center">견적 산정 기준</h2>
-                <p class="section-subtitle text-center">클린폼의 견적은 아래의 합리적이고 투명한 기준에 따라 책정됩니다.</p>
-                <div class="factors-grid">
-                    <div class="factor-card">
-                        <strong>면적</strong>
-                        <p>작업 공간의 전체 평수 및 면적</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>오염도</strong>
-                        <p>오염 물질의 고착 정도와 오염도 수준</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>작업 종류</strong>
-                        <p>선택하신 세부 청소 작업의 형태</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>층고 및 작업 난이도</strong>
-                        <p>현장 높이 및 특수한 접근 난이도</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>장비 필요 여부</strong>
-                        <p>스카이차, 고압기, 스팀기 등 투입 여부</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>폐기물 처리 여부</strong>
-                        <p>작업 중 수거되는 쓰레기 및 폐기물 반출량</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>야간/주말 작업 여부</strong>
-                        <p>야간 작업 및 주말/공휴일 일정 필요성</p>
-                    </div>
-                    <div class="factor-card">
-                        <strong>주차/승강기 등 조건</strong>
-                        <p>무료 주차 가능 여부, 엘리베이터 접근 환경</p>
-                    </div>
+                <h2 class="section-title text-center" id="possible-works-heading">클린폼에서 가능한 청소 작업</h2>
+                <p class="section-subtitle text-center" id="possible-works-subtitle">외벽, 유리창, 바닥, 준공, 후드, 특수청소까지 현장 상태에 맞춰 상담 가능합니다.</p>
+                
+                <!-- 작업 가능 청소 리스트 (HTML 텍스트) -->
+                <div class="works-text-list" id="works-text-list">
+                    <span data-task="외벽청소">외벽청소</span> · 
+                    <span data-task="유리창청소">유리창청소</span> · 
+                    <span data-task="화재청소">화재청소</span> · 
+                    <span data-task="바닥왁스코팅">바닥왁스코팅</span> · 
+                    <span data-task="바닥청소">바닥청소</span> · 
+                    <span data-task="어닝청소">어닝청소</span> · 
+                    <span data-task="간판청소">간판청소</span> · 
+                    <span data-task="인테리어후청소">인테리어 후 청소</span> · 
+                    <span data-task="준공청소">준공청소</span> · 
+                    <span data-task="후드청소">후드청소</span> · 
+                    <span data-task="쓰레기집청소">쓰레기집청소</span> · 
+                    <span data-task="특수청소">특수청소</span>
                 </div>
-                <div class="task-specific-factors" id="task-specific-factors-box">
-                    <h3>해당 작업 세부 고려 요소</h3>
-                    <ul id="task-specific-factors-list">
-                        <li>총 작업 면적</li>
-                        <li>오염의 심각성</li>
-                        <li>특수 장비 투입 여부</li>
-                        <li>투입 인원 및 소요 시간</li>
-                    </ul>
+
+                <!-- 작업현장 이미지 무한 루프 자동 슬라이드 -->
+                <div class="marquee-slider-container">
+                    <div class="marquee-track">
+                        <!-- 첫 번째 세트 -->
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/exterior-cleaning.webp" data-base-alt="외벽청소 작업 이미지" alt="외벽청소 작업 이미지">
+                            <span class="marquee-label">외벽청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/window-cleaning.webp" data-base-alt="유리창청소 작업 이미지" alt="유리창청소 작업 이미지">
+                            <span class="marquee-label">유리창청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/floor-cleaning.webp" data-base-alt="바닥청소 작업 이미지" alt="바닥청소 작업 이미지">
+                            <span class="marquee-label">바닥청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/post-construction-cleaning.webp" data-base-alt="준공청소 작업 이미지" alt="준공청소 작업 이미지">
+                            <span class="marquee-label">준공청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/interior-cleaning.webp" data-base-alt="인테리어 후 청소 작업 이미지" alt="인테리어 후 청소 작업 이미지">
+                            <span class="marquee-label">인테리어 후 청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/hood-cleaning.webp" data-base-alt="후드청소 작업 이미지" alt="후드청소 작업 이미지">
+                            <span class="marquee-label">후드청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/fire-cleaning.webp" data-base-alt="화재청소 작업 이미지" alt="화재청소 작업 이미지">
+                            <span class="marquee-label">화재청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/special-cleaning.webp" data-base-alt="특수청소 작업 이미지" alt="특수청소 작업 이미지">
+                            <span class="marquee-label">특수청소</span>
+                        </div>
+                        
+                        <!-- 두 번째 세트 (무한 반복용) -->
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/exterior-cleaning.webp" data-base-alt="외벽청소 작업 이미지" alt="외벽청소 작업 이미지">
+                            <span class="marquee-label">외벽청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/window-cleaning.webp" data-base-alt="유리창청소 작업 이미지" alt="유리창청소 작업 이미지">
+                            <span class="marquee-label">유리창청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/floor-cleaning.webp" data-base-alt="바닥청소 작업 이미지" alt="바닥청소 작업 이미지">
+                            <span class="marquee-label">바닥청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/post-construction-cleaning.webp" data-base-alt="준공청소 작업 이미지" alt="준공청소 작업 이미지">
+                            <span class="marquee-label">준공청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/interior-cleaning.webp" data-base-alt="인테리어 후 청소 작업 이미지" alt="인테리어 후 청소 작업 이미지">
+                            <span class="marquee-label">인테리어 후 청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/hood-cleaning.webp" data-base-alt="후드청소 작업 이미지" alt="후드청소 작업 이미지">
+                            <span class="marquee-label">후드청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/fire-cleaning.webp" data-base-alt="화재청소 작업 이미지" alt="화재청소 작업 이미지">
+                            <span class="marquee-label">화재청소</span>
+                        </div>
+                        <div class="marquee-item">
+                            <img src="/images/cleanforme/special-cleaning.webp" data-base-alt="특수청소 작업 이미지" alt="특수청소 작업 이미지">
+                            <span class="marquee-label">특수청소</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

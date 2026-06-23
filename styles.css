@@ -22,6 +22,10 @@
     /* Spacing & Layout */
     --spacing-section: 100px;
     --padding-side: 5%;
+    
+    /* Marquee Slider Size Variables */
+    --marquee-item-width: 320px;
+    --marquee-gap: 20px;
 }
 
 * {
@@ -802,65 +806,113 @@ a {
     transform: translateY(-2px);
 }
 
-/* 5. Estimate Factors Section */
-.estimate-factors-section {
+/* 5. Possible Works Section & Infinite Marquee Slider */
+.possible-works-section {
     background-color: var(--color-bg-surface);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden; /* Marquee 영역 가리기용 */
 }
-.estimate-factors-section .section-subtitle {
+.possible-works-section .section-subtitle {
     color: var(--color-text-muted);
     margin-top: -15px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     font-size: 1.05rem;
 }
-.factors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-}
-.factor-card {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 20px;
-    transition: border-color 0.2s ease;
-}
-.factor-card:hover {
-    border-color: rgba(0, 229, 255, 0.4);
-}
-.factor-card strong {
-    display: block;
-    color: var(--color-accent);
+.works-text-list {
+    text-align: center;
     font-size: 1.15rem;
-    margin-bottom: 8px;
-}
-.factor-card p {
-    font-size: 0.95rem;
     color: var(--color-text-muted);
-    line-height: 1.5;
+    line-height: 2;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    word-break: keep-all;
 }
-.task-specific-factors {
-    margin-top: 40px;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+.works-text-list span {
+    display: inline-block;
+    padding: 0 4px;
+    transition: color 0.2s ease;
 }
-.task-specific-factors h3 {
-    color: var(--color-accent);
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.25rem;
+.highlight-task {
+    color: var(--color-accent) !important;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 207, 232, 0.2);
 }
-.task-specific-factors ul {
-    list-style-type: disc;
-    padding-left: 20px;
+
+/* Infinite Marquee Slider Container */
+.marquee-slider-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
 }
-.task-specific-factors li {
-    font-size: 1.05rem;
-    color: var(--color-text-muted);
-    margin-bottom: 10px;
+.marquee-track {
+    display: flex;
+    /* (320px + 20px gap) * 16개 = 5440px */
+    width: 5440px;
+    animation: marquee-infinite 30s linear infinite;
+}
+.marquee-item {
+    flex-shrink: 0;
+    width: 320px;
+    margin-right: 20px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.marquee-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 11px;
+    transition: transform 0.5s ease;
+}
+.marquee-item:hover img {
+    transform: scale(1.05);
+}
+.marquee-label {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(12, 12, 14, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Keyframes for CSS Marquee */
+@keyframes marquee-infinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* 첫 번째 8개 세트의 너비인 (320px + 20px) * 8 = 2720px 만큼 좌측 이동 */
+        transform: translateX(-2720px);
+    }
+}
+
+/* Hover Pause (PC Only) */
+@media (hover: hover) and (pointer: fine) {
+    .marquee-slider-container:hover .marquee-track {
+        animation-play-state: paused;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none !important;
+        overflow-x: auto;
+        width: auto !important;
+    }
 }
 
 /* 7. Related Links Section */
@@ -1251,32 +1303,21 @@ a {
     color: var(--color-text-main) !important;
 }
 
-/* Estimate Factors */
-.estimate-factors-section {
+/* Possible Works Section */
+.possible-works-section {
     background-color: var(--color-bg-base) !important;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border) !important;
+    border-bottom: 1px solid var(--color-border) !important;
 }
-.factor-card {
-    background: var(--color-bg-surface) !important;
-    border: 1px solid var(--color-border) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-}
-.factor-card strong {
-    color: var(--color-accent-dark) !important;
-}
-.factor-card p {
+.possible-works-section .section-subtitle {
     color: var(--color-text-muted) !important;
 }
-.task-specific-factors {
+.works-text-list {
+    color: var(--color-text-muted) !important;
+}
+.marquee-item {
     background: var(--color-bg-surface) !important;
     border: 1px solid var(--color-border) !important;
-}
-.task-specific-factors h3 {
-    color: var(--color-accent-dark) !important;
-}
-.task-specific-factors li {
-    color: var(--color-text-muted) !important;
 }
 
 /* FAQ Section */
