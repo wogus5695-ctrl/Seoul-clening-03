@@ -2,13 +2,13 @@
   "cleanUrls": true,
   "functions": {
     "api/index.js": {
-      "includeFiles": "index.html"
+      "includeFiles": "template.html"
     }
   },
   "rewrites": [
     {
       "source": "/gyeonggi/:path*",
-      "destination": "/index.html"
+      "destination": "/template.html"
     },
     {
       "source": "/",

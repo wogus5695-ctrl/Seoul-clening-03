@@ -17,8 +17,8 @@ module.exports = (req, res) => {
     // Vercel Serverless Function 에서는 req.query.k 로 query parameter에 직접 접근할 수 있습니다.
     const keywordRaw = req.query.k || '';
     
-    // index.html 파일을 동적으로 읽습니다.
-    const htmlPath = path.join(process.cwd(), 'index.html');
+    // template.html 파일을 동적으로 읽습니다.
+    const htmlPath = path.join(process.cwd(), 'template.html');
     let html = '';
     try {
         html = fs.readFileSync(htmlPath, 'utf8');
