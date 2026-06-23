@@ -848,9 +848,9 @@ a {
 }
 .marquee-track {
     display: flex;
-    /* (320px + 20px gap) * 16개 = 5440px */
-    width: 5440px;
-    animation: marquee-infinite 30s linear infinite;
+    /* (320px + 20px gap) * 10개 = 3400px */
+    width: 3400px;
+    animation: marquee-infinite 20s linear infinite;
 }
 .marquee-item {
     flex-shrink: 0;
@@ -894,8 +894,8 @@ a {
         transform: translateX(0);
     }
     100% {
-        /* 첫 번째 8개 세트의 너비인 (320px + 20px) * 8 = 2720px 만큼 좌측 이동 */
-        transform: translateX(-2720px);
+        /* 첫 번째 5개 세트의 너비인 (320px + 20px) * 5 = 1700px 만큼 좌측 이동 */
+        transform: translateX(-1700px);
     }
 }
 
