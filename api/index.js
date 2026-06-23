@@ -181,7 +181,7 @@ module.exports = (req, res) => {
     html = html.replace(/<p class="hero-subtitle">([\s\S]*?)<\/p>/i, `<p class="hero-subtitle">${heroDesc}</p>`);
 
     // 9. hero-bg-img 치환
-    const heroImgSrc = displayTask === '종합청소' ? './images/cleanforme/hero-cleaning.webp' : `./images/cleanforme/${taskData.imageKey}`;
+    const heroImgSrc = displayTask === '종합청소' ? '/images/cleanforme/hero-cleaning.webp' : `/images/cleanforme/${taskData.imageKey}`;
     html = html.replace(/<img id="hero-bg-img"[^>]*>/i, `<img id="hero-bg-img" class="hero-bg-img" src="${heroImgSrc}" alt="${h1Str}">`);
 
     // 10. hero-features 치환
