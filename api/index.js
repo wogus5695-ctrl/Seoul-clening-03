@@ -258,8 +258,8 @@ module.exports = (req, res) => {
         });
     });
 
-    const candidateLocs = ["성남", "과천", "수원"];
-    const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc);
+    const candidateLocs = ["성남", "과천", "수원", "안양", "용인", "고양", "인천", "분당"];
+    const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc && `${displayLoc}`.indexOf(l) === -1).slice(0, 3);
     selectedLocs.forEach(locVal => {
         linksList.push({
             label: `${locVal} ${displayTask}`,
@@ -268,7 +268,7 @@ module.exports = (req, res) => {
     });
 
     let linksHtml = linksList.map(l => `<a href="${l.url}" class="footer-chip">${l.label}</a>`).join('\n                            ');
-    linksHtml += `\n                            <a href="./seo-hub.html" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>`;
+    linksHtml += `\n                            <a href="/seo-hub" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>`;
 
     html = html.replace(/<div id="footer-related-links" class="footer-chips">([\s\S]*?)<\/div>/i, 
         `<div id="footer-related-links" class="footer-chips">\n                            ${linksHtml}\n                        </div>`);

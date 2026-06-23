@@ -304,8 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // 2. 3 key regions + current task
-        const candidateLocs = ["성남", "과천", "수원"];
-        const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc);
+        const candidateLocs = ["성남", "과천", "수원", "안양", "용인", "고양", "인천", "분당"];
+        const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc && `${displayLoc}`.indexOf(l) === -1).slice(0, 3);
         selectedLocs.forEach(locVal => {
             linksList.push({
                 label: `${locVal} ${displayTask}`,
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 3. Construct HTML
         let linksHtml = linksList.map(l => `<a href="${l.url}" class="footer-chip">${l.label}</a>`).join('');
-        linksHtml += `<a href="./seo-hub.html" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>`;
+        linksHtml += `<a href="/seo-hub" class="footer-chip view-all-link">전체 서비스 지역 및 작업 보기</a>`;
         footerRelatedContainer.innerHTML = linksHtml;
     }
 
