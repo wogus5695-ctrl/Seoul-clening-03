@@ -20,7 +20,7 @@ const SERVICES_DATA = [
             { q: "고압 물세척 시 외벽 손상 우려가 있나요?", a: "석재, 금속, 유리 등 각 마감재 특성에 맞춰 전용 약품과 물 분사 압력을 미세하게 조정하여 안전하게 오염만 세정합니다." }
         ],
         relatedServices: ["window-cleaning", "signboard-cleaning"],
-        imageKey: "exterior-wall.jpg",
+        imageKey: "exterior-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 외벽 복원 및 안전 세척",
         metaDescriptionTemplate: "{loc} {task} 전문 클린폼입니다. 층고와 재질에 맞춘 특수 장비 and 약품을 투입하여 건물의 가치를 복원해 드립니다.",
         needSituationTemplate: "{loc}에서 {task}는 대기 먼지와 매연으로 오염된 건물 외벽면을 고압세척하여 본연의 깨끗함을 복원하고 건물의 자산 가치를 유지하기 위해 필요합니다."
@@ -40,7 +40,7 @@ const SERVICES_DATA = [
             { q: "오래 방치되어 하얗게 변한 석회 물때도 지워지나요?", a: "일반 물청소로는 해결하기 힘든 산화된 유막과 석회 자국은 유리에 손상을 주지 않는 전용 화학 약품으로 불려 맑게 닦아냅니다." }
         ],
         relatedServices: ["exterior-cleaning", "awning-cleaning"],
-        imageKey: "window.jpg",
+        imageKey: "window-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 맑고 투명한 시야 복원",
         metaDescriptionTemplate: "답답한 시야를 맑게 복원하는 {loc} {task} 전문 클린폼. 내외부 미세 매연과 찌든 물때를 전용 장비로 제거합니다.",
         needSituationTemplate: "{loc}에서 {task}는 상가와 사무실 내부로 드는 햇빛을 방해하는 유리창의 묵은 유막과 스티커 흔적을 맑게 세정하여 투명한 시야를 선사합니다."
@@ -60,7 +60,7 @@ const SERVICES_DATA = [
             { q: "천막 원단이 낡았는데 세척하다 찢어질 위험은 없나요?", a: "천막이 삭아서 찢어지기 쉬운 부위는 고압수 직사를 피하고 저압의 미온수와 스팀으로 찌든 먼지만 살살 문질러 제거하여 손상을 최소화합니다." }
         ],
         relatedServices: ["exterior-cleaning", "signboard-cleaning"],
-        imageKey: "awning.jpg",
+        imageKey: "awning-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 매장 천막 스팀 살균 세척",
         metaDescriptionTemplate: "{loc} 매장 {task} 전문 클린폼. 찌든 매연과 곰팡이로 얼룩진 어닝을 원단 손상 없이 고온 스팀으로 안전하게 복원합니다.",
         needSituationTemplate: "{loc}에서 {task}는 매장의 첫인상을 좌우하는 어닝 천막 원단의 오래된 물때와 검은 매연 자국을 스팀 클리닝하여 깔끔한 인테리어 효과를 회복시킵니다."
@@ -80,7 +80,7 @@ const SERVICES_DATA = [
             { q: "간판 물청소 중 누전 위험은 없나요?", a: "물 세척 전 간판용 전용 누전 차단기를 내려 전력을 완전히 차단하고, 조명 틈새에 물이 들이치지 않도록 방수 비닐 보양 후 조심스럽게 클리닝을 진행합니다." }
         ],
         relatedServices: ["exterior-cleaning", "window-cleaning"],
-        imageKey: "signboard.jpg",
+        imageKey: "signboard-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 간판 조명 복원 세척",
         metaDescriptionTemplate: "{loc} {task} 전문 클린폼. 미세먼지와 얼룩으로 빛을 잃은 매장 간판을 안전하고 깨끗하게 세척하여 첫인상을 밝혀드립니다.",
         needSituationTemplate: "{loc}에서 {task}는 매장 외관의 중심인 간판 표면에 쌓인 거미줄과 매연 얼룩을 세척하여 주야간 가시성을 밝게 개선해 줍니다."
@@ -104,7 +104,7 @@ const SERVICES_DATA = [
             { q: "사무실 집기가 가득 차 있는데 코팅 작업이 가능한가요?", a: "가벼운 집기는 옮겨가며 순차적으로 작업할 수 있으나, 책상이나 무거운 캐비닛은 제자리에 둔 상태에서 보행 동선을 위주로 깔끔하게 테두리 마감을 시공합니다." }
         ],
         relatedServices: ["floor-cleaning", "post-interior-cleaning"],
-        imageKey: "floor-wax.jpg",
+        imageKey: "floor-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 고광택 수지 왁스 코팅",
         metaDescriptionTemplate: "{loc} 데코타일 {task} 전문 클린폼. 찌든 얼룩을 기계로 정밀 박리 세척한 후, 최고급 수지 왁스로 바닥을 강력하게 코팅해 드립니다.",
         needSituationTemplate: "{loc}에서 {task}는 사무실이나 매장 바닥재에 미세 스크래치와 변색이 생기지 않도록 표면을 보호하고, 광택을 더해 청결한 공간을 유지하기 위해 필요합니다."
@@ -124,7 +124,7 @@ const SERVICES_DATA = [
             { q: "바닥 재질에 따라 청소 방식이 다른가요?", a: "타일 틈새가 있는 폴리싱타일은 줄눈 오염을 제거하며, 원목 마루나 에폭시는 도장면 훼손을 방지하기 위해 중성 세제와 미세 패드를 장착한 세척기를 투입합니다." }
         ],
         relatedServices: ["floor-wax-coating", "special-cleaning"],
-        imageKey: "floor-cleaning.jpg",
+        imageKey: "floor-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 기름때 및 찌든 때 정밀 세척",
         metaDescriptionTemplate: "{loc} 바닥 세척 전문 클린폼. 데코타일, 폴리싱타일, 에폭시 등 다양한 바닥 재질에 맞춰 찌든 오염과 유분기를 정밀 기계 세척합니다.",
         needSituationTemplate: "{loc}에서 {task}는 물청소만으로 지워지지 않는 데코타일이나 에폭시의 묵은 때와 미끄러운 유분기를 전용 바닥 기계로 세정하여 쾌적한 보행 환경을 제공합니다."
@@ -144,7 +144,7 @@ const SERVICES_DATA = [
             { q: "세척 약품이 주방 조리 도구나 가전에 튀지 않나요?", a: "작업 전 후드 하부 조리대와 주방 가전을 내열성 특수 비닐 커버로 차단 보양하여 세척 폐수가 조리기구에 들어가지 않게 안전하게 조치합니다." }
         ],
         relatedServices: ["floor-cleaning", "special-cleaning"],
-        imageKey: "kitchen-hood.jpg",
+        imageKey: "hood-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 식당 주방 기름때 특수 제거",
         metaDescriptionTemplate: "{loc} 식당 주방 {task} 전문 클린폼. 환풍 필터와 후드 내부 오염, 화재의 원인이 되는 기름때를 위생적으로 녹여 제거합니다.",
         needSituationTemplate: "{loc}에서 {task}는 식당 주방의 기름 화재 사고를 예방하고 위생 점검 기준에 확실히 부합하기 위해 후드 안쪽에 맺힌 기름때와 악취를 용해하여 씻어내는 위생 작업입니다."
@@ -168,7 +168,7 @@ const SERVICES_DATA = [
             { q: "인테리어 마감 중 발견되는 하자 사항도 체크해 주시나요?", a: "네, 틈새 청소와 도배 풀을 닦아내는 과정에서 몰딩이 들뜨거나 문짝 조절 상태 불량 등 하자가 보이면 체크하여 고객님께 검수 시 공유해 드립니다." }
         ],
         relatedServices: ["post-construction-cleaning", "floor-wax-coating"],
-        imageKey: "post-interior.jpg",
+        imageKey: "interior-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 인테리어 분진 정밀 제거",
         metaDescriptionTemplate: "새 공간의 시작을 쾌적하게! {loc} {task} 전문 클린폼. 톱밥, 분진, 도배 풀 자국을 깔끔하게 제거하고 피톤치드로 마무리합니다.",
         needSituationTemplate: "{loc}에서 {task}는 인테리어 공사 후 수납장 구석과 벽면에 얇게 밀착된 미세 톱밥과 시멘트 먼지를 제거하여 새집증후군 유발 인자를 정화합니다."
@@ -188,7 +188,7 @@ const SERVICES_DATA = [
             { q: "공사 후 본드 자국이나 시멘트 가루도 제거 가능한가요?", a: "네, 바닥이나 유리창 프레임에 묻은 시멘트 풀과 본드 흔적은 전용 헤라와 제거제를 사용해 하부 마감재가 다치지 않게 조심스럽게 밀어내어 닦아냅니다." }
         ],
         relatedServices: ["post-interior-cleaning", "exterior-cleaning"],
-        imageKey: "post-construction.jpg",
+        imageKey: "post-construction-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 건축물 준공 검사 대비 청소",
         metaDescriptionTemplate: "{loc} 신축 현장 {task} 전문 클린폼. 건축물 승인 및 인도를 위한 공사 잔재물 수거 및 대단위 분진 제거 작업을 차질 없이 진행합니다.",
         needSituationTemplate: "{loc}에서 {task}는 신축 및 대단위 건물 공사의 완공 후 건축주 인도를 앞두고 시멘트 먼지와 자갈 쓰레기를 수거하여 정돈하는 최종 마감 작업입니다."
@@ -212,7 +212,7 @@ const SERVICES_DATA = [
             { q: "청소 진행 전에 소방서 조사나 폐기물 정리가 먼저 되어야 하나요?", a: "네, 소방서 및 보험사 현장 감식 조사가 완료된 후, 청소팀이 투입되어 불에 탄 가구 등 폐기물을 정리하고 복구 청소를 시작할 수 있습니다." }
         ],
         relatedServices: ["special-cleaning", "garbage-house-cleaning"],
-        imageKey: "fire-damage.jpg",
+        imageKey: "fire-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 화재 그을음 제거 및 냄새 복구",
         metaDescriptionTemplate: "화재 피해의 체계적인 복구! {loc} {task} 전문 클린폼. 그을음 제거부터 유독가스 특수 탈취, 폐기물 처리까지 차례대로 해결합니다.",
         needSituationTemplate: "{loc}에서 {task}는 화재 사고로 인해 실내 전체를 뒤덮은 유해한 탄소 그을음 가루를 제거하고, 가구와 구조물에 배어 있는 매캐한 탄 냄새를 특수 화학적 탈취 및 오존 가동으로 긴급 복구하는 전문 서비스입니다."
@@ -232,7 +232,7 @@ const SERVICES_DATA = [
             { q: "청소 중 버려야 할 쓰레기 속에서 중요한 물건을 찾아주나요?", a: "네, 현금, 은행 통장, 계약 서류 등 귀중품은 쓰레기 속에서 하나하나 손으로 직접 수작업 분류하여 안전하게 따로 모아서 전달해 드립니다." }
         ],
         relatedServices: ["special-cleaning", "post-interior-cleaning"],
-        imageKey: "hoarding.jpg",
+        imageKey: "garbage-house-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 프라이버시 보호 폐기물 수거 및 살균",
         metaDescriptionTemplate: "압도적인 오염과 방치된 쓰레기도 정성껏 정리합니다. {loc} {task} 전문 클린폼. 프라이버시 보호와 방역 소독으로 일상 복귀를 도와드립니다.",
         needSituationTemplate: "{loc}에서 {task}는 오랜 방치로 벌레와 심각한 악취가 발생한 실내를 안전하고 은밀하게 원상태의 깨끗한 주거 환경으로 복원하기 위해 유용합니다."
@@ -252,7 +252,7 @@ const SERVICES_DATA = [
             { q: "하수구 역류나 침수로 뻘흙이 된 지하실도 청소 가능한가요?", a: "네, 지하실의 고인 물을 유수 펌프로 배수하고, 산업용 강력 흡입기로 흙과 펄을 수거한 후 고압 온수 살균 세척을 통해 소독을 마칩니다." }
         ],
         relatedServices: ["garbage-house-cleaning", "fire-cleaning"],
-        imageKey: "specialty.jpg",
+        imageKey: "special-cleaning.webp",
         metaTitleTemplate: "수도권 {loc} {task} 전문 | 방호복 착용 고도 방역 소독",
         metaDescriptionTemplate: "{loc} 악성 오염 구역 {task} 전문 클린폼. 동물 분비물, 침수 복구 등 일반 청소로 해결하기 힘든 현장을 전용 약품과 장비로 복구합니다.",
         needSituationTemplate: "{loc}에서 {task}는 반려동물 다수 방치 오염, 누수/하수 역류 등으로 바이러스 감염 위험이 있는 극한의 오염 공간을 소독하여 위생을 정화합니다."
@@ -276,7 +276,7 @@ const SERVICES_DATA = [
             { q: "준비해야 할 특이사항이 있나요?", a: "특별히 준비하실 것은 없으나, 귀중품이나 파손 우려가 있는 특수 물품은 미리 안전한 곳에 보관해 주시기 바랍니다." }
         ],
         relatedServices: [],
-        imageKey: "hero_bg.jpg",
+        imageKey: "hero-cleaning.webp",
         metaTitleTemplate: "수도권 종합청소 전문 클린폼 | 외벽·유리창·준공·특수청소",
         metaDescriptionTemplate: "클린폼은 서울·경기·인천 수도권 전 지역의 외벽청소, 유리창청소, 바닥청소, 준공청소, 후드청소, 특수청소 상담을 제공합니다. 현장 상태와 오염도 기준으로 견적 범위를 안내합니다.",
         needSituationTemplate: "{loc}에서 {task}는 건물 관리의 전반적인 솔루션으로, 정기적인 위생 관리나 일회성 대청소 등 현장 조건과 용도에 맞춰 복합적인 작업 범위를 원스톱으로 조율하여 공간의 가치를 제고합니다."

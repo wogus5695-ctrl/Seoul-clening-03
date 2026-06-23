@@ -167,7 +167,7 @@ module.exports = (req, res) => {
     html = html.replace(/<meta property="og:description" id="seo-og-desc"[^>]*>/i, `<meta property="og:description" id="seo-og-desc" data-seo="target" content="${descStr}">`);
 
     // 5. og:image 치환
-    const imagePath = displayTask === '종합청소' ? `${protocol}://${host}/images/hero_bg.jpg` : `${protocol}://${host}/images/${taskData.imageKey}`;
+    const imagePath = displayTask === '종합청소' ? `${protocol}://${host}/images/cleanforme/hero-cleaning.webp` : `${protocol}://${host}/images/cleanforme/${taskData.imageKey}`;
     html = html.replace(/<meta property="og:image"[^>]*>/i, `<meta property="og:image" content="${imagePath}">`);
 
     // 6. canonical 및 og:url 삽입 (head 닫는 태그 직전)
@@ -181,7 +181,7 @@ module.exports = (req, res) => {
     html = html.replace(/<p class="hero-subtitle">([\s\S]*?)<\/p>/i, `<p class="hero-subtitle">${heroDesc}</p>`);
 
     // 9. hero-bg-img 치환
-    const heroImgSrc = displayTask === '종합청소' ? './images/hero_bg.jpg' : `./images/${taskData.imageKey}`;
+    const heroImgSrc = displayTask === '종합청소' ? './images/cleanforme/hero-cleaning.webp' : `./images/cleanforme/${taskData.imageKey}`;
     html = html.replace(/<img id="hero-bg-img"[^>]*>/i, `<img id="hero-bg-img" class="hero-bg-img" src="${heroImgSrc}" alt="${h1Str}">`);
 
     // 10. hero-features 치환
