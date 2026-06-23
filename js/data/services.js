@@ -276,7 +276,7 @@ const SERVICES_DATA = [
             { q: "준비해야 할 특이사항이 있나요?", a: "특별히 준비하실 것은 없으나, 귀중품이나 파손 우려가 있는 특수 물품은 미리 안전한 곳에 보관해 주시기 바랍니다." }
         ],
         relatedServices: [],
-        imageKey: "hero_bg.png",
+        imageKey: "hero_bg.jpg",
         metaTitleTemplate: "수도권 종합청소 전문 클린폼 | 외벽·유리창·준공·특수청소",
         metaDescriptionTemplate: "클린폼은 서울·경기·인천 수도권 전 지역의 외벽청소, 유리창청소, 바닥청소, 준공청소, 후드청소, 특수청소 상담을 제공합니다. 현장 상태와 오염도 기준으로 견적 범위를 안내합니다.",
         needSituationTemplate: "{loc}에서 {task}는 건물 관리의 전반적인 솔루션으로, 정기적인 위생 관리나 일회성 대청소 등 현장 조건과 용도에 맞춰 복합적인 작업 범위를 원스톱으로 조율하여 공간의 가치를 제고합니다."

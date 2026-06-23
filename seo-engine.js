@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ogImageTag.setAttribute('property', 'og:image');
         document.head.appendChild(ogImageTag);
     }
-    const imagePath = displayTask === '종합청소' ? `${window.location.origin}/hero_bg.png` : `${window.location.origin}/images/${taskData.imageKey}`;
+    const imagePath = displayTask === '종합청소' ? `${window.location.origin}/images/hero_bg.jpg` : `${window.location.origin}/images/${taskData.imageKey}`;
     ogImageTag.setAttribute('content', imagePath);
     
     // H1
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Image alt
     const heroImgEl = document.getElementById('hero-bg-img');
     if (heroImgEl) {
-        const imagePath = displayTask === '종합청소' ? './hero_bg.png' : `./images/${taskData.imageKey}`;
+        const imagePath = displayTask === '종합청소' ? './images/hero_bg.jpg' : `./images/${taskData.imageKey}`;
         heroImgEl.setAttribute('src', imagePath);
         heroImgEl.setAttribute('alt', `${displayLoc} ${displayTask} 전문 클린폼`);
     }
@@ -361,19 +361,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const groupsInfo = {
             "건물 외부 청소": {
                 desc: "외벽·유리창·어닝·간판처럼 외부 노출이 많은 구역은 오염이 빠르게 쌓이고, 접근 방식에 따라 장비 구성이 달라집니다.",
-                bg: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop"
+                bg: "./images/group_exterior.jpg"
             },
             "바닥·상업공간 청소": {
                 desc: "상가, 사무실, 매장 바닥은 오염도와 재질에 따라 세척 방식과 코팅 여부를 구분해야 합니다.",
-                bg: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop"
+                bg: "./images/group_floor.jpg"
             },
             "공사·이전 청소": {
                 desc: "준공·인테리어 후 공간은 공사 분진, 본드 자국, 마감 오염을 일반 청소와 다르게 확인해야 합니다.",
-                bg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop"
+                bg: "./images/group_construction.jpg"
             },
             "고난도 특수 청소": {
                 desc: "화재, 쓰레기집, 고오염 현장은 일반 청소보다 악취·폐기물·오염도 기준을 먼저 확인해야 합니다.",
-                bg: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=2000&auto=format&fit=crop"
+                bg: "./images/group_special.jpg"
             }
         };
 
