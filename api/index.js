@@ -209,11 +209,19 @@ module.exports = (req, res) => {
         html = html.replace(/<div class="work-scope-grid" id="work-scope-list">([\s\S]*?)<\/div>/i, `<div class="work-scope-grid" id="work-scope-list">\n                    ${scopeHtml}\n                </div>`);
     }
 
-    // 16. task-specific-factors-list 치환
-    if (taskData.estimateFactors) {
-        const factorsHtml = taskData.estimateFactors.map(item => `<li>${item}</li>`).join('\n                        ');
-        html = html.replace(/<ul id="task-specific-factors-list">([\s\S]*?)<\/ul>/i, `<ul id="task-specific-factors-list">\n                        ${factorsHtml}\n                    </ul>`);
+    // 16. possible-works-heading / possible-works-subtitle / highlight-task / marquee alt 치환
+    html = html.replace(/<h2 class="section-title text-center" id="possible-works-heading">([\s\S]*?)<\/h2>/i, `<h2 class="section-title text-center" id="possible-works-heading">${displayLoc}에서 가능한 청소 작업</h2>`);
+    
+    const worksSubtitle = `${displayLoc} ${displayTask} 외에도 외벽, 유리창, 바닥, 준공, 후드, 특수청소 등 현장 상태에 맞춰 상담이 가능합니다.`;
+    html = html.replace(/<p class="section-subtitle text-center" id="possible-works-subtitle">([\s\S]*?)<\/p>/i, `<p class="section-subtitle text-center" id="possible-works-subtitle">${worksSubtitle}</p>`);
+
+    const highlightKey = Object.keys(taskMap).find(k => taskMap[k] === displayTask);
+    if (highlightKey) {
+        const spanRegex = new RegExp(`data-task="${highlightKey}"`, 'g');
+        html = html.replace(spanRegex, `data-task="${highlightKey}" class="highlight-task"`);
     }
+
+    html = html.replace(/data-base-alt="([^"]*)"\s+alt="[^"]*"/g, `data-base-alt="$1" alt="${displayLoc} $1"`);
 
     // 17. process-heading 치환
     html = html.replace(/<h2 id="process-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="process-heading" class="section-title text-center">${displayLoc} ${displayTask} 케어 프로세스</h2>`);

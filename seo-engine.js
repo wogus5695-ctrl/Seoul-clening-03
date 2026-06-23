@@ -9,6 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
         "정자동": "jeongja-dong", "판교동": "pangyo-dong", "광교동": "gwanggyo-dong", "중앙동": "jungang-dong",
         "분당동": "bundang-dong", "서현동": "seohyeon-dong", "영통동": "yeongtong-dong"
     };
+    const taskMap = {
+        "외벽청소": "외벽청소",
+        "유리창청소": "유리창청소",
+        "화재청소": "화재청소",
+        "바닥왁스코팅": "바닥왁스코팅",
+        "바닥청소": "바닥청소",
+        "어닝청소": "어닝청소",
+        "간판청소": "간판청소",
+        "인테리어후청소": "인테리어 후 청소",
+        "준공청소": "준공청소",
+        "후드청소": "후드청소",
+        "쓰레기집청소": "쓰레기집청소",
+        "특수청소": "특수청소",
+        "종합청소": "종합청소"
+    };
     function getSlug(koreanStr) {
         if (slugMap[koreanStr]) return slugMap[koreanStr];
         return koreanStr.replace(/[동구시]$/, '').toLowerCase() + (koreanStr.endsWith('동') ? '-dong' : '');
@@ -49,21 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hyphenIndex !== -1) {
             loc = keyword.substring(0, hyphenIndex).trim();
             const taskPart = keyword.substring(hyphenIndex + 1).replace(/-/g, '').trim();
-            const taskMap = {
-                "외벽청소": "외벽청소",
-                "유리창청소": "유리창청소",
-                "화재청소": "화재청소",
-                "바닥왁스코팅": "바닥왁스코팅",
-                "바닥청소": "바닥청소",
-                "어닝청소": "어닝청소",
-                "간판청소": "간판청소",
-                "인테리어후청소": "인테리어 후 청소",
-                "준공청소": "준공청소",
-                "후드청소": "후드청소",
-                "쓰레기집청소": "쓰레기집청소",
-                "특수청소": "특수청소",
-                "종합청소": "종합청소"
-            };
             taskName = taskMap[taskPart] || taskPart;
         } else {
             loc = "수도권";
@@ -258,11 +258,32 @@ document.addEventListener('DOMContentLoaded', () => {
         workScopeList.innerHTML = taskData.workScope.map(item => `<div class="work-scope-item">${item}</div>`).join('');
     }
 
-    // Section 5: Task Specific Factors List
-    const factorsList = document.getElementById('task-specific-factors-list');
-    if (factorsList && taskData.estimateFactors) {
-        factorsList.innerHTML = taskData.estimateFactors.map(item => `<li>${item}</li>`).join('');
+    // Section 5: 가능한 청소 작업 제목/부제목 치환 & 타겟 작업 하이라이트 & 이미지 alt 치환
+    const possibleWorksHeading = document.getElementById('possible-works-heading');
+    if (possibleWorksHeading) {
+        possibleWorksHeading.innerText = `${displayLoc}에서 가능한 청소 작업`;
     }
+    const possibleWorksSubtitle = document.getElementById('possible-works-subtitle');
+    if (possibleWorksSubtitle) {
+        possibleWorksSubtitle.innerText = `${displayLoc} ${displayTask} 외에도 외벽, 유리창, 바닥, 준공, 후드, 특수청소 등 현장 상태에 맞춰 상담이 가능합니다.`;
+    }
+
+    const highlightKey = Object.keys(taskMap).find(k => taskMap[k] === displayTask);
+    if (highlightKey) {
+        // 기존 highlight 제거 후 새로 설정
+        document.querySelectorAll('.works-text-list span').forEach(el => el.classList.remove('highlight-task'));
+        const activeSpan = document.querySelector(`.works-text-list span[data-task="${highlightKey}"]`);
+        if (activeSpan) {
+            activeSpan.classList.add('highlight-task');
+        }
+    }
+
+    document.querySelectorAll('.marquee-item img').forEach(img => {
+        const baseAlt = img.getAttribute('data-base-alt');
+        if (baseAlt) {
+            img.setAttribute('alt', `${displayLoc} ${baseAlt}`);
+        }
+    });
 
     // Section 6: Process Heading
     const processHeading = document.getElementById('process-heading');
