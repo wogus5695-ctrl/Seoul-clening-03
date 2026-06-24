@@ -10,6 +10,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     
     <!-- 네이버 서치어드바이저 및 SEO 메타 태그 (동적 치환 타겟) -->
+    <meta name="naver-site-verification" content="482dbb3e4d6e2058924491451cb78d0e78283754" />
     <title id="seo-title" data-seo="target">수도권 종합청소 전문 클린폼 | 외벽·유리창·준공·특수청소</title>
     <meta name="description" id="seo-desc" data-seo="target" content="클린폼은 서울·경기·인천 수도권 전 지역의 외벽청소, 유리창청소, 바닥청소, 준공청소, 후드청소, 특수청소 상담을 제공합니다. 현장 상태와 오염도 기준으로 견적 범위를 안내합니다.">
     <meta property="og:title" id="seo-og-title" data-seo="target" content="수도권 종합청소 전문 클린폼 | 외벽·유리창·준공·특수청소">
@@ -52,7 +53,7 @@
                     <!-- PC CTA 영역 (좌측 콘텐츠 하단 배치) -->
                     <div class="hero-cta-container pc-only">
                         <a href="tel:" id="pc-cta-btn" class="btn-pc-cta phone-link" aria-label="수도권 종합청소 전화 상담 바로 연결" title="수도권 종합청소 전화 상담 바로 연결">전화 상담 바로 연결</a>
-                        <p class="pc-cta-subtext">지역·작업 종류만 알려주시면 됩니다</p>
+                        <p class="pc-cta-subtext">정확히 설명하지 않으셔도 됩니다. 지역·청소 종류만 알려주시면 즉시 상담해 드립니다.</p>
                     </div>
                 </div>
             </div>
@@ -95,13 +96,73 @@
         <!-- 4. 작업 범위 섹션 -->
         <section class="work-scope-section section-padding" id="work-scope-section">
             <div class="container">
-                <h2 id="work-scope-heading" class="section-title text-center">종합청소 작업 범위</h2>
-                <div class="work-scope-grid" id="work-scope-list">
-                    <!-- JS에서 동적으로 채워집니다 -->
-                    <div class="work-scope-item">현장 상태 확인</div>
-                    <div class="work-scope-item">오염도 기준 장비 선택</div>
-                    <div class="work-scope-item">구역별 세척 방식 구분</div>
-                    <div class="work-scope-item">작업 범위 내 재확인</div>
+                <h2 id="work-scope-heading" class="section-title text-center">청소 범위는 현장 상태를 보고 정합니다</h2>
+                <p id="work-scope-subtitle" class="section-subtitle text-center">공간 구조, 오염 상태, 필요한 작업 종류를 확인한 뒤 무리한 작업보다 필요한 범위부터 안내합니다.</p>
+                
+                <!-- PC: 벤다이어그램 컨테이너 -->
+                <div class="venn-diagram-container desktop-only">
+                    <div class="venn-diagram">
+                        <!-- 원 1: 현장 상태 -->
+                        <div class="venn-circle circle-1">
+                            <div class="circle-content">
+                                <span class="circle-title">현장 상태</span>
+                                <span class="circle-desc">면적 · 구조 · 접근성</span>
+                            </div>
+                        </div>
+                        <!-- 원 2: 오염 정도 -->
+                        <div class="venn-circle circle-2">
+                            <div class="circle-content">
+                                <span class="circle-title">오염 정도</span>
+                                <span class="circle-desc">먼지 · 기름때 · 분진 · 생활오염</span>
+                            </div>
+                        </div>
+                        <!-- 원 3: 작업 종류 -->
+                        <div class="venn-circle circle-3">
+                            <div class="circle-content">
+                                <span class="circle-title">작업 종류</span>
+                                <span class="circle-desc">외벽 · 유리창 · 바닥<br>준공 · 후드 · 특수청소</span>
+                            </div>
+                        </div>
+                        <!-- 중앙 교차점 -->
+                        <div class="venn-intersection">
+                            <div class="intersection-content">
+                                <span class="intersection-title">맞춤 작업<br>범위 안내</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="venn-footnote text-center">전화 상담 시 지역과 필요한 청소 종류만 알려주셔도 작업 가능 여부부터 확인해드립니다.</p>
+                </div>
+
+                <!-- 모바일: 단계형 미니 카드 -->
+                <div class="mobile-steps-container mobile-only">
+                    <div class="mobile-step-card">
+                        <div class="step-badge">1</div>
+                        <div class="step-info">
+                            <h4 class="step-title">현장 상태 확인</h4>
+                            <p class="step-desc">면적, 구조, 접근성을 먼저 확인합니다.</p>
+                        </div>
+                    </div>
+                    <div class="mobile-step-card">
+                        <div class="step-badge">2</div>
+                        <div class="step-info">
+                            <h4 class="step-title">오염 정도 확인</h4>
+                            <p class="step-desc">먼지, 기름때, 분진, 생활오염 상태를 봅니다.</p>
+                        </div>
+                    </div>
+                    <div class="mobile-step-card">
+                        <div class="step-badge">3</div>
+                        <div class="step-info">
+                            <h4 class="step-title">작업 종류 확인</h4>
+                            <p class="step-desc">필요한 청소 종류와 작업 범위를 구분합니다.</p>
+                        </div>
+                    </div>
+                    <div class="mobile-step-card result-card">
+                        <div class="step-badge star">★</div>
+                        <div class="step-info">
+                            <h4 class="step-title">맞춤 작업 범위 안내</h4>
+                            <p class="step-desc">지역과 필요한 청소 종류만 알려주시면 작업 가능 여부부터 확인합니다.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -270,15 +331,15 @@
                         </div>
                     </details>
                     <details>
-                        <summary id="faq-q2">청소 비용은 어떻게 결정되나요?</summary>
+                        <summary id="faq-q2">작업 가능 여부는 어떻게 확인하나요?</summary>
                         <div class="faq-answer">
-                            비용은 면적, 현장 상태, 작업 범위에 따라 달라질 수 있으며 전화 상담 시 예상 범위를 안내합니다.
+                            지역과 청소 종류만 말씀해 주시면, 스카이차 등 특수 장비 필요 여부 및 현장 상태를 고려하여 작업 가능 여부를 즉시 확인해 드립니다.
                         </div>
                     </details>
                     <details>
-                        <summary id="faq-q3">세금계산서 및 현금영수증 발행이 가능한가요?</summary>
+                        <summary id="faq-q3">비용은 언제 안내받을 수 있나요?</summary>
                         <div class="faq-answer">
-                            네, 모든 결제 건에 대해 부가세 별도로 세금계산서 및 현금영수증 발행이 정상 가능합니다.
+                            현장 상태와 작업 범위를 확인한 뒤 전화 상담에서 예상 범위를 안내합니다.
                         </div>
                     </details>
                 </div>

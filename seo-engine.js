@@ -248,13 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setInner('pain-point-heading', '업체 선택 전 확인할 3가지');
 
     // Section 4: 작업 범위 섹션 제목 & 목록
-    const workScopeHeading = document.getElementById('work-scope-heading');
+        const workScopeHeading = document.getElementById('work-scope-heading');
     if (workScopeHeading) {
-        workScopeHeading.innerText = '현장 상태에 맞춰 작업 범위를 정합니다';
-    }
-    const workScopeList = document.getElementById('work-scope-list');
-    if (workScopeList && taskData.workScope) {
-        workScopeList.innerHTML = taskData.workScope.map(item => `<div class="work-scope-item">${item}</div>`).join('');
+        workScopeHeading.innerText = '청소 범위는 현장 상태를 보고 정합니다';
     }
 
     // Section 5: 가능한 청소 작업 제목/부제목 치환 & 타겟 작업 하이라이트 & 이미지 alt 치환
