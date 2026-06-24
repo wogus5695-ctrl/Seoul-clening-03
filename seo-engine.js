@@ -288,19 +288,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Section 7: FAQs (Dynamic conversion)
     if (taskData.faq && taskData.faq.length >= 3) {
+        const faqSpecialKeywordMap = {
+            "외벽청소": "외벽 재질 및 오염",
+            "유리창청소": "창문 개수 및 층수",
+            "바닥청소": "바닥 소재 및 상태",
+            "준공청소": "공사 후 잔여물",
+            "후드청소": "후드 크기 및 기름때",
+            "특수청소": "현장 오염",
+            "종합청소": "전반적인 현장"
+        };
+        const specialKeyword = faqSpecialKeywordMap[displayTask] || faqSpecialKeywordMap["종합청소"];
+
         const faqQ1 = document.getElementById('faq-q1');
         const faqQ2 = document.getElementById('faq-q2');
         const faqQ3 = document.getElementById('faq-q3');
+        const faqQ4 = document.getElementById('faq-q4');
+        const faqQ5 = document.getElementById('faq-q5');
 
-        if (faqQ1 && faqQ2 && faqQ3) {
-            faqQ1.innerText = "Q. 전화 상담 시 무엇을 먼저 알려드리면 되나요?";
-            faqQ1.nextElementSibling.innerText = "지역, 필요한 청소 종류, 대략적인 면적이나 현장 상태를 알려주시면 작업 가능 여부부터 안내합니다.";
-
-            faqQ2.innerText = `Q. ${displayLoc} ${displayTask} 비용은 어떻게 결정되나요?`;
-            faqQ2.nextElementSibling.innerText = "비용은 면적, 현장 상태, 작업 범위에 따라 달라질 수 있으며 전화 상담 시 예상 범위를 안내합니다.";
-
-            faqQ3.innerText = `Q. ${getDesc(taskData.faq[1].q)}`;
-            faqQ3.nextElementSibling.innerText = getDesc(taskData.faq[1].a);
+        if (faqQ1) {
+            faqQ1.innerText = `Q. ${displayLoc} ${displayTask} 상담 시 무엇을 먼저 알려드리면 되나요?`;
+            faqQ1.nextElementSibling.innerText = `지역, 공간 규모, ${specialKeyword} 상태를 알려주시면 작업 가능 여부부터 안내합니다. 정확히 설명하지 않으셔도 상담 중 필요한 내용을 순서대로 확인합니다.`;
+        }
+        if (faqQ2) {
+            faqQ2.innerText = `Q. 원하는 청소 작업이 가능한지 어떻게 확인하나요?`;
+            faqQ2.nextElementSibling.innerText = `외벽, 유리창, 바닥, 준공, 후드, 특수청소 등 작업 종류와 현장 상태를 기준으로 가능 여부를 확인합니다. 필요한 경우 사진이나 현장 조건을 추가로 확인할 수 있습니다.`;
+        }
+        if (faqQ3) {
+            faqQ3.innerText = `Q. 비용은 언제 안내받을 수 있나요?`;
+            faqQ3.nextElementSibling.innerText = `현장 상태와 작업 범위를 확인한 뒤 전화 상담에서 예상 범위를 안내합니다. 무리하게 정해진 금액을 제시하기보다 필요한 범위를 먼저 확인합니다.`;
+        }
+        if (faqQ4) {
+            faqQ4.innerText = `Q. 작업 전 준비해야 할 것이 있나요?`;
+            faqQ4.nextElementSibling.innerText = `가능하다면 작업 위치, 면적, 오염 상태, 출입 가능 시간 정도를 알려주시면 상담이 빨라집니다. 현장 상황에 따라 별도 준비가 필요 없는 경우도 있습니다.`;
+        }
+        if (faqQ5) {
+            faqQ5.innerText = `Q. 야간이나 주말 작업도 가능한가요?`;
+            faqQ5.nextElementSibling.innerText = `작업 종류와 지역, 일정에 따라 야간·주말 작업 가능 여부를 확인합니다. 상담 시 희망 일정을 함께 알려주시면 조율 가능 여부를 안내합니다.`;
         }
     }
 

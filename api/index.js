@@ -266,13 +266,22 @@ module.exports = (req, res) => {
 
     // 21. FAQ 치환
     if (taskData.faq && taskData.faq.length >= 3) {
-        const q1Text = "전화 상담 시 무엇을 먼저 알려드리면 되나요?";
         const specialKeyword = faqSpecialKeywordMap[displayTask] || faqSpecialKeywordMap["종합청소"];
-        const a1Text = `${displayLoc} ${displayTask}이(가) 필요하다면 지역, 공간 규모, ${specialKeyword} 상태를 알려주시면 작업 가능 여부부터 안내합니다.`;
-        const q2Text = getDesc(taskData.faq[1].q);
-        const a2Text = getDesc(taskData.faq[1].a);
-        const q3Text = "비용은 언제 안내받을 수 있나요?";
-        const a3Text = "현장 상태와 작업 범위를 확인한 뒤 전화 상담에서 예상 범위를 안내합니다.";
+        
+        const q1Text = `${displayLoc} ${displayTask} 상담 시 무엇을 먼저 알려드리면 되나요?`;
+        const a1Text = `지역, 공간 규모, ${specialKeyword} 상태를 알려주시면 작업 가능 여부부터 안내합니다. 정확히 설명하지 않으셔도 상담 중 필요한 내용을 순서대로 확인합니다.`;
+        
+        const q2Text = `원하는 청소 작업이 가능한지 어떻게 확인하나요?`;
+        const a2Text = `외벽, 유리창, 바닥, 준공, 후드, 특수청소 등 작업 종류와 현장 상태를 기준으로 가능 여부를 확인합니다. 필요한 경우 사진이나 현장 조건을 추가로 확인할 수 있습니다.`;
+        
+        const q3Text = `비용은 언제 안내받을 수 있나요?`;
+        const a3Text = `현장 상태와 작업 범위를 확인한 뒤 전화 상담에서 예상 범위를 안내합니다. 무리하게 정해진 금액을 제시하기보다 필요한 범위를 먼저 확인합니다.`;
+
+        const q4Text = `작업 전 준비해야 할 것이 있나요?`;
+        const a4Text = `가능하다면 작업 위치, 면적, 오염 상태, 출입 가능 시간 정도를 알려주시면 상담이 빨라집니다. 현장 상황에 따라 별도 준비가 필요 없는 경우도 있습니다.`;
+
+        const q5Text = `야간이나 주말 작업도 가능한가요?`;
+        const a5Text = `작업 종류와 지역, 일정에 따라 야간·주말 작업 가능 여부를 확인합니다. 상담 시 희망 일정을 함께 알려주시면 조율 가능 여부를 안내합니다.`;
 
         html = html.replace(/<summary id="faq-q1">[\s\S]*?<\/summary>(\s*)<div class="faq-answer">[\s\S]*?<\/div>/i, 
             `<summary id="faq-q1">Q. ${q1Text}</summary>$1<div class="faq-answer">\n                            ${a1Text}\n                        </div>`);
@@ -282,6 +291,12 @@ module.exports = (req, res) => {
 
         html = html.replace(/<summary id="faq-q3">[\s\S]*?<\/summary>(\s*)<div class="faq-answer">[\s\S]*?<\/div>/i, 
             `<summary id="faq-q3">Q. ${q3Text}</summary>$1<div class="faq-answer">\n                            ${a3Text}\n                        </div>`);
+
+        html = html.replace(/<summary id="faq-q4">[\s\S]*?<\/summary>(\s*)<div class="faq-answer">[\s\S]*?<\/div>/i, 
+            `<summary id="faq-q4">Q. ${q4Text}</summary>$1<div class="faq-answer">\n                            ${a4Text}\n                        </div>`);
+
+        html = html.replace(/<summary id="faq-q5">[\s\S]*?<\/summary>(\s*)<div class="faq-answer">[\s\S]*?<\/div>/i, 
+            `<summary id="faq-q5">Q. ${q5Text}</summary>$1<div class="faq-answer">\n                            ${a5Text}\n                        </div>`);
     }
 
     // 22. Footer 관련 링크 치환
