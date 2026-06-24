@@ -3,7 +3,7 @@ const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
 const { GYEONGGI_REGIONS } = require('../js/data/regions-gyeonggi.js');
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cleanforme.co.kr';
 
 // 12 core services (종합청소 제외)
 const coreServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleaning');

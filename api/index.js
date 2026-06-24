@@ -28,7 +28,7 @@ module.exports = (req, res) => {
 
     if (!keywordRaw) {
         // k 값이 없으면 원본 index.html 에 canonical 과 og:url 을 원본 기준으로 추가하여 응답합니다.
-        const host = req.headers.host || 'seoul-clening-03.vercel.app';
+        const host = req.headers.host || 'www.cleanforme.co.kr';
         const protocol = req.headers['x-forwarded-proto'] || 'https';
         const canonicalUrl = `${protocol}://${host}/`;
         
@@ -92,7 +92,7 @@ module.exports = (req, res) => {
         return batchim === 0 ? '가' : '이';
     }
 
-    const host = req.headers.host || 'seoul-clening-03.vercel.app';
+    const host = req.headers.host || 'www.cleanforme.co.kr';
     const protocol = req.headers['x-forwarded-proto'] || 'https';
     const canonicalUrl = `${protocol}://${host}/?k=${encodeURIComponent(loc + '-' + taskPart.replace(/\s+/g, ''))}`;
 

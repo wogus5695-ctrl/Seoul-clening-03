@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>클린폼 종합청소</title>
-    <link>https://seoul-clening-03.vercel.app</link>
+    <link>https://www.cleanforme.co.kr</link>
     <description>수도권 전역 외벽청소, 유리창청소, 특수청소 전문 클린폼</description>
     <language>ko</language>
     <lastBuildDate>Wed, 24 Jun 2026 07:48:59 GMT</lastBuildDate>
-    <atom:link href="https://seoul-clening-03.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.cleanforme.co.kr/rss.xml" rel="self" type="application/rss+xml"/>
     
     <item>
       <title>클린폼 홈</title>
-      <link>https://seoul-clening-03.vercel.app/</link>
+      <link>https://www.cleanforme.co.kr/</link>
       <description>수도권 종합청소 전문 클린폼 메인페이지</description>
       <pubDate>Wed, 24 Jun 2026 07:48:59 GMT</pubDate>
-      <guid isPermaLink="true">https://seoul-clening-03.vercel.app/</guid>
+      <guid isPermaLink="true">https://www.cleanforme.co.kr/</guid>
     </item>
     <item>
       <title>클린폼 서비스 지역 및 작업 안내</title>
-      <link>https://seoul-clening-03.vercel.app/seo-hub.html</link>
+      <link>https://www.cleanforme.co.kr/seo-hub.html</link>
       <description>클린폼의 전체 서비스 지역과 작업 항목을 확인할 수 있는 SEO 허브입니다.</description>
       <pubDate>Wed, 24 Jun 2026 07:48:59 GMT</pubDate>
-      <guid isPermaLink="true">https://seoul-clening-03.vercel.app/seo-hub.html</guid>
+      <guid isPermaLink="true">https://www.cleanforme.co.kr/seo-hub.html</guid>
     </item>
   </channel>
 </rss>

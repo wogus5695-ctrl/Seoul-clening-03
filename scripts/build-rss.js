@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://seoul-clening-03.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cleanforme.co.kr';
 const NOW = new Date().toUTCString();
 
 const rssContent = `<?xml version="1.0" encoding="UTF-8" ?>
