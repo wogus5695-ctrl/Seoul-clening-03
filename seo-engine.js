@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // FAQ 데이터는 SERVICES_DATA의 각 서비스별 faq 배열을 동적으로 참조하여 getDesc 헬퍼로 치환하므로 하드코딩 맵을 사용하지 않습니다.
         // 4. 변환 텍스트 셋업 (명시적 SEO 템플릿 적용)
     const titleStr = `${displayLoc} ${displayTask} 전문 클린폼 | ${displayLoc} ${displayTask} 견적 상담`;
-    const descStr = `${displayLoc} ${displayTask}이 필요하다면 클린폼에서 현장 상태, 오염도, 면적 기준으로 작업 가능 여부와 견적 범위를 안내합니다. ${displayLoc} ${displayTask} 상담 가능.`;
+    const descStr = `${displayLoc}에서 ${displayTask}가 필요하다면 클린폼에서 현장 상태, 오염도, 면적 기준으로 작업 가능 여부와 견적 범위를 안내합니다. ${displayLoc} ${displayTask} 상담 가능.`;
     const h1Str = `${displayLoc} ${displayTask} 전문 클린폼`;
     
     // Subtitle & First Paragraph Text

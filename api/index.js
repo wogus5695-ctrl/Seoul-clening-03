@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     }
     // 1. URLSearchParams 또는 req.query.k 로 k 값을 가져옵니다.
     // Vercel Serverless Function 에서는 req.query.k 로 query parameter에 직접 접근할 수 있습니다.
-    const keywordRaw = req.query.k || '';
+    const keywordRaw = (req.query && req.query.k) || '';
     
     // template.html 파일을 동적으로 읽습니다.
     const htmlPath = path.join(process.cwd(), 'template.html');
@@ -152,7 +152,7 @@ module.exports = (req, res) => {
         "외벽청소": "{loc} {task}는 외벽 오염, 물때, 이끼처럼 직접 닦기 어려운 구역을 깨끗하게 관리하고 건물 노후화를 방지하기 위해 현장 상태에 맞는 전문 장비 구성과 세척을 적용합니다.",
         "유리창청소": "{loc} {task}는 오래된 물때, 유막, 매연 얼룩처럼 직접 닦기 어려운 고층 건물 및 상가의 외부 유리를 전문 세정제와 정밀 스퀴지 작업으로 맑게 복원해 드립니다.",
         "준공청소": "{loc} {task}는 신축·공사 현장의 거친 먼지, 시멘트 가루, 창틀 오염을 입주 및 인도 전에 확인하여 깨끗하게 정돈하는 마감 작업입니다.",
-        "후드청소": "{loc} {task}는 식당 주방 후드 내부에 단단히 굳어버린 유증기 기름때와 악취를 용해하여 화재 위험을 예방하고 위생 기준을 완벽히 충족하는 위생 관리 공정입니다.",
+        "후드청소": "{loc} {task}는 식당 주방 후드 내부에 단단히 굳어버린 유증기 기름때와 악취를 용해하여 화재 위험을 예방하고 필요한 범위를 확인해 단계적으로 관리하는 위생 관리 공정입니다.",
         "화재청소": "{loc} {task}는 화재로 인해 실내 구조물에 흡착된 매캐한 그을음 분진과 유독 탄 냄새를 특수 화학적 중화제 및 오존 장비로 복구하는 긴급 대응 서비스입니다.",
         "쓰레기집청소": "{loc} {task}는 대량의 폐기물과 음식물 오물로 악취와 해충이 발생한 공간을 철저한 프라이버시 보호 아래 포장 반출부터 고강도 방역 살균까지 종합 정리합니다.",
         "바닥청소": "{loc} {task}는 매장이나 사무실 바닥의 묵은 유분기, 찌든 발자국, 타이어 자국 등을 바닥재 특성에 알맞은 기계 세척(돌돌이 등)으로 제거하여 쾌적한 보행 환경을 만듭니다.",
@@ -167,7 +167,7 @@ module.exports = (req, res) => {
     // FAQ 데이터는 SERVICES_DATA의 각 서비스별 faq 배열을 동적으로 참조하여 getDesc 헬퍼로 치환하므로 하드코딩 맵을 사용하지 않습니다.
 
     const titleStr = `${displayLoc} ${displayTask} 전문 클린폼 | ${displayLoc} ${displayTask} 견적 상담`;
-    const descStr = `${displayLoc} ${displayTask}이 필요하다면 클린폼에서 현장 상태, 오염도, 면적 기준으로 작업 가능 여부와 견적 범위를 안내합니다. ${displayLoc} ${displayTask} 상담 가능.`;
+    const descStr = `${displayLoc}에서 ${displayTask}가 필요하다면 클린폼에서 현장 상태, 오염도, 면적 기준으로 작업 가능 여부와 견적 범위를 안내합니다. ${displayLoc} ${displayTask} 상담 가능.`;
     const h1Str = `${displayLoc} ${displayTask} 전문 클린폼`;
 
     const getDesc = (tmpl) => {
@@ -255,7 +255,7 @@ module.exports = (req, res) => {
     html = html.replace(/<h2 id="process-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="process-heading" class="section-title text-center">상담부터 작업 확인까지</h2>`);
 
     // 18. mid-cta-text 치환
-    html = html.replace(/<p id="mid-cta-text">([\s\S]*?)<\/p>/i, `<p id="mid-cta-text">정확히 설명하지 않으셔도 됩니다. 지역과 청소 종류만 말씀해주시면 즉시 확인해 드립니다.<br>전화로 작업 가능 여부를 빠르게 안내받으세요.</p>`);
+    html = html.replace(/<p id="mid-cta-text">([\s\S]*?)<\/p>/i, `<p id="mid-cta-text">정확히 설명하지 않으셔도 됩니다. 지역과 청소 종류만 말씀해주시면 상담 중 확인해 드립니다.<br>전화로 작업 가능 여부를 빠르게 안내받으세요.</p>`);
 
     // 19. pc-cta-btn 치환
     const fullCtaText = `${displayLoc} ${displayTask} 전화 상담 바로 연결`;
