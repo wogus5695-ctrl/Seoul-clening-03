@@ -117,19 +117,19 @@ module.exports = (req, res) => {
     };
 
     const needDescTemplate = {
-        "외벽청소": "{loc}에서 {task}는 산성비 and 대기 먼지로 노후화된 건물 외벽면을 세척하여 본연의 깨끗함을 회복하고, 장기적인 자산 가치 유지를 위해 필수적입니다.",
-        "유리창청소": "{loc}에서 {task}는 상가와 사무실 내부로 드는 햇빛을 차단하는 유리창의 묵은 물때와 매연을 맑게 세정하여 투명한 전망을 선사합니다.",
-        "준공청소": "{loc}에서 {task}는 신축 건물의 인도를 앞두고 거친 자갈과 공사용 쓰레기를 수거하며 미세 분진을 청소하는 최종 마감 단계입니다.",
-        "후드청소": "{loc}에서 {task}는 식당 주방의 화재 위험을 예방하고 보건소 위생 점검 기준을 충족하기 위한 후드 갓 내부의 단단한 유지분 제거 작업입니다.",
-        "화재청소": "{loc}에서 {task}는 화재로 인해 흡착된 해로운 그을음 탄소 가루를 정화하고, 구조체에 밴 매연 냄새를 저감하여 일상 복귀를 돕는 작업입니다.",
-        "쓰레기집청소": "{loc}에서 {task}는 대량의 쓰레기와 음식물 오물로 초파리 및 악취가 발생한 거주 공간을 프라이버시 보호 하에 신속하고 깨끗하게 복구하는 청소입니다.",
-        "바닥청소": "{loc}에서 {task}는 상가 바닥의 누적 오염이나 공장의 유분 얼룩을 재질 맞춤형 세척 장비(돌돌이 등)를 가동하여 말끔히 제거하는 전문 세척입니다.",
-        "바닥왁스코팅": "{loc}에서 {task}는 데코타일 등 바닥재에 미세 스크래치와 변색이 생기지 않도록 보호막을 씌워 오염 방지와 손쉬운 관리를 제공합니다.",
-        "어닝청소": "{loc}에서 {task}는 매장 외관의 첫인상을 좌우하는 어닝 천막 원단의 매연 먼지와 곰팡이 포자를 원단 훼손 없이 불려내는 스팀 클리닝입니다.",
-        "간판청소": "{loc}에서 {task}는 브랜드 얼굴인 간판 외관과 채널 글자 틈새에 쌓인 오염을 고소작업 장비로 안전하게 정밀 세정하여 가독성을 높입니다.",
-        "인테리어 후 청소": "{loc}에서 {task}는 실내 공사 후 눈에 보이지 않는 경첩 틈새, 서랍 밑바닥에 가라앉은 초미세 시멘트 톱밥 가루를 정밀 제거하는 청소입니다.",
-        "특수청소": "{loc}에서 {task}는 일반 물청소로 지워지지 않는 동물 대소변 냄새, 침수 피해 뻘흙, 혈흔 등 고난도 오염원을 위생 소독하는 특수 대응 작업입니다.",
-        "종합청소": "{loc}에서 {task}는 다양한 복합 오염 구역을 효율적으로 정돈하기 위해, 구조물의 특성과 고객님의 요구 사양에 맞춰 토탈 케어를 적용하는 맞춤형 클리닝입니다."
+        "외벽청소": "외벽 오염, 물때, 이끼처럼 접근이 어려운 구역은 건물 노후화를 방지하고 가치를 유지하기 위해 현장 상태에 맞는 전문 장비 구성과 세척이 필요합니다.",
+        "유리창청소": "유리창의 오래된 물때, 유막, 매연 얼룩처럼 직접 닦기 어려운 외부 유리는 안전 장비를 갖춘 전문가의 정밀 세정 및 스퀴지 작업이 필요합니다.",
+        "준공청소": "신축·공사 현장의 시멘트 가루, 창틀 먼지, 마감 오염은 입주 전 공간의 청결도를 높이기 위해 꼼꼼한 분진 제거와 마감 확인이 필요합니다.",
+        "후드청소": "식당이나 급식실 주방 후드 내부의 누적된 기름때와 유증기 굳은 자국은 화재 위험을 방지하고 위생 검사 기준을 충족하기 위해 고온 스팀 분해 세척이 필요합니다.",
+        "화재청소": "화재로 인한 매캐한 그을음과 탄소 가루는 호흡기를 위협하므로 특수 진공 청소 및 화학적 탄 냄새 소독 공정이 신속하게 투입되어야 복구가 가능합니다.",
+        "쓰레기집청소": "방치 기간이 길어져 악취, 해충, 음식물 오염이 심한 주거 공간은 철저한 프라이버시 보호 하에 폐기물 신속 분류 수거와 고강도 소독을 진행해야 합니다.",
+        "바닥청소": "사무실이나 매장의 묵은 기름때, 찌든 발자국, 타이어 자국 등은 바닥재 맞춤 전용 세제와 정밀 회전 세척기를 활용해 세정해야 본연의 청결함을 회복합니다.",
+        "바닥왁스코팅": "데코타일이나 아스타일 표면의 스크래치와 찌든 때를 기계로 정밀 박리하고 새 수지 왁스를 입혀 오염 침투를 예방하고 일상 관리 편의성을 높여야 합니다.",
+        "어닝청소": "매장 어닝에 쌓인 매연 때, 먼지, 빗물 자국과 곰팡이는 원단 손상을 방지하기 위해 친환경 약품과 온수 스팀을 활용한 전문 클리닝이 필요합니다.",
+        "간판청소": "간판 틈새의 미세 먼지, 거미줄, 조류 분비물 등은 매장의 이미지를 저해하므로 스카이차 등 고소작업 장비로 안전하고 정교한 고압 약품 세척을 진행해야 합니다.",
+        "인테리어 후 청소": "공사 분진, 본드 자국, 도배 풀 흔적처럼 일반 청소로 해결되지 않고 서랍 내부나 경첩 틈새에 남기 쉬운 오염을 정밀 기기 작업으로 먼저 제거해야 합니다.",
+        "특수청소": "반려동물 다수 방치 오염, 혈흔, 침수 피해 뻘흙 등 악성 냄새와 세균 번식이 심한 극한의 구역은 바이러스 중화제와 소독 방역 공정이 필수적입니다.",
+        "종합청소": "공사 후 분진이 남아 있거나, 유리창·바닥·후드·외벽처럼 직접 청소하기 어려운 구역이 있다면 전문 장비 및 인력이 필요합니다."
     };
 
     // FAQ 데이터는 SERVICES_DATA의 각 서비스별 faq 배열을 동적으로 참조하여 getDesc 헬퍼로 치환하므로 하드코딩 맵을 사용하지 않습니다.
@@ -191,17 +191,16 @@ module.exports = (req, res) => {
     }
 
     // 11. need-situation-heading 치환
-    html = html.replace(/<h2 id="need-situation-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="need-situation-heading" class="section-title text-center">${displayLoc} ${displayTask}이 필요한 상황</h2>`);
+    html = html.replace(/<h2 id="need-situation-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="need-situation-heading" class="section-title text-center">이런 상황이라면 전문 청소가 필요합니다</h2>`);
 
     // 12. need-situation-desc 치환
     html = html.replace(/<p id="need-situation-desc">([\s\S]*?)<\/p>/i, `<p id="need-situation-desc">${needDesc}</p>`);
 
     // 13. pain-point-heading 치환
-    const painLocStr = displayLoc ? `${displayLoc} ` : `수도권 전 지역, `;
-    html = html.replace(/<h2 id="pain-point-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="pain-point-heading" class="section-title text-center">${painLocStr}청소 업체 선택 전 확인해야 할 3가지</h2>`);
+    html = html.replace(/<h2 id="pain-point-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="pain-point-heading" class="section-title text-center">업체 선택 전 확인할 3가지</h2>`);
 
     // 14. work-scope-heading 치환
-    html = html.replace(/<h2 id="work-scope-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="work-scope-heading" class="section-title text-center">${displayLoc} ${displayTask} 작업 범위</h2>`);
+    html = html.replace(/<h2 id="work-scope-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="work-scope-heading" class="section-title text-center">현장 상태에 맞춰 작업 범위를 정합니다</h2>`);
 
     // 15. work-scope-list 치환
     if (taskData.workScope) {
@@ -210,7 +209,7 @@ module.exports = (req, res) => {
     }
 
     // 16. possible-works-heading / possible-works-subtitle / highlight-task / marquee alt 치환
-    html = html.replace(/<h2 class="section-title text-center" id="possible-works-heading">([\s\S]*?)<\/h2>/i, `<h2 class="section-title text-center" id="possible-works-heading">${displayLoc}에서 가능한 청소 작업</h2>`);
+    html = html.replace(/<h2 class="section-title text-center" id="possible-works-heading">([\s\S]*?)<\/h2>/i, `<h2 class="section-title text-center" id="possible-works-heading">클린폼에서 상담 가능한 청소 작업</h2>`);
     
     const worksSubtitle = `${displayLoc} ${displayTask} 외에도 외벽, 유리창, 바닥, 준공, 후드, 특수청소 등 현장 상태에 맞춰 상담이 가능합니다.`;
     html = html.replace(/<p class="section-subtitle text-center" id="possible-works-subtitle">([\s\S]*?)<\/p>/i, `<p class="section-subtitle text-center" id="possible-works-subtitle">${worksSubtitle}</p>`);
@@ -224,10 +223,10 @@ module.exports = (req, res) => {
     html = html.replace(/data-base-alt="([^"]*)"\s+alt="[^"]*"/g, `data-base-alt="$1" alt="${displayLoc} $1"`);
 
     // 17. process-heading 치환
-    html = html.replace(/<h2 id="process-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="process-heading" class="section-title text-center">${displayLoc} ${displayTask} 케어 프로세스</h2>`);
+    html = html.replace(/<h2 id="process-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="process-heading" class="section-title text-center">상담부터 작업 확인까지</h2>`);
 
     // 18. mid-cta-text 치환
-    html = html.replace(/<p id="mid-cta-text">([\s\S]*?)<\/p>/i, `<p id="mid-cta-text">${displayLoc} ${displayTask} 견적 상담<br>오염도와 면적에 따라 투명하게 산정되는 맞춤 견적</p>`);
+    html = html.replace(/<p id="mid-cta-text">([\s\S]*?)<\/p>/i, `<p id="mid-cta-text">전화로 작업 가능 여부를 확인하세요<br>오염도와 면적에 따라 투명하게 산정되는 맞춤 견적</p>`);
 
     // 19. pc-cta-btn 치환
     const fullCtaText = `${displayLoc} ${displayTask} 전화 상담 바로 연결`;
@@ -238,12 +237,12 @@ module.exports = (req, res) => {
 
     // 21. FAQ 치환
     if (taskData.faq && taskData.faq.length >= 3) {
-        const q1Text = getDesc(taskData.faq[0].q);
-        const a1Text = getDesc(taskData.faq[0].a);
-        const q2Text = getDesc(taskData.faq[1].q);
-        const a2Text = getDesc(taskData.faq[1].a);
-        const q3Text = getDesc(taskData.faq[2].q);
-        const a3Text = getDesc(taskData.faq[2].a);
+        const q1Text = "전화 상담 시 무엇을 먼저 알려드리면 되나요?";
+        const a1Text = "지역, 필요한 청소 종류, 대략적인 면적이나 현장 상태를 알려주시면 작업 가능 여부부터 안내합니다.";
+        const q2Text = `${displayLoc} ${displayTask} 비용은 어떻게 결정되나요?`;
+        const a2Text = "비용은 면적, 현장 상태, 작업 범위에 따라 달라질 수 있으며 전화 상담 시 예상 범위를 안내합니다.";
+        const q3Text = getDesc(taskData.faq[1].q);
+        const a3Text = getDesc(taskData.faq[1].a);
 
         html = html.replace(/<summary id="faq-q1">[\s\S]*?<\/summary>(\s*)<div class="faq-answer">[\s\S]*?<\/div>/i, 
             `<summary id="faq-q1">Q. ${q1Text}</summary>$1<div class="faq-answer">\n                            ${a1Text}\n                        </div>`);
