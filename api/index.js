@@ -7,8 +7,8 @@ module.exports = (req, res) => {
     // 최종 응답 전송 헬퍼 (연락처 치환 일원화)
     function sendHtml(htmlContent) {
         if (SITE_CONFIG && SITE_CONFIG.CONTACT_PHONE) {
-            htmlContent = htmlContent.replace(/href="tel:1588-0000"/g, "href=\"tel:" + SITE_CONFIG.CONTACT_PHONE + "\"");
-            htmlContent = htmlContent.replace(/1588-0000/g, SITE_CONFIG.CONTACT_PHONE);
+            htmlContent = htmlContent.replace(/href="tel:010-8189-6900"/g, "href=\"tel:" + SITE_CONFIG.CONTACT_PHONE + "\"");
+            htmlContent = htmlContent.replace(/010-8189-6900/g, SITE_CONFIG.CONTACT_PHONE);
         }
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         return res.status(200).send(htmlContent);
