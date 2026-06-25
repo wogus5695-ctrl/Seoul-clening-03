@@ -833,12 +833,16 @@ a {
     top: 20px;
     background-color: rgba(238, 247, 248, 0.85); /* var(--color-bg-helper) 기반 반투명 */
     border: 2px solid rgba(0, 207, 232, 0.3);
+    padding-right: 45px;
+    padding-bottom: 45px;
 }
 .venn-circle.circle-2 {
     right: 20px;
     top: 20px;
     background-color: rgba(238, 247, 248, 0.85);
     border: 2px solid rgba(8, 145, 163, 0.3);
+    padding-left: 45px;
+    padding-bottom: 45px;
 }
 .venn-circle.circle-3 {
     left: 50%;
@@ -846,6 +850,7 @@ a {
     transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid rgba(0, 207, 232, 0.2);
+    padding-top: 55px;
 }
 
 .venn-circle:hover {
