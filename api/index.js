@@ -3,6 +3,92 @@ const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
 const { SITE_CONFIG } = require('../js/config.js');
 
+function getRegionContext(loc, task) {
+    function getTopicMarker(str) {
+        if (!str) return '는';
+        const lastChar = str.charAt(str.length - 1);
+        const code = lastChar.charCodeAt(0);
+        if (code < 0xAC00 || code > 0xD7A3) return '는';
+        const batchim = (code - 0xAC00) % 28;
+        return batchim === 0 ? '는' : '은';
+    }
+
+    function getObjectMarker(str) {
+        if (!str) return '를';
+        const lastChar = str.charAt(str.length - 1);
+        const code = lastChar.charCodeAt(0);
+        if (code < 0xAC00 || code > 0xD7A3) return '를';
+        const batchim = (code - 0xAC00) % 28;
+        return batchim === 0 ? '를' : '을';
+    }
+
+    const topicMarker = getTopicMarker(loc);
+    const locTopic = loc + topicMarker;
+    
+    let regionKey = 'default';
+    
+    const bundangDongs = ["분당동", "수내동", "정자동", "율동", "서현동", "이매동", "야탑동", "금곡동", "궁내동", "동원동", "구미동", "판교동", "삼평동", "백현동", "운중동", "대장동", "석운동", "하산운동"];
+    const sujeongDongs = ["신흥동", "태평동", "수진동", "단대동", "산성동", "양지동", "복정동", "창곡동", "신촌동", "오야동", "심곡동", "고등동", "상적동", "둔전동", "시흥동", "금토동", "사송동"];
+    const jungwonDongs = ["성남동", "중앙동", "금광동", "은행동", "상대원동", "하대원동", "여수동", "도촌동", "갈현동"];
+    const janganDongs = ["파장동", "이목동", "율전동", "천천동", "정자동", "영화동", "송죽동", "조원동", "연무동", "상광교동", "하광교동"];
+    const gwonseonDongs = ["세류동", "평동", "고색동", "오목천동", "평리동", "서둔동", "탑동", "구운동", "금곡동", "호매실동", "권선동", "장지동", "대황교동", "곡반정동", "입북동", "당수동"];
+    const paldalDongs = ["팔달로1가", "팔달로2가", "팔달로3가", "남창동", "영동", "중동", "구천동", "남수동", "매향동", "북수동", "신풍동", "장안동", "교동", "매교동", "매산로1가", "매산로2가", "매산로3가", "고등동", "화서동", "지동", "우만동", "인계동"];
+    const yeongtongDongs = ["매탄동", "원천동", "이의동", "하동", "영통동", "신동", "망포동", "광교동"];
+    const gwacheonDongs = ["중앙동", "갈현동", "원문동", "별양동", "부림동", "과천동", "문원동", "관문동", "막계동", "주암동"];
+    
+    function locationMatch(l, arr) {
+        return arr.some(x => l.includes(x) || x.includes(l));
+    }
+    
+    if (loc.includes('분당') || bundangDongs.includes(loc)) {
+        regionKey = 'bundang';
+    } else if (loc.includes('수정') || loc.includes('복정') || loc.includes('창곡') || loc.includes('고등') || loc.includes('산성') || loc.includes('태평') || loc.includes('신흥') || loc.includes('위례') || locationMatch(loc, sujeongDongs)) {
+        regionKey = 'sujeong';
+    } else if (loc.includes('중원') || locationMatch(loc, jungwonDongs)) {
+        regionKey = 'jungwon';
+    } else if (loc.includes('성남')) {
+        regionKey = 'seongnam';
+    } else if (loc.includes('장안') || locationMatch(loc, janganDongs)) {
+        regionKey = 'jangan';
+    } else if (loc.includes('권선') || locationMatch(loc, gwonseonDongs)) {
+        regionKey = 'gwonseon';
+    } else if (loc.includes('팔달') || locationMatch(loc, paldalDongs)) {
+        regionKey = 'paldal';
+    } else if (loc.includes('영통') || locationMatch(loc, yeongtongDongs)) {
+        regionKey = 'yeongtong';
+    } else if (loc.includes('수원')) {
+        regionKey = 'suwon';
+    } else if (loc.includes('과천') || locationMatch(loc, gwacheonDongs)) {
+        regionKey = 'gwacheon';
+    }
+    
+    const templates = {
+        seongnam: `${locTopic} 분당·수정·중원 생활권을 포함하는 지역으로 상가, 업무용 건물, 주거형 건물의 청소 수요가 함께 발생하며 각 건축물의 자재와 관리 이력에 따른 맞춤 처방이 중요합니다. 클린폼은 풍부한 임상 경험을 가진 전문 기사들이 직접 현장을 방문하여 용도에 최적화된 특수 약품과 세척 공정을 설계해 ${task}${getObjectMarker(task)} 완성합니다.`,
+        
+        bundang: `${locTopic} 대형 오피스 빌딩, 밀집 상가 상권, 요식업종, 학원가 및 의료시설처럼 청결 이미지 유지가 영업과 직결되어 정밀하고 수준 높은 위생 관리가 핵심인 공간들이 밀집해 있습니다. 클린폼은 공간 고유의 동선과 통행 시간대를 종합적으로 고려하여 고객이나 근무자에게 불편을 주지 않는 체계적인 무소음/야간 ${task} 공정을 수행합니다.`,
+        
+        sujeong: `${locTopic} 오랜 기간 자리를 지켜온 전통적 상가, 다가구 주거형 빌라, 그리고 연식이 다소 오래되어 복원 세정이 요구되는 건축물이 많아 찌든 물때나 외벽 노후화 관리가 시급합니다. 클린폼은 건축 원장재가 손상되거나 변색되지 않도록 표면 오염 특성을 꼼꼼하게 감별한 뒤 맞춤형 완화 약제와 저압 클리닝 기법으로 안전하게 ${task}${getObjectMarker(task)} 처리합니다.`,
+        
+        jungwon: `${locTopic} 활발한 상업지구와 아파트 주거 밀집 구역, 그리고 공장 및 물류 시설이 밀집한 산업용 공간이 넓게 포괄되어 공장형 바닥 오염, 식당 후드 기름때 제거 등의 복합적인 청소 작업이 이루어집니다. 클린폼은 각 작업 공간의 용도와 면적, 고압수 세척 요건을 면밀히 충족시키며 안전 가이드라인에 맞추어 전문적인 ${task}${getObjectMarker(task)} 완성합니다.`,
+        
+        gwacheon: `${locTopic} 저층 위주의 조용한 상가 건물, 공공기관 및 주요 행정 업무시설, 주거지 주변의 상업 시설들이 조화롭게 있어 쾌적한 가시성과 청결한 건물 외관 유지를 위한 상시 관리가 주로 선호됩니다. 클린폼은 보행자와 방문객의 통행 동선을 차단하고 친환경 세제를 사용하여 건물과 환경에 해가 가지 않도록 정교하게 ${task}${getObjectMarker(task)} 제공합니다.`,
+        
+        suwon: `${locTopic} 장안·권선·팔달·영통 생활권을 축으로 다양한 오피스텔 단지, 근린 상가 빌딩, 프랜차이즈 매장 및 학원 등 생활 밀착형 상업시설의 정밀 위생 케어가 필수적입니다. 클린폼은 현장 구조, 창문 접근 형태, 묵은 오염의 깊이를 꼼꼼하게 실사 기준으로 판단하여 가장 효율적인 공정과 견적 범위로 ${task}${getObjectMarker(task)} 진행합니다.`,
+        
+        jangan: `${locTopic} 유서 깊은 전통 상권과 학교, 주택가가 결합된 구도심 지역으로 건물의 창문 물때와 빗물 자국, 매장 본드 및 페인트 흔적 등 복잡하게 얽힌 세정 케어 요구가 꾸준히 이어집니다. 클린폼은 축적된 자재 복원 노하우를 바탕으로 낡고 취약해진 마감 틈새까지 정성을 다해 안전하게 찌든 때를 분해하여 ${task}${getObjectMarker(task)} 마무리합니다.`,
+        
+        gwonseon: `${locTopic} 대형 마트 및 유통점, 대규모 아파트형 공장, 창고형 물류 공간 등 산업 인접 구역이 조화되어 넓은 기계식 바닥 물청소나 고온 유증기 기름때 분해 세정이 주로 요청됩니다. 클린폼은 찌든 오일과 먼지가 누적된 고착층을 불려내어 용해하는 특수 연화제 세정을 투입해 바닥 미끄러움과 화재 요인을 동시에 해소하는 ${task}${getObjectMarker(task)} 시공합니다.`,
+        
+        paldal: `${locTopic} 대규모 재래시장과 번화한 역세권 중심가로서 유동 인구가 상시 많으므로 고객들의 첫 시선이 머무는 외부 쇼윈도 유리창, 선명한 전면 간판, 입구 대리석 등의 청결도가 매우 중요합니다. 클린폼은 혼잡한 낮 시간을 피해 심야 또는 이른 새벽 작업을 최적 조율하여 유동 인구의 영업 방해를 완전히 통제하고 선명한 ${task} 결과를 선사합니다.`,
+        
+        yeongtong: `${locTopic} 정보기술(IT) 테크노 밸리 오피스 단지, 고급 입시 학원가, 브랜드 프랜차이즈, 대형 병원 등 위생 등급과 청결 점검 기준이 엄격하게 관리되는 최신형 다목적 공간들이 많습니다. 클린폼은 미세 분진과 도배 풀을 완벽 청소하는 준공 작업부터, 타일 보존력을 극대화하는 왁스 코팅까지 하자 없는 디테일 ${task}${getObjectMarker(task)} 보장합니다.`,
+        
+        default: `${locTopic} 지역의 고유한 현장 구조와 오염물 축적 수준, 작업 높이에 맞춤형으로 청소 방식을 조합하여 제공하고 있습니다. 클린폼은 오염의 종류와 자재 특성을 정확히 분석하여 안전하고 차별화된 ${task} 공정을 조율합니다.`
+    };
+    
+    return templates[regionKey] || templates.default;
+}
+
 module.exports = (req, res) => {
     // 최종 응답 전송 헬퍼 (연락처 치환 일원화)
     function sendHtml(htmlContent) {
@@ -228,6 +314,10 @@ module.exports = (req, res) => {
 
     // 12. need-situation-desc 치환
     html = html.replace(/<p id="need-situation-desc">([\s\S]*?)<\/p>/i, `<p id="need-situation-desc">${needDesc}</p>`);
+
+    // 12-2. region-context-desc 치환
+    const regionParagraph = getRegionContext(displayLoc, displayTask);
+    html = html.replace(/<p id="region-context-desc"[^>]*>([\s\S]*?)<\/p>/i, `<p id="region-context-desc" data-seo="target" class="region-context-desc" style="margin-top: 20px; font-weight: 500; font-size: 1.05rem; color: #4B5563; max-width: 850px; margin-left: auto; margin-right: auto; line-height: 1.8; word-break: keep-all;">${regionParagraph}</p>`);
 
     // 13. pain-point-heading 치환
     html = html.replace(/<h2 id="pain-point-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="pain-point-heading" class="section-title text-center">업체 선택 전 확인할 3가지</h2>`);
