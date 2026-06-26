@@ -10,6 +10,16 @@ const coreServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleani
 
 // Generate links array for sitemap
 const links = [];
+const seenUrls = new Set();
+
+function addLink(url) {
+    if (seenUrls.has(url)) {
+        return false;
+    }
+    seenUrls.add(url);
+    links.push({ url });
+    return true;
+}
 
 GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
@@ -17,7 +27,7 @@ GYEONGGI_REGIONS.forEach(region => {
         coreServices.forEach(s => {
             const urlTask = s.serviceNameKo.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
-            links.push({ url });
+            addLink(url);
         });
     });
 
@@ -28,7 +38,7 @@ GYEONGGI_REGIONS.forEach(region => {
                 coreServices.forEach(s => {
                     const urlTask = s.serviceNameKo.replace(/\s+/g, '');
                     const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
-                    links.push({ url });
+                    addLink(url);
                 });
             });
         });
@@ -54,7 +64,7 @@ GYEONGGI_REGIONS.forEach(region => {
         coreServices.forEach(s => {
             const urlTask = s.serviceNameKo.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
-            links.push({ url });
+            addLink(url);
         });
     });
 });
@@ -68,7 +78,7 @@ let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>${BASE_URL}/seo-hub.html</loc>
+        <loc>${BASE_URL}/seo-hub</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>

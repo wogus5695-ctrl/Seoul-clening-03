@@ -7,9 +7,17 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cleanforme.co.
 
 // 12 core services (종합청소 제외)
 const coreServices = SERVICES_DATA.filter(s => s.serviceSlug !== 'general-cleaning');
-
-// Generate links array
 const links = [];
+const seenUrls = new Set();
+
+function addLink(url, label, regionName) {
+    if (seenUrls.has(url)) {
+        return false;
+    }
+    seenUrls.add(url);
+    links.push({ url, label, regionName });
+    return true;
+}
 
 GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
@@ -17,7 +25,7 @@ GYEONGGI_REGIONS.forEach(region => {
         coreServices.forEach(s => {
             const urlTask = s.serviceNameKo.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
-            links.push({ url, label: `${cVar} ${s.serviceNameKo}`, regionName: region.city });
+            addLink(url, `${cVar} ${s.serviceNameKo}`, region.city);
         });
     });
 
@@ -28,33 +36,33 @@ GYEONGGI_REGIONS.forEach(region => {
                 coreServices.forEach(s => {
                     const urlTask = s.serviceNameKo.replace(/\s+/g, '');
                     const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
-                    links.push({ url, label: `${dVar} ${s.serviceNameKo}`, regionName: region.city });
+                    addLink(url, `${dVar} ${s.serviceNameKo}`, region.city);
                 });
             });
         });
     }
 
-    // 3. Dong level variants (For Sitemap, including Gwacheon's extraDongs)
-    let allDongsForSitemap = [];
+    // 3. Dong level variants (including Gwacheon's extraDongs)
+    let allDongs = [];
     if (region.districts && region.districts.length > 0) {
         region.districts.forEach(dist => {
-            allDongsForSitemap = allDongsForSitemap.concat(dist.dongs);
+            allDongs = allDongs.concat(dist.dongs);
         });
     }
     if (region.dongs && region.dongs.length > 0) {
-        allDongsForSitemap = allDongsForSitemap.concat(region.dongs);
+        allDongs = allDongs.concat(region.dongs);
     }
     if (region.extraDongs && region.extraDongs.length > 0) {
-        allDongsForSitemap = allDongsForSitemap.concat(region.extraDongs);
+        allDongs = allDongs.concat(region.extraDongs);
     }
 
-    const uniqueDongs = [...new Set(allDongsForSitemap)];
+    const uniqueDongs = [...new Set(allDongs)];
 
     uniqueDongs.forEach(dong => {
         coreServices.forEach(s => {
             const urlTask = s.serviceNameKo.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
-            links.push({ url, label: `${dong} ${s.serviceNameKo}`, regionName: region.city });
+            addLink(url, `${dong} ${s.serviceNameKo}`, region.city);
         });
     });
 });
@@ -218,8 +226,11 @@ let hubHtml = `<!DOCTYPE html>
 <body>
     <div class="container">
         <h1>클린폼 전체 서비스 네트워크</h1>
-        <p class="desc">성남·과천·수원 전 지역의 전문 청소 서비스를 제공합니다.</p>
+        <p class="desc">성남·과천·수원 지역을 중심으로 우선 상담 및 전문 청소 서비스를 제공합니다.</p>
 `;
+
+const renderedHtmlUrls = new Set();
+const seenDongs = new Set();
 
 GYEONGGI_REGIONS.forEach(region => {
     const cityName = region.cityVariants[0]; // 성남시
@@ -238,8 +249,17 @@ GYEONGGI_REGIONS.forEach(region => {
         const urlTask = s.serviceNameKo.replace(/\s+/g, '');
         const url1 = `/?k=${encodeURIComponent(cityName + '-' + urlTask)}`;
         const url2 = `/?k=${encodeURIComponent(cityShort + '-' + urlTask)}`;
-        hubHtml += `                <a href="${url1}">${cityName} ${s.serviceNameKo}</a>\n`;
-        hubHtml += `                <a href="${url2}">${cityShort} ${s.serviceNameKo}</a>\n`;
+        const absUrl1 = `${SITE_URL}${url1}`;
+        const absUrl2 = `${SITE_URL}${url2}`;
+
+        if (!renderedHtmlUrls.has(absUrl1)) {
+            renderedHtmlUrls.add(absUrl1);
+            hubHtml += `                <a href="${absUrl1}">${cityName} ${s.serviceNameKo}</a>\n`;
+        }
+        if (!renderedHtmlUrls.has(absUrl2)) {
+            renderedHtmlUrls.add(absUrl2);
+            hubHtml += `                <a href="${absUrl2}">${cityShort} ${s.serviceNameKo}</a>\n`;
+        }
     });
 
     hubHtml += `            </div>\n`;
@@ -259,8 +279,17 @@ GYEONGGI_REGIONS.forEach(region => {
                 const urlTask = s.serviceNameKo.replace(/\s+/g, '');
                 const url1 = `/?k=${encodeURIComponent(distName + '-' + urlTask)}`;
                 const url2 = `/?k=${encodeURIComponent(distShort + '-' + urlTask)}`;
-                hubHtml += `                    <a href="${url1}">${distName} ${s.serviceNameKo}</a>\n`;
-                hubHtml += `                    <a href="${url2}">${distShort} ${s.serviceNameKo}</a>\n`;
+                const absUrl1 = `${SITE_URL}${url1}`;
+                const absUrl2 = `${SITE_URL}${url2}`;
+
+                if (!renderedHtmlUrls.has(absUrl1)) {
+                    renderedHtmlUrls.add(absUrl1);
+                    hubHtml += `                    <a href="${absUrl1}">${distName} ${s.serviceNameKo}</a>\n`;
+                }
+                if (!renderedHtmlUrls.has(absUrl2)) {
+                    renderedHtmlUrls.add(absUrl2);
+                    hubHtml += `                    <a href="${absUrl2}">${distShort} ${s.serviceNameKo}</a>\n`;
+                }
             });
             hubHtml += `                </div>
             </details>\n`;
@@ -272,45 +301,53 @@ GYEONGGI_REGIONS.forEach(region => {
     const dongSectionNum = hasDistricts ? "3" : "2";
     hubHtml += `            <h3 class="category-title">${dongSectionNum}. ${region.city} 동 단위 청소 키워드</h3>\n`;
 
+    // Collect all dongs for this region to render in HTML
+    let localDongs = [];
     if (hasDistricts) {
         region.districts.forEach(dist => {
-            dist.dongs.forEach(dong => {
-                hubHtml += `            <details open>
-                <summary>${dong}</summary>
-                <div class="details-content">
-            `;
-                coreServices.forEach(s => {
-                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
-                    const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
-                    hubHtml += `                    <a href="${url}">${dong} ${s.serviceNameKo}</a>\n`;
-                });
-                hubHtml += `                </div>
-            </details>\n`;
-            });
+            localDongs = localDongs.concat(dist.dongs);
         });
     } else {
-        // 과chen (구가 없음, dongs만 존재)
-        region.dongs.forEach(dong => {
-            hubHtml += `            <details open>
+        if (region.dongs && region.dongs.length > 0) {
+            localDongs = localDongs.concat(region.dongs);
+        }
+        if (region.extraDongs && region.extraDongs.length > 0) {
+            localDongs = localDongs.concat(region.extraDongs);
+        }
+    }
+    const uniqueLocalDongs = [...new Set(localDongs)];
+
+    uniqueLocalDongs.forEach(dong => {
+        // Skip duplicate dongs completely to avoid duplicate accordion sections and links
+        if (seenDongs.has(dong)) {
+            return;
+        }
+        seenDongs.add(dong);
+
+        hubHtml += `            <details open>
                 <summary>${dong}</summary>
                 <div class="details-content">
             `;
-            coreServices.forEach(s => {
-                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
-                const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
-                hubHtml += `                    <a href="${url}">${dong} ${s.serviceNameKo}</a>\n`;
-            });
-            hubHtml += `                </div>
-            </details>\n`;
+        coreServices.forEach(s => {
+            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+            const absUrl = `${SITE_URL}${url}`;
+
+            if (!renderedHtmlUrls.has(absUrl)) {
+                renderedHtmlUrls.add(absUrl);
+                hubHtml += `                    <a href="${absUrl}">${dong} ${s.serviceNameKo}</a>\n`;
+            }
         });
-    }
+        hubHtml += `                </div>
+            </details>\n`;
+    });
 
     hubHtml += `        </section>\n`;
 });
 
 hubHtml += `
         <div style="text-align:center; margin-top: 50px;">
-            <a href="./index.html" class="back-link" style="display:inline-block; border-color:var(--accent); color:var(--accent);">메인으로 돌아가기</a>
+            <a href="${SITE_URL}/" class="back-link" style="display:inline-block; border-color:var(--accent); color:var(--accent);">메인으로 돌아가기</a>
         </div>
     </div>
 </body>
@@ -328,7 +365,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>${SITE_URL}/seo-hub.html</loc>
+        <loc>${SITE_URL}/seo-hub</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -352,4 +389,5 @@ Sitemap: ${SITE_URL}/sitemap.xml
 fs.writeFileSync(path.join(__dirname, '../robots.txt'), robotsTxt, 'utf8');
 
 console.log('SEO Hub and Sitemap generation complete.');
-console.log('Total Links Generated in seo-hub.html:', links.length);
+console.log('Total Links Generated in seo-hub.html (unique dynamic URLs):', renderedHtmlUrls.size);
+console.log('Total Links in links array:', links.length);

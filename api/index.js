@@ -43,7 +43,7 @@ module.exports = (req, res) => {
     // k 값 디코딩 및 파싱
     const keyword = decodeURIComponent(keywordRaw);
     const hyphenIndex = keyword.indexOf('-');
-    let loc = '수도권';
+    let loc = '성남·과천·수원';
     let taskPart = '종합청소';
 
     if (hyphenIndex !== -1) {
@@ -310,7 +310,7 @@ module.exports = (req, res) => {
         });
     });
 
-    const candidateLocs = ["성남", "과천", "수원", "안양", "용인", "고양", "인천", "분당"];
+    const candidateLocs = ["성남", "과천", "수원", "분당"];
     const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc && `${displayLoc}`.indexOf(l) === -1).slice(0, 3);
     selectedLocs.forEach(locVal => {
         linksList.push({

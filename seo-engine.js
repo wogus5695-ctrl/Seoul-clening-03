@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const taskPart = keyword.substring(hyphenIndex + 1).replace(/-/g, '').trim();
             taskName = taskMap[taskPart] || taskPart;
         } else {
-            loc = "수도권";
+            loc = "성남·과천·수원";
             taskName = keyword.trim();
         }
     }
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // 디폴트 텍스트 매핑 (빈 값이면 수도권 종합청소)
-    const displayLoc = loc || '수도권';
+    const displayLoc = loc || '성남·과천·수원';
     const displayTask = taskName || '종합청소';
     
     // 외부 매트릭스(js/data/services.js)에서 데이터 추출
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // 2. 3 key regions + current task
-        const candidateLocs = ["성남", "과천", "수원", "안양", "용인", "고양", "인천", "분당"];
+        const candidateLocs = ["성남", "과천", "수원", "분당"];
         const selectedLocs = candidateLocs.filter(l => l !== displayLoc && `${l}시` !== displayLoc && `${displayLoc}`.indexOf(l) === -1).slice(0, 3);
         selectedLocs.forEach(locVal => {
             linksList.push({
