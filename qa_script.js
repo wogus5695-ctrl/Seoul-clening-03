@@ -7,7 +7,7 @@ async function testUrl(urlStr) {
     const req = {
         url: urlStr,
         query: { k: kVal },
-        headers: { host: 'clean-forme.com', 'x-forwarded-proto': 'https' },
+        headers: { host: 'www.cleanforme.co.kr', 'x-forwarded-proto': 'https' },
         method: 'GET'
     };
     
@@ -27,15 +27,15 @@ async function testUrl(urlStr) {
 }
 
 async function runQA() {
-    const urls = [
-        '/?k=' + encodeURIComponent('판교동-인테리어후청소'),
-        '/?k=' + encodeURIComponent('판교동-준공청소'),
-        '/?k=' + encodeURIComponent('신흥동-외벽청소'),
-        '/?k=' + encodeURIComponent('영통동-후드청소'),
-        '/?k=' + encodeURIComponent('광교동-유리창청소')
+    const testUrls = [
+        '/',
+        '/?k=성남시-외벽청소',
+        '/?k=분당-유리창청소',
+        '/?k=수원시-준공청소',
+        '/?k=과천-후드청소'
     ];
 
-    for (let url of urls) {
+    for (let url of testUrls) {
         console.log(`\n============================`);
         console.log(`QA Testing: ${decodeURIComponent(url)}`);
         const { statusCode, html } = await testUrl(url);
@@ -56,6 +56,10 @@ async function runQA() {
         // canonical
         const canMatch = html.match(/<link[^>]*rel="canonical"[^>]*href="([\s\S]*?)"/i);
         console.log(`Canonical: ${canMatch ? canMatch[1].trim() : 'NOT FOUND'}`);
+
+        // robots
+        const robMatch = html.match(/<meta[^>]*name="robots"[^>]*content="([\s\S]*?)"/i);
+        console.log(`Robots: ${robMatch ? robMatch[1].trim() : 'NOT FOUND'}`);
 
         // PC CTA
         const pcCtaMatch = html.match(/<a href="tel:[^"]*" id="pc-cta-btn"[^>]*>([\s\S]*?)<\/a>/i);
