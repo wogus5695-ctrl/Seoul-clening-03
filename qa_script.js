@@ -58,7 +58,7 @@ async function runQA() {
         console.log(`Canonical: ${canMatch ? canMatch[1].trim() : 'NOT FOUND'}`);
 
         // PC CTA
-        const pcCtaMatch = html.match(/<a href="tel:" id="pc-cta-btn"[^>]*>([\s\S]*?)<\/a>/i);
+        const pcCtaMatch = html.match(/<a href="tel:[^"]*" id="pc-cta-btn"[^>]*>([\s\S]*?)<\/a>/i);
         console.log(`PC CTA: ${pcCtaMatch ? pcCtaMatch[1].trim() : 'NOT FOUND'}`);
 
         // Mo CTA

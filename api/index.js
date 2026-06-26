@@ -259,7 +259,7 @@ module.exports = (req, res) => {
 
     // 19. pc-cta-btn 치환
     const fullCtaText = `${displayLoc} ${displayTask} 전화 상담 바로 연결`;
-    html = html.replace(/<a href="tel:" id="pc-cta-btn"[^>]*>([\s\S]*?)<\/a>/i, `<a href="tel:" id="pc-cta-btn" class="btn-pc-cta phone-link" aria-label="${fullCtaText}" title="${fullCtaText}">전화 상담 바로 연결</a>`);
+    html = html.replace(/<a href="tel:[^"]*" id="pc-cta-btn"[^>]*>([\s\S]*?)<\/a>/i, `<a href="tel:010-8189-6900" id="pc-cta-btn" class="btn-pc-cta phone-link" aria-label="${fullCtaText}" title="${fullCtaText}">전화 상담 바로 연결</a>`);
 
     // 20. mo-cta-text 치환
     html = html.replace(/<span id="mo-cta-text" class="mo-cta-title">([\s\S]*?)<\/span>/i, `<span id="mo-cta-text" class="mo-cta-title">${displayLoc} ${displayTask} 상담</span>`);
