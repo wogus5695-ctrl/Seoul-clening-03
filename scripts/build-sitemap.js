@@ -25,7 +25,8 @@ GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
-            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
             addLink(url);
         });
@@ -36,7 +37,8 @@ GYEONGGI_REGIONS.forEach(region => {
         region.districts.forEach(dist => {
             dist.variants.forEach(dVar => {
                 coreServices.forEach(s => {
-                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                    const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+                    const urlTask = displayName.replace(/\s+/g, '');
                     const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
                     addLink(url);
                 });
@@ -62,7 +64,8 @@ GYEONGGI_REGIONS.forEach(region => {
 
     uniqueDongs.forEach(dong => {
         coreServices.forEach(s => {
-            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
             addLink(url);
         });

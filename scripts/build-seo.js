@@ -23,9 +23,10 @@ GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
         coreServices.forEach(s => {
-            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(cVar + '-' + urlTask)}`;
-            addLink(url, `${cVar} ${s.serviceNameKo}`, region.city);
+            addLink(url, `${cVar} ${displayName}`, region.city);
         });
     });
 
@@ -34,9 +35,10 @@ GYEONGGI_REGIONS.forEach(region => {
         region.districts.forEach(dist => {
             dist.variants.forEach(dVar => {
                 coreServices.forEach(s => {
-                    const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                    const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+                    const urlTask = displayName.replace(/\s+/g, '');
                     const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
-                    addLink(url, `${dVar} ${s.serviceNameKo}`, region.city);
+                    addLink(url, `${dVar} ${displayName}`, region.city);
                 });
             });
         });
@@ -60,9 +62,10 @@ GYEONGGI_REGIONS.forEach(region => {
 
     uniqueDongs.forEach(dong => {
         coreServices.forEach(s => {
-            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
-            addLink(url, `${dong} ${s.serviceNameKo}`, region.city);
+            addLink(url, `${dong} ${displayName}`, region.city);
         });
     });
 });
@@ -73,8 +76,8 @@ let hubHtml = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>클린폼 서비스 지역 및 작업 안내 (SEO Hub)</title>
-    <meta name="description" content="클린폼이 제공하는 성남·과천·수원 지역의 외벽청소, 유리창청소, 준공청소, 바닥청소, 특수청소 등 지역별 청소 서비스를 한눈에 확인할 수 있습니다.">
+    <title>클린폼 지역별 종합청소 키워드 허브</title>
+    <meta name="description" content="클린폼 SEO Hub는 성남·과천·수원 지역의 외벽청소, 유리창청소, 준공청소, 바닥청소, 후드청소 등 지역별 상담 페이지를 한 번에 확인할 수 있도록 구성한 페이지입니다.">
     <meta name="robots" content="index, follow">
     <style>
         :root {
@@ -225,8 +228,22 @@ let hubHtml = `<!DOCTYPE html>
 </head>
 <body>
     <div class="container">
-        <h1>클린폼 전체 서비스 네트워크</h1>
-        <p class="desc">성남·과천·수원 지역을 중심으로 우선 상담 및 전문 청소 서비스를 제공합니다.</p>
+        <h1>클린폼 지역별 종합청소 키워드 허브</h1>
+        <p class="desc">클린폼 SEO Hub는 성남·과천·수원 지역의 외벽청소, 유리창청소, 화재청소, 바닥왁스코팅, 바닥청소, 어닝청소, 간판청소, 준공청소, 인테리어청소, 후드청소 상담 페이지를 한 번에 확인할 수 있도록 구성한 통합 키워드 허브입니다.</p>
+        
+        <!-- 등록 지역 및 작업 목록 안내 박스 -->
+        <div style="background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--card-border); margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);">
+            <h2 style="margin-top: 0; font-size: 1.3rem; color: var(--accent-dark); border-bottom: 2px solid var(--accent); padding-bottom: 8px;">1. 서비스 대상 지역</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+                <strong>성남시</strong> (분당구 · 수정구 · 중원구) &nbsp;|&nbsp; 
+                <strong>과천시</strong> (갈현동 · 과천동 · 막계동 · 문원동 · 별양동 · 부림동 · 원문동 · 주암동 · 중앙동) &nbsp;|&nbsp; 
+                <strong>수원시</strong> (장안구 · 권선구 · 팔달구 · 영통구)
+            </p>
+            <h2 style="font-size: 1.3rem; color: var(--accent-dark); border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-top: 20px;">2. 서비스 작업 범위</h2>
+            <p style="margin-bottom: 0; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
+                외벽청소 · 유리창청소 · 화재청소 · 바닥왁스코팅 · 바닥청소 · 어닝청소 · 간판청소 · 준공청소 · 인테리어청소 · 후드청소 · 쓰레기집청소 · 특수청소
+            </p>
+        </div>
 `;
 
 const renderedHtmlUrls = new Set();
@@ -246,7 +263,8 @@ GYEONGGI_REGIONS.forEach(region => {
 
     // 1. City level links
     coreServices.forEach(s => {
-        const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+        const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+        const urlTask = displayName.replace(/\s+/g, '');
         const url1 = `/?k=${encodeURIComponent(cityName + '-' + urlTask)}`;
         const url2 = `/?k=${encodeURIComponent(cityShort + '-' + urlTask)}`;
         const absUrl1 = `${SITE_URL}${url1}`;
@@ -254,11 +272,11 @@ GYEONGGI_REGIONS.forEach(region => {
 
         if (!renderedHtmlUrls.has(absUrl1)) {
             renderedHtmlUrls.add(absUrl1);
-            hubHtml += `                <a href="${absUrl1}">${cityName} ${s.serviceNameKo}</a>\n`;
+            hubHtml += `                <a href="${absUrl1}">${cityName} ${displayName}</a>\n`;
         }
         if (!renderedHtmlUrls.has(absUrl2)) {
             renderedHtmlUrls.add(absUrl2);
-            hubHtml += `                <a href="${absUrl2}">${cityShort} ${s.serviceNameKo}</a>\n`;
+            hubHtml += `                <a href="${absUrl2}">${cityShort} ${displayName}</a>\n`;
         }
     });
 
@@ -276,7 +294,8 @@ GYEONGGI_REGIONS.forEach(region => {
                 <div class="details-content">
             `;
             coreServices.forEach(s => {
-                const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+                const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+                const urlTask = displayName.replace(/\s+/g, '');
                 const url1 = `/?k=${encodeURIComponent(distName + '-' + urlTask)}`;
                 const url2 = `/?k=${encodeURIComponent(distShort + '-' + urlTask)}`;
                 const absUrl1 = `${SITE_URL}${url1}`;
@@ -284,11 +303,11 @@ GYEONGGI_REGIONS.forEach(region => {
 
                 if (!renderedHtmlUrls.has(absUrl1)) {
                     renderedHtmlUrls.add(absUrl1);
-                    hubHtml += `                    <a href="${absUrl1}">${distName} ${s.serviceNameKo}</a>\n`;
+                    hubHtml += `                    <a href="${absUrl1}">${distName} ${displayName}</a>\n`;
                 }
                 if (!renderedHtmlUrls.has(absUrl2)) {
                     renderedHtmlUrls.add(absUrl2);
-                    hubHtml += `                    <a href="${absUrl2}">${distShort} ${s.serviceNameKo}</a>\n`;
+                    hubHtml += `                    <a href="${absUrl2}">${distShort} ${displayName}</a>\n`;
                 }
             });
             hubHtml += `                </div>
@@ -329,13 +348,14 @@ GYEONGGI_REGIONS.forEach(region => {
                 <div class="details-content">
             `;
         coreServices.forEach(s => {
-            const urlTask = s.serviceNameKo.replace(/\s+/g, '');
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
             const absUrl = `${SITE_URL}${url}`;
 
             if (!renderedHtmlUrls.has(absUrl)) {
                 renderedHtmlUrls.add(absUrl);
-                hubHtml += `                    <a href="${absUrl}">${dong} ${s.serviceNameKo}</a>\n`;
+                hubHtml += `                    <a href="${absUrl}">${dong} ${displayName}</a>\n`;
             }
         });
         hubHtml += `                </div>
