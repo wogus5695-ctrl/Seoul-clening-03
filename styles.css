@@ -1777,3 +1777,69 @@ a {
         font-size: 0.9rem !important;
     }
 }
+
+/* =========================================
+   Mobile Optimization for Hero and Services (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. Hero Section Compact Layout */
+    .hero {
+        height: auto !important;
+        min-height: auto !important;
+        padding: 100px 20px 50px 20px !important;
+        display: block !important;
+    }
+    .hero-container {
+        padding: 0 !important;
+    }
+    .hero-content {
+        padding-top: 0 !important;
+    }
+    .hero-content h1 {
+        font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+        line-height: 1.35 !important;
+        margin-bottom: 1.2rem !important;
+        word-break: keep-all !important;
+    }
+    .hero-subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.5rem !important;
+        line-height: 1.5 !important;
+    }
+    .hero-features li {
+        font-size: 0.92rem !important;
+        margin-bottom: 0.8rem !important;
+        line-height: 1.4 !important;
+    }
+
+    /* 2. Service Blocks & Cards Compact Layout */
+    .service-block.group-block {
+        min-height: auto !important;
+        padding: 35px 20px !important;
+    }
+    .service-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    .service-group-desc {
+        font-size: 0.92rem !important;
+        margin-bottom: 1.2rem !important;
+        line-height: 1.5 !important;
+    }
+    .service-cards-grid {
+        gap: 10px !important;
+        margin-top: 1.2rem !important;
+    }
+    .s-card {
+        padding: 14px 16px !important;
+        border-radius: 6px !important;
+    }
+    .s-card h3 {
+        font-size: 1.15rem !important;
+        margin-bottom: 6px !important;
+    }
+    .s-card p {
+        font-size: 0.88rem !important;
+        line-height: 1.4 !important;
+    }
+}

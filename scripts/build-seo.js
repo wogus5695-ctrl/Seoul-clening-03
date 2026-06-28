@@ -289,7 +289,7 @@ GYEONGGI_REGIONS.forEach(region => {
             const distName = dist.variants[0]; // 수정구
             const distShort = dist.variants[1]; // 수정
             
-            hubHtml += `            <details open>
+            hubHtml += `            <details>
                 <summary>${distName} / ${distShort}</summary>
                 <div class="details-content">
             `;
@@ -343,7 +343,7 @@ GYEONGGI_REGIONS.forEach(region => {
         }
         seenDongs.add(dong);
 
-        hubHtml += `            <details open>
+        hubHtml += `            <details>
                 <summary>${dong}</summary>
                 <div class="details-content">
             `;
@@ -370,6 +370,12 @@ hubHtml += `
             <a href="${SITE_URL}/" class="back-link" style="display:inline-block; border-color:var(--accent); color:var(--accent);">메인으로 돌아가기</a>
         </div>
     </div>
+    <!-- 데스크톱에서 아코디언 자동 열기 스크립트 -->
+    <script>
+        if (window.innerWidth >= 768) {
+            document.querySelectorAll('details').forEach(el => el.setAttribute('open', ''));
+        }
+    </script>
 </body>
 </html>
 `;
