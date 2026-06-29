@@ -692,13 +692,21 @@ document.addEventListener('DOMContentLoaded', () => {
         processHeading.innerText = '상담부터 작업 확인까지';
     }
 
-    // Section 6-2: Process Steps
+    // Section 6-2: Process Steps (고정 4단계 데이터 및 타이틀/설명 구조 렌더링)
     const processStepsEl = document.getElementById('process-steps');
     if (processStepsEl) {
-        const stepsData = processStepsTemplate[displayTask] || processStepsTemplate["종합청소"];
-        processStepsEl.innerHTML = stepsData.map((stepDesc, idx) => 
-            `<div class="process-card"><div class="step-num">STEP ${idx + 1}</div><div class="step-desc">${stepDesc}</div></div>`
-        ).join('');
+        const processSteps = [
+            { title: "현장 정보 확인", desc: "지역, 청소 종류, 면적, 오염 상태를 확인합니다." },
+            { title: "작업 범위 안내", desc: "사진과 현장 조건을 기준으로 가능 범위를 안내합니다." },
+            { title: "청소 작업 진행", desc: "작업 종류에 맞는 장비와 방식으로 진행합니다." },
+            { title: "작업 후 확인", desc: "작업 범위 내 미흡 구간을 함께 확인합니다." }
+        ];
+        processStepsEl.innerHTML = processSteps.map((step, idx) => `
+            <div class="process-card">
+                <div class="step-num">STEP ${idx + 1}</div>
+                <h3 class="step-card-title">${step.title}</h3>
+                <p class="step-card-desc">${step.desc}</p>
+            </div>`).join('');
     }
 
     // Section 7: FAQs (Dynamic conversion)

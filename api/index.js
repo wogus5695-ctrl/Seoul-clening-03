@@ -606,13 +606,22 @@ module.exports = (req, res) => {
     // 17. process-heading 치환
     html = html.replace(/<h2 id="process-heading"[^>]*>([\s\S]*?)<\/h2>/i, `<h2 id="process-heading" class="section-title text-center">상담부터 작업 확인까지</h2>`);
 
-    // 17-2. process-steps 치환
-    const stepsData = processStepsTemplate[displayTask] || processStepsTemplate["종합청소"];
-    const stepsHtml = stepsData.map((stepDesc, idx) => 
-        `<div class="process-card"><div class="step-num">STEP ${idx + 1}</div><div class="step-desc">${stepDesc}</div></div>`
-    ).join('\n                    ');
-    html = html.replace(/<div id="process-steps" class="process-grid">([\s\S]*?)<\/div>/i, 
-        `<div id="process-steps" class="process-grid">\n                    ${stepsHtml}\n                </div>`);
+    // 17-2. process-steps 치환 (고정 4단계 데이터 및 정밀 regex 매칭)
+    const processSteps = [
+        { title: "현장 정보 확인", desc: "지역, 청소 종류, 면적, 오염 상태를 확인합니다." },
+        { title: "작업 범위 안내", desc: "사진과 현장 조건을 기준으로 가능 범위를 안내합니다." },
+        { title: "청소 작업 진행", desc: "작업 종류에 맞는 장비와 방식으로 진행합니다." },
+        { title: "작업 후 확인", desc: "작업 범위 내 미흡 구간을 함께 확인합니다." }
+    ];
+    const stepsHtml = processSteps.map((step, idx) => `
+                    <div class="process-card">
+                        <div class="step-num">STEP ${idx + 1}</div>
+                        <h3 class="step-card-title">${step.title}</h3>
+                        <p class="step-card-desc">${step.desc}</p>
+                    </div>`).join('');
+    
+    html = html.replace(/<div id="process-steps" class="process-grid">([\s\S]*?)<\/div><!--\/process-steps-->/i, 
+        `<div id="process-steps" class="process-grid">${stepsHtml}\n                </div><!--/process-steps-->`);
 
     // 18. mid-cta-text 치환
     html = html.replace(/<p id="mid-cta-text">([\s\S]*?)<\/p>/i, `<p id="mid-cta-text">${midCtaTextText}</p>`);

@@ -537,30 +537,50 @@ a {
 /* 2. Process Section */
 .process-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .process-card {
     background: linear-gradient(135deg, var(--color-bg-surface), rgba(0,229,255,0.05));
-    padding: 30px;
+    padding: 24px 20px;
     border-radius: 12px;
     border-left: 4px solid var(--color-accent);
+    min-height: 170px;
+    height: 170px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .step-num {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--color-accent);
     font-weight: var(--font-weight-bold);
     letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
+    margin-bottom: 4px;
 }
 
-.step-desc {
-    font-size: 1.15rem;
-    font-weight: var(--font-weight-light);
+.step-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 0 0 6px 0;
+    text-align: left;
+}
+
+.step-card-desc {
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+    margin: 0;
+    text-align: left;
+    word-break: keep-all;
 }
 
 /* 3. Mid CTA */
@@ -2139,6 +2159,21 @@ a {
         font-size: 0.82rem !important;
         line-height: 1.35 !important;
         text-align: left !important;
+    }
+
+    /* Process Section Mobile Overrides */
+    .process-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .process-card {
+        padding: 20px 18px !important;
+        min-height: auto !important;
+        height: auto !important;
+        border-radius: 8px !important;
     }
 }
 
