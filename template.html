@@ -65,10 +65,27 @@
         <!-- 2. {지역명} {작업명}이 필요한 상황 (본문 첫 문단) -->
         <section class="need-situation-section section-padding" id="need-situation-section">
             <div class="container">
-                <h2 id="need-situation-heading" class="section-title text-center">이런 상황이라면 전문 청소가 필요합니다</h2>
-                <div class="need-situation-content text-center">
-                    <p id="need-situation-desc">공사 후 분진이 남아 있거나, 유리창·바닥·후드·외벽처럼 직접 청소하기 어려운 구역이 있다면 전문 장비 및 인력이 필요합니다.</p>
-                    <p id="region-context-desc" data-seo="target" class="region-context-desc" style="margin-top: 20px; font-weight: 500; font-size: 1.05rem; color: #4B5563; max-width: 850px; margin-left: auto; margin-right: auto; line-height: 1.8; word-break: keep-all;"></p>
+                <div class="need-situation-grid">
+                    <!-- Left Side: Texts -->
+                    <div class="need-situation-left">
+                        <h2 id="need-situation-heading" class="need-title">
+                            <span id="need-title-loc-task" data-seo="target">성남·과천·수원 중심 종합청소</span>
+                            <span class="need-title-sub">작업이 필요하다면,</span>
+                        </h2>
+                        <p class="need-subtitle">현장 상태와 오염 범위를 먼저 확인해야 합니다.</p>
+                        <p id="region-context-desc" data-seo="target" class="region-context-desc"></p>
+                        <div class="need-situation-guide">
+                            <p class="guide-title">정확히 설명하지 않으셔도 됩니다.</p>
+                            <p class="guide-desc">지역과 필요한 청소 종류만 알려주시면 작업 가능 여부부터 확인합니다.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side: 4 Cards -->
+                    <div class="need-situation-right">
+                        <div class="hooking-cards-grid" id="hooking-cards-container">
+                            <!-- JS/SSR에서 4개의 SVG 아이콘 카드가 렌더링됩니다 -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

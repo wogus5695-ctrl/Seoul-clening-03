@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "바닥왁스코팅": "바닥재 표면의 보호 코팅이 닳아 미세한 흠집이 생기면 오염물이 타일 틈과 기공에 깊게 스며들어 물걸레질만으로는 얼룩이 지지 않으므로, 찌든 오염을 기계 세정으로 깎아낸 뒤 보호 코팅막을 덮어 오염 고착을 원천 예방해야 합니다.",
         "바닥청소": "보행이 잦은 상업 및 사무 공간 바닥은 미세 먼지, 신발 고무 자국, 유분 기름때가 결합되어 타일 표면에 단단한 오염층을 형성하므로, 바닥재를 손상시키지 않는 전용 세정 약품을 투입해 회전 브러시 기계로 때를 씻어내야 합니다.",
         "어닝청소": "외부 노출 시간이 긴 어닝 원단은 매연 분진과 빗물이 섞여 변색을 일으키고 습기에 따른 푸른 곰팡이가 피기 쉬워, 강한 솔질 대신 섬유 조직을 보호하는 온수 연화제 살포 및 정밀 저압 스팀 살수로 때를 지워야 원단 찢어짐을 예방할 수 있습니다.",
-        "간판청소": "눈비에 섞인 먼지가 입체 글자(채널 간판) 사이에 쌓이고 거미줄과 곤충 사체가 들러붙으면 조명이 어두워지고 지저분해 보이기 마련이며, 높은 위치의 간판 틈새 오염을 고소차를 이용해 안전하게 다가가 미세 틈�    const faqQ1Template = {
+        "간판청소": "눈비에 섞인 먼지가 입체 글자(채널 간판) 사이에 쌓이고 거미줄과 곤충 사체가 들러붙으면 조명이 어두워지고 지저분해 보이기 마련이며, 높은 위치의 간판 틈새 오염을 고소차를 이용해 안전하게 다가가 미세 틈�    const faqQ1Template = {
         "외벽청소": "{loc} 외벽청소는 건물 높이에 따라 작업 방식이 달라지나요?",
         "유리창청소": "{loc} 유리창청소는 외부 유리도 가능한가요?",
         "화재청소": "{loc} 화재청소는 그을음과 탄 냄새까지 정리할 수 있나요?",
@@ -614,17 +614,127 @@ document.addEventListener('DOMContentLoaded', () => {
         heroFeatures.innerHTML = taskData.shortBullets.map(point => `<li>${point}</li>`).join('');
     }
 
-    // Section 2: Need Situation Section (첫 번째 본문 설명)
-    const needHeading = document.getElementById('need-situation-heading');
-    const needDescEl = document.getElementById('need-situation-desc');
-    if (needHeading && needDescEl) {
-        needHeading.innerText = needSituationHeadingTemplate[displayTask] || needSituationHeadingTemplate["종합청소"];
-        needDescEl.innerText = needDesc;
+    // Section 2: Need Situation Section (문제 후킹 섹션)
+    const needTitleLocTaskEl = document.getElementById('need-title-loc-task');
+    if (needTitleLocTaskEl) {
+        needTitleLocTaskEl.innerText = `${displayLoc}에서 ${displayTask}`;
     }
 
     const regionContextDescEl = document.getElementById('region-context-desc');
     if (regionContextDescEl) {
         regionContextDescEl.innerText = getRegionContext(displayLoc, displayTask);
+    }
+
+    // 아이콘 카드 4개 렌더링
+    const hookingCardsContainer = document.getElementById('hooking-cards-container');
+    if (hookingCardsContainer) {
+        const taskCardsData = {
+            "외벽청소": [
+                { title: "외벽 오염", desc: "매연과 미세먼지로 찌든 외벽면 세척" },
+                { title: "백화 현상", desc: "석재 표면에 흘러내린 백화 완벽 제거" },
+                { title: "고압 세척", desc: "재질별 전용 약품과 적절한 수압 적용" },
+                { title: "로프 작업", desc: "고소 작업 진입로가 좁은 곳도 세정" }
+            ],
+            "유리창청소": [
+                { title: "유리창 물때", desc: "고착된 빗물 자국과 석회 자국 제거" },
+                { title: "손자국·먼지", desc: "외부 매장 전면 유리의 묵은 유막 제거" },
+                { title: "시야 확보", desc: "투명도를 극대화하여 맑은 시야 복원" },
+                { title: "창틀·방충망", desc: "프레임 틈새에 고착된 미세먼지 세척" }
+            ],
+            "화재청소": [
+                { title: "그을음 피해", desc: "벽면과 구조물에 붙은 그을음 제거" },
+                { title: "탄 냄새 제거", desc: "화재 공간의 유독 탄 냄새 중화 피톤치드" },
+                { title: "유독 분진", desc: "건강을 위협하는 미세 탄가루 흡입" },
+                { title: "폐기물 정리", desc: "소실된 가구 및 폐기물 대행 수거" }
+            ],
+            "바닥왁스코팅": [
+                { title: "스크래치 예방", desc: "바닥재 마모와 상처를 방지하는 코팅" },
+                { title: "바닥 광택", desc: "변색되고 탁해진 바닥을 투명하게 복원" },
+                { title: "기존 왁스 박리", desc: "누렇게 찌든 오염 코팅층 정밀 박리" },
+                { title: "간편한 관리", desc: "오염물 흡착 방지로 간편해지는 일상 청소" }
+            ],
+            "바닥청소": [
+                { title: "찌든 때 제거", desc: "타일 틈새와 표면에 박힌 묵은 오염 세정" },
+                { title: "기계 브러싱", desc: "바닥재 손상 없이 닦아내는 전문 장비 세척" },
+                { title: "구두 자국", desc: "보행 동선에 누적된 고무 자국 분해" },
+                { title: "청결 유지", desc: "쾌적하고 맑은 실내 바닥 상태 복원" }
+            ],
+            "어닝청소": [
+                { title: "천막 오염", desc: "매연과 빗물자국으로 얼룩진 천막 세척" },
+                { title: "곰팡이 포자", desc: "어닝 원단 틈새의 세균과 곰팡이 제거" },
+                { title: "고온 스팀", desc: "원단 손상 없이 때를 불려 세척하는 기법" },
+                { title: "발수 코팅", desc: "깨끗해진 천막에 추가 오염 방지막 적용" }
+            ],
+            "간판청소": [
+                { title: "조명 투과율", desc: "찌든 먼지를 세척하여 간판 밝기 극대화" },
+                { title: "거미줄·사체", desc: "틈새와 내부 커버에 쌓인 벌레 사체 흡입" },
+                { title: "고소 세정", desc: "전용 크레인 차량을 활용한 안전한 클리닝" },
+                { title: "누전 보양", desc: "전기 장치 방수 보양 후 안전한 습식 세척" }
+            ],
+            "준공청소": [
+                { title: "공사 분진", desc: "건축 후 가라앉은 하얀 미세 분진 흡입" },
+                { title: "백시멘트", desc: "타일 줄눈 and 틈새에 남은 시멘트 자국 세정" },
+                { title: "보양지·본드", desc: "창틀 보양 비닐 및 실리콘 본드 자국 제거" },
+                { title: "즉시 입주", desc: "공사 흔적을 말끔히 지워 쾌적한 상태 제공" }
+            ],
+            "인테리어 후 청소": [
+                { title: "톱밥 분진", desc: "서랍과 수납장 내부의 미세 톱밥가루 정리" },
+                { title: "접착제 흔적", desc: "싱크대와 가구 표면의 보호필름 본드 제거" },
+                { title: "유해 물질", desc: "새 자재에서 뿜어져 나오는 유해 성분 제거" },
+                { title: "서랍 탈거", desc: "수납장을 분리해 안쪽 깊은 곳의 먼지 케어" }
+            ],
+            "후드청소": [
+                { title: "누적 기름때", desc: "후드 내벽에 고착된 노란 유증기 제거" },
+                { title: "기름 낙하 방지", desc: "조리 중 기름이 흘러내리는 현상 차단" },
+                { title: "화재 예방", desc: "그리스 필터 발화로 인한 화재 위험 방지" },
+                { title: "필터 세정", desc: "주방 후드 풍량을 개선하여 연기 배출 복원" }
+            ],
+            "쓰레기집청소": [
+                { title: "폐기물 분류", desc: "방치된 쓰레기를 신속하게 마대 자루 분류" },
+                { title: "악취 탈취", desc: "썩은 음식물과 쓰레기 냄새 원천 소독" },
+                { title: "정밀 살균", desc: "해충과 유해균이 번식한 오염 구역 방역" },
+                { title: "비밀 보장", desc: "이웃에게 보이지 않도록 신속 밀봉 반출" }
+            ],
+            "특수청소": [
+                { title: "특수 세정", desc: "일반 세제와 방법으로 제거 불가능한 오염물 세정" },
+                { title: "악취 중화", desc: "냄새 원인 물질을 근본적으로 탈취하고 피톤치드 케어" },
+                { title: "전문 장비", desc: "고성능 오존기 및 약품 안개 살균기 투입" },
+                { title: "신속 정리", desc: "원상 복구가 시급한 구역을 세심하게 보살핌" }
+            ],
+            "default": [
+                { title: "오염 맞춤 진단", desc: "자재의 성질에 맞춰 적합한 세제를 사용합니다" },
+                { title: "전문 약품 세정", desc: "일반 세제로 지워지지 않는 찌든 때를 녹여냅니다" },
+                { title: "기계 브러싱", desc: "전문 장비 세척으로 오염을 복원합니다" },
+                { title: "책임 안심 마감", desc: "고객이 만족할 때까지 미흡 구간을 재확인합니다" }
+            ]
+        };
+
+        const activeTaskKey = displayTask === "인테리어청소" ? "인테리어 후 청소" : displayTask;
+        const cards = taskCardsData[activeTaskKey] || taskCardsData.default;
+
+        const svgIcons = [
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`,
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"></path></svg>`,
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 11 11 13 15 9"></polyline></svg>`
+        ];
+
+        let cardsHtml = '';
+        cards.forEach((card, idx) => {
+            const icon = svgIcons[idx] || svgIcons[3];
+            cardsHtml += `
+                <div class="h-card">
+                    <div class="h-card-icon-wrapper">
+                        ${icon}
+                    </div>
+                    <div class="h-card-text-wrapper">
+                        <h3>${card.title}</h3>
+                        <p>${card.desc}</p>
+                    </div>
+                </div>
+            `;
+        });
+        hookingCardsContainer.innerHTML = cardsHtml;
     }
 
     // Section 3: Pain Points (業者 선택 기준)
