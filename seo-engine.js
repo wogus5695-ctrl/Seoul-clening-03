@@ -615,126 +615,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Section 2: Need Situation Section (문제 후킹 섹션)
-    const needTitleLocTaskEl = document.getElementById('need-title-loc-task');
-    if (needTitleLocTaskEl) {
-        needTitleLocTaskEl.innerText = `${displayLoc}에서 ${displayTask}`;
-    }
-
+    const needHeading = document.getElementById('need-situation-heading');
     const regionContextDescEl = document.getElementById('region-context-desc');
-    if (regionContextDescEl) {
-        regionContextDescEl.innerText = getRegionContext(displayLoc, displayTask);
-    }
-
-    // 아이콘 카드 4개 렌더링
     const hookingCardsContainer = document.getElementById('hooking-cards-container');
+
+    const needData = getNeedSituationData(displayLoc, displayTask);
+
+    if (needHeading) {
+        needHeading.innerText = needData.title;
+    }
+    if (regionContextDescEl) {
+        regionContextDescEl.innerText = needData.desc;
+    }
     if (hookingCardsContainer) {
-        const taskCardsData = {
-            "외벽청소": [
-                { title: "외벽 오염", desc: "매연과 미세먼지로 찌든 외벽면 세척" },
-                { title: "백화 현상", desc: "석재 표면에 흘러내린 백화 완벽 제거" },
-                { title: "고압 세척", desc: "재질별 전용 약품과 적절한 수압 적용" },
-                { title: "로프 작업", desc: "고소 작업 진입로가 좁은 곳도 세정" }
-            ],
-            "유리창청소": [
-                { title: "유리창 물때", desc: "고착된 빗물 자국과 석회 자국 제거" },
-                { title: "손자국·먼지", desc: "외부 매장 전면 유리의 묵은 유막 제거" },
-                { title: "시야 확보", desc: "투명도를 극대화하여 맑은 시야 복원" },
-                { title: "창틀·방충망", desc: "프레임 틈새에 고착된 미세먼지 세척" }
-            ],
-            "화재청소": [
-                { title: "그을음 피해", desc: "벽면과 구조물에 붙은 그을음 제거" },
-                { title: "탄 냄새 제거", desc: "화재 공간의 유독 탄 냄새 중화 피톤치드" },
-                { title: "유독 분진", desc: "건강을 위협하는 미세 탄가루 흡입" },
-                { title: "폐기물 정리", desc: "소실된 가구 및 폐기물 대행 수거" }
-            ],
-            "바닥왁스코팅": [
-                { title: "스크래치 예방", desc: "바닥재 마모와 상처를 방지하는 코팅" },
-                { title: "바닥 광택", desc: "변색되고 탁해진 바닥을 투명하게 복원" },
-                { title: "기존 왁스 박리", desc: "누렇게 찌든 오염 코팅층 정밀 박리" },
-                { title: "간편한 관리", desc: "오염물 흡착 방지로 간편해지는 일상 청소" }
-            ],
-            "바닥청소": [
-                { title: "찌든 때 제거", desc: "타일 틈새와 표면에 박힌 묵은 오염 세정" },
-                { title: "기계 브러싱", desc: "바닥재 손상 없이 닦아내는 전문 장비 세척" },
-                { title: "구두 자국", desc: "보행 동선에 누적된 고무 자국 분해" },
-                { title: "청결 유지", desc: "쾌적하고 맑은 실내 바닥 상태 복원" }
-            ],
-            "어닝청소": [
-                { title: "천막 오염", desc: "매연과 빗물자국으로 얼룩진 천막 세척" },
-                { title: "곰팡이 포자", desc: "어닝 원단 틈새의 세균과 곰팡이 제거" },
-                { title: "고온 스팀", desc: "원단 손상 없이 때를 불려 세척하는 기법" },
-                { title: "발수 코팅", desc: "깨끗해진 천막에 추가 오염 방지막 적용" }
-            ],
-            "간판청소": [
-                { title: "조명 투과율", desc: "찌든 먼지를 세척하여 간판 밝기 극대화" },
-                { title: "거미줄·사체", desc: "틈새와 내부 커버에 쌓인 벌레 사체 흡입" },
-                { title: "고소 세정", desc: "전용 크레인 차량을 활용한 안전한 클리닝" },
-                { title: "누전 보양", desc: "전기 장치 방수 보양 후 안전한 습식 세척" }
-            ],
-            "준공청소": [
-                { title: "공사 분진", desc: "건축 후 가라앉은 하얀 미세 분진 흡입" },
-                { title: "백시멘트", desc: "타일 줄눈 and 틈새에 남은 시멘트 자국 세정" },
-                { title: "보양지·본드", desc: "창틀 보양 비닐 및 실리콘 본드 자국 제거" },
-                { title: "즉시 입주", desc: "공사 흔적을 말끔히 지워 쾌적한 상태 제공" }
-            ],
-            "인테리어 후 청소": [
-                { title: "톱밥 분진", desc: "서랍과 수납장 내부의 미세 톱밥가루 정리" },
-                { title: "접착제 흔적", desc: "싱크대와 가구 표면의 보호필름 본드 제거" },
-                { title: "유해 물질", desc: "새 자재에서 뿜어져 나오는 유해 성분 제거" },
-                { title: "서랍 탈거", desc: "수납장을 분리해 안쪽 깊은 곳의 먼지 케어" }
-            ],
-            "후드청소": [
-                { title: "누적 기름때", desc: "후드 내벽에 고착된 노란 유증기 제거" },
-                { title: "기름 낙하 방지", desc: "조리 중 기름이 흘러내리는 현상 차단" },
-                { title: "화재 예방", desc: "그리스 필터 발화로 인한 화재 위험 방지" },
-                { title: "필터 세정", desc: "주방 후드 풍량을 개선하여 연기 배출 복원" }
-            ],
-            "쓰레기집청소": [
-                { title: "폐기물 분류", desc: "방치된 쓰레기를 신속하게 마대 자루 분류" },
-                { title: "악취 탈취", desc: "썩은 음식물과 쓰레기 냄새 원천 소독" },
-                { title: "정밀 살균", desc: "해충과 유해균이 번식한 오염 구역 방역" },
-                { title: "비밀 보장", desc: "이웃에게 보이지 않도록 신속 밀봉 반출" }
-            ],
-            "특수청소": [
-                { title: "특수 세정", desc: "일반 세제와 방법으로 제거 불가능한 오염물 세정" },
-                { title: "악취 중화", desc: "냄새 원인 물질을 근본적으로 탈취하고 피톤치드 케어" },
-                { title: "전문 장비", desc: "고성능 오존기 및 약품 안개 살균기 투입" },
-                { title: "신속 정리", desc: "원상 복구가 시급한 구역을 세심하게 보살핌" }
-            ],
-            "default": [
-                { title: "오염 맞춤 진단", desc: "자재의 성질에 맞춰 적합한 세제를 사용합니다" },
-                { title: "전문 약품 세정", desc: "일반 세제로 지워지지 않는 찌든 때를 녹여냅니다" },
-                { title: "기계 브러싱", desc: "전문 장비 세척으로 오염을 복원합니다" },
-                { title: "책임 안심 마감", desc: "고객이 만족할 때까지 미흡 구간을 재확인합니다" }
-            ]
-        };
-
-        const activeTaskKey = displayTask === "인테리어청소" ? "인테리어 후 청소" : displayTask;
-        const cards = taskCardsData[activeTaskKey] || taskCardsData.default;
-
-        const svgIcons = [
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`,
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"></path></svg>`,
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 11 11 13 15 9"></polyline></svg>`
-        ];
-
-        let cardsHtml = '';
-        cards.forEach((card, idx) => {
-            const icon = svgIcons[idx] || svgIcons[3];
-            cardsHtml += `
-                <div class="h-card">
-                    <div class="h-card-icon-wrapper">
-                        ${icon}
-                    </div>
-                    <div class="h-card-text-wrapper">
-                        <h3>${card.title}</h3>
-                        <p>${card.desc}</p>
-                    </div>
-                </div>
-            `;
-        });
-        hookingCardsContainer.innerHTML = cardsHtml;
+        hookingCardsContainer.innerHTML = needData.cardsHtml;
     }
 
     // Section 3: Pain Points (業者 선택 기준)
@@ -944,3 +838,217 @@ document.addEventListener('DOMContentLoaded', () => {
         servicesContainer.innerHTML = servicesHtml;
     }
 });
+
+function getNeedSituationData(loc, task) {
+    const taskKeyMap = {
+        "외벽청소": "외벽청소",
+        "유리창청소": "유리창청소",
+        "화재청소": "화재청소",
+        "바닥왁스코팅": "바닥왁스코팅",
+        "바닥청소": "바닥청소",
+        "어닝청소": "어닝청소",
+        "간판청소": "간판청소",
+        "인테리어청소": "인테리어청소",
+        "인테리어 후 청소": "인테리어청소",
+        "인테리어 후청소": "인테리어청소",
+        "인테리어후청소": "인테리어청소",
+        "준공청소": "준공청소",
+        "후드청소": "후드청소",
+        "쓰레기집청소": "쓰레기집청소",
+        "특수청소": "특수청소",
+        "종합청소": "종합청소"
+    };
+
+    const taskKey = taskKeyMap[task] || "종합청소";
+
+    const svgIconsMap = {
+        "droplets": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.8 4-4.05 0-1.16-.6-2.68-1.5-3.8A12 12 0 0 0 8 6a12 12 0 0 0-1.5 2.45c-.9 1.12-1.5 2.64-1.5 3.8 0 2.25 1.8 4.05 4 4.05z"></path><path d="M17 18.5c1.37 0 2.5-1.13 2.5-2.5 0-.7-.37-1.63-.93-2.33a8 8 0 0 0-.94-1.2A8 8 0 0 0 16.7 13.7c-.56.7-.93 1.63-.93 2.3 0 1.37 1.13 2.5 2.5 2.5z"></path></svg>`,
+        "dust": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h1"></path><path d="M20 12h1"></path><path d="M12 4v1"></path><path d="M12 20v1"></path><path d="M6.3 6.3l.8.8"></path><path d="M16.9 16.9l.8.8"></path><path d="M6.3 17.7l.8-.8"></path><path d="M16.9 7.1l.8-.8"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
+        "mold": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2"></circle><circle cx="16" cy="8" r="3"></circle><circle cx="10" cy="15" r="4"></circle><circle cx="17" cy="16" r="2"></circle></svg>`,
+        "ladder": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="16"></line><line x1="15" y1="22" x2="15" y2="16"></line><line x1="9" y1="16" x2="15" y2="16"></line><path d="M8 6h2v2H8V6zm6 0h2v2h-2V6zm-6 5h2v2H8v-2zm6 0h2v2h-2v-2z"></path></svg>`,
+        "sparkle": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M5.6 5.6l2.9 2.9"></path><path d="M15.5 15.5l2.9 2.9"></path><path d="M5.6 18.4l2.9-2.9"></path><path d="M15.5 8.5l2.9-2.9"></path></svg>`,
+        "rain": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>`,
+        "water-drop": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"></path></svg>`,
+        "scraper": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H4v20h16V8l-6-6z"></path><path d="M14 3v5h5"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>`,
+        "building-window": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="12" x2="21" y2="12"></line></svg>`,
+        "smoke": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5h20c0-2.31-1-4.24-2.5-5.5"></path><path d="M12 2C9 5 9 8.5 11 11s0 5-3 7.5"></path><path d="M16 3.5c-2.25 2.25-2.25 4.88-.75 6.75s0 3.75-2.25 5.63"></path></svg>`,
+        "odor": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a4 4 0 0 1-4-4c0-2.2 4-7 4-7s4 4.8 4 7a4 4 0 0 1-4 4z"></path><path d="M18 22a4 4 0 0 1-4-4c0-2.2 4-7 4-7s4 4.8 4 7a4 4 0 0 1-4 4z"></path><path d="M12 10a3 3 0 0 1-3-3c0-1.65 3-5 3-5s3 3.35 3 5a3 3 0 0 1-3 3z"></path></svg>`,
+        "checklist": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><polyline points="9 11 11 13 15 9"></polyline></svg>`,
+        "layers": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polygon points="2 17 12 22 22 17"></polygon><polygon points="2 12 12 17 22 12"></polygon></svg>`,
+        "stain": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path><circle cx="9" cy="9" r="1.5"></circle><circle cx="15" cy="10" r="1"></circle><circle cx="12" cy="14" r="2"></circle></svg>`,
+        "footsteps": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-2a2 2 0 1 1 4 0v2"></path><path d="M16 10V8a2 2 0 1 1 4 0v2"></path><path d="M8 12v-2a2 2 0 1 1 4 0v2"></path><path d="M12 14v-2a2 2 0 1 1 4 0v2"></path></svg>`,
+        "paint": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M7.5 10.5c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5z"></path><path d="M11.5 7.5c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5z"></path><path d="M6 14h12"></path></svg>`,
+        "brush": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z"></path></svg>`,
+        "tile": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>`,
+        "storefront": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>`,
+        "light": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1 .5 2.5 1.5 3.5.7.8 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>`,
+        "signboard": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="10" rx="2"></rect><line x1="12" y1="15" x2="12" y2="21"></line><line x1="8" y1="21" x2="16" y2="21"></line></svg>`,
+        "glue": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v12M6 12h12"></path></svg>`,
+        "window": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="12" x2="21" y2="12"></line></svg>`,
+        "floor": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line></svg>`,
+        "tape": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>`,
+        "oil-drop": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z"></path></svg>`,
+        "hood": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h8"></path></svg>`,
+        "shield-check": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 11 11 13 15 9"></polyline></svg>`,
+        "trash": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`,
+        "boxes": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`,
+        "warning": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+        "tool": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>`
+    };
+
+    const data = {
+        "외벽청소": {
+            title: "외벽 오염은 눈에 보이는 부분보다 접근 방식이 중요합니다",
+            desc: `${loc}에서 외벽청소 작업이 필요하다면, 외벽 오염 상태와 접근 높이, 세척 가능 범위를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "물때·먼지", desc: "외벽 표면에 쌓인 오염 확인", icon: "droplets" },
+                { title: "이끼·곰팡이", desc: "습기 많은 구역의 오염 확인", icon: "mold" },
+                { title: "고소 접근", desc: "장비 and 작업 방식 검토", icon: "ladder" },
+                { title: "외관 이미지", desc: "건물 첫인상 개선", icon: "sparkle" }
+            ]
+        },
+        "유리창청소": {
+            title: "유리 물때와 먼지는 남으면 바로 티가 납니다",
+            desc: `${loc}에서 유리창청소 작업이 필요하다면, 빗물 자국과 물때, 접근 가능한 구역을 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "빗물 자국", desc: "유리에 남은 흐림 자국 확인", icon: "rain" },
+                { title: "물때", desc: "반복적으로 쌓인 얼룩 확인", icon: "water-drop" },
+                { title: "스티커 자국", desc: "접착 흔적과 잔여물 확인", icon: "scraper" },
+                { title: "고층 접근", desc: "유리 위치와 작업 방식 검토", icon: "building-window" }
+            ]
+        },
+        "화재청소": {
+            title: "그을음과 냄새는 초기에 범위를 확인해야 합니다",
+            desc: `${loc}에서 화재청소 작업이 필요하다면, 그을음과 냄새, 잔여 분진 범위를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "그을음", desc: "벽면과 가구 표면 오염 확인", icon: "smoke" },
+                { title: "탄 냄새", desc: "실내 잔여 냄새 범위 확인", icon: "odor" },
+                { title: "잔여 분진", desc: "공기 중 미세 오염 확인", icon: "dust" },
+                { title: "복구 전 정리", desc: "재사용 가능 구역 구분", icon: "checklist" }
+            ]
+        },
+        "바닥왁스코팅": {
+            title: "바닥은 세척과 코팅 범위를 구분해야 합니다",
+            desc: `${loc}에서 바닥왁스코팅 작업이 필요하다면, 기존 오염과 왁스층 상태를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "기존 왁스층", desc: "박리 필요 여부 확인", icon: "layers" },
+                { title: "묵은 때", desc: "바닥 표면 오염 확인", icon: "stain" },
+                { title: "광택 저하", desc: "코팅 상태와 마모 확인", icon: "sparkle" },
+                { title: "보행 동선", desc: "사용 빈도와 작업 범위 확인", icon: "footsteps" }
+            ]
+        },
+        "바닥청소": {
+            title: "바닥 오염은 재질과 묵은 때 상태를 봐야 합니다",
+            desc: `${loc}에서 바닥청소 작업이 필요하다면, 바닥 재질과 얼룩, 묵은 때 상태를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "얼룩", desc: "표면 오염 범위 확인", icon: "stain" },
+                { title: "페인트 자국", desc: "공사 후 잔여 오염 확인", icon: "paint" },
+                { title: "묵은 때", desc: "반복 사용으로 쌓인 오염 확인", icon: "brush" },
+                { title: "재질별 세척", desc: "바닥 소재에 맞는 방식 검토", icon: "tile" }
+            ]
+        },
+        "어닝청소": {
+            title: "어닝 오염은 소재 상태를 먼저 확인해야 합니다",
+            desc: `${loc}에서 어닝청소 작업이 필요하다면, 곰팡이와 빗물 자국, 소재 손상 여부를 함께 확인해야 합니다.`,
+            cards: [
+                { title: "곰팡이", desc: "습기로 생긴 오염 확인", icon: "mold" },
+                { title: "먼지", desc: "외부 노출 오염 확인", icon: "dust" },
+                { title: "빗물 자국", desc: "표면 얼룩과 흐림 확인", icon: "rain" },
+                { title: "매장 외관", desc: "입구 이미지 개선", icon: "storefront" }
+            ]
+        },
+        "간판청소": {
+            title: "간판은 밝기와 외관 이미지가 중요합니다",
+            desc: `${loc}에서 간판청소 작업이 필요하다면, 먼지와 빗물 자국, 조도 저하 상태를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "먼지", desc: "표면에 쌓인 오염 확인", icon: "dust" },
+                { title: "조도 저하", desc: "간판 밝기 저하 확인", icon: "light" },
+                { title: "빗물 자국", desc: "외부 노출 얼룩 확인", icon: "rain" },
+                { title: "외관 인상", desc: "매장 첫인상 개선", icon: "signboard" }
+            ]
+        },
+        "인테리어청소": {
+            title: "공사 후 먼지, 눈에 보이는 곳만 닦으면 끝나지 않습니다",
+            desc: `${loc}에서 인테리어청소 작업이 필요하다면, 공사 후 남은 분진과 틈새 오염 범위를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "톱밥 분진", desc: "서랍·수납장 내부에 남기 쉬운 미세 먼지", icon: "dust" },
+                { title: "본드 자국", desc: "바닥·문틀 주변에 남는 마감 잔여물", icon: "glue" },
+                { title: "창틀 먼지", desc: "틈새에 쌓인 공사 분진", icon: "window" },
+                { title: "바닥 마감 오염", desc: "페인트·풋자국·보양재 흔적", icon: "floor" }
+            ]
+        },
+        "준공청소": {
+            title: "입주 전 분진과 마감 오염을 먼저 확인해야 합니다",
+            desc: `${loc}에서 준공청소 작업이 필요하다면, 신축·공사 현장의 시멘트 가루와 창틀 먼지, 마감 오염을 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "시멘트 가루", desc: "공사 후 남은 분진 확인", icon: "dust" },
+                { title: "창틀 먼지", desc: "틈새에 쌓인 오염 확인", icon: "window" },
+                { title: "보양지 흔적", desc: "접착 흔적과 잔여물 확인", icon: "tape" },
+                { title: "마감 오염", desc: "입주 전 확인 구역 점검", icon: "checklist" }
+            ]
+        },
+        "후드청소": {
+            title: "후드 기름때는 겉보다 내부 오염이 문제입니다",
+            desc: `${loc}에서 후드청소 작업이 필요하다면, 후드 내부 기름때와 악취, 주변 오염 상태를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "기름때", desc: "후드 표면과 내부 오염 확인", icon: "oil-drop" },
+                { title: "악취", desc: "주방 내 냄새 원인 확인", icon: "odor" },
+                { title: "후드 내부", desc: "필터와 내부 구역 확인", icon: "hood" },
+                { title: "위생 관리", desc: "영업장 주방 관리 상태 확인", icon: "shield-check" }
+            ]
+        },
+        "쓰레기집청소": {
+            title: "방치된 공간은 폐기물과 악취를 나눠 봐야 합니다",
+            desc: `${loc}에서 쓰레기집청소 작업이 필요하다면, 폐기물 양과 악취, 생활오염 범위를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "폐기물", desc: "수거와 분리 범위 확인", icon: "trash" },
+                { title: "악취", desc: "냄새 발생 구역 확인", icon: "odor" },
+                { title: "생활오염", desc: "바닥과 벽면 오염 확인", icon: "stain" },
+                { title: "공간 정리", desc: "이동 동선과 정리 범위 확인", icon: "boxes" }
+            ]
+        },
+        "특수청소": {
+            title: "일반 청소로 어려운 현장은 오염 종류부터 구분합니다",
+            desc: `${loc}에서 특수청소 작업이 필요하다면, 오염 종류와 냄새, 작업 가능 범위를 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "고오염", desc: "일반 청소로 어려운 구역 확인", icon: "warning" },
+                { title: "냄새", desc: "잔여 악취 범위 확인", icon: "odor" },
+                { title: "오염물", desc: "제거 대상과 범위 확인", icon: "stain" },
+                { title: "전용 장비", desc: "현장에 맞는 장비 검토", icon: "tool" }
+            ]
+        },
+        "종합청소": {
+            title: "종합 청소는 현장 상태에 따른 체계적인 공정이 핵심입니다",
+            desc: `${loc}에서 종합청소 작업이 필요하다면, 전체 구조와 자재 특성, 세부 오염 구역을 먼저 확인해야 합니다.`,
+            cards: [
+                { title: "구역 오염", desc: "기본 생활 및 업무 오염 확인", icon: "stain" },
+                { title: "자재 파악", desc: "벽면 및 마감재 특성 확인", icon: "layers" },
+                { title: "맞춤 약품", desc: "친환경 약품 및 세정액 매핑", icon: "droplets" },
+                { title: "책임 마감", desc: "미흡 사항 없는 검수 프로세스", icon: "checklist" }
+            ]
+        }
+    };
+
+    const item = data[taskKey] || data["종합청소"];
+    
+    let cardsHtml = '';
+    item.cards.forEach((card) => {
+        const svg = svgIconsMap[card.icon] || svgIconsMap["stain"];
+        cardsHtml += `
+                    <div class="h-card">
+                        <div class="h-card-icon-wrapper">
+                            ${svg}
+                        </div>
+                        <div class="h-card-text-wrapper">
+                            <h3>${card.title}</h3>
+                            <p>${card.desc}</p>
+                        </div>
+                    </div>`;
+    });
+
+    return {
+        title: item.title,
+        desc: item.desc,
+        cardsHtml: cardsHtml
+    };
+}
