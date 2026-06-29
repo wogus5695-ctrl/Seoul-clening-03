@@ -439,6 +439,19 @@
     <!-- 인터랙티브 안티그래비티 클린 효과 스크립트 (Vanilla JS) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // /seo-hub 링크 클릭 시 상단 이동 (경쟁사 노출 방지 및 사용자 편의성)
+            document.querySelectorAll('a[href="/seo-hub"], a[href$="/seo-hub"]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const hero = document.getElementById('hero-section');
+                    if (hero) {
+                        hero.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+
             const canvas = document.getElementById('clean-canvas');
             if (!canvas) return;
 

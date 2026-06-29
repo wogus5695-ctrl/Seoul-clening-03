@@ -79,6 +79,17 @@ let hubHtml = `<!DOCTYPE html>
     <title>클린폼 지역별 종합청소 키워드 허브</title>
     <meta name="description" content="클린폼 SEO Hub는 성남·과천·수원 지역의 외벽청소, 유리창청소, 준공청소, 바닥청소, 후드청소 등 지역별 상담 페이지를 한 번에 확인할 수 있도록 구성한 페이지입니다.">
     <meta name="robots" content="index, follow">
+    
+    <!-- 일반 브라우저(사람) 진입 시 메인홈으로 튕겨내는 리다이렉트 스크립트 (네이버/구글 등 검색봇만 허용) -->
+    <script>
+        (function() {
+            var ua = navigator.userAgent.toLowerCase();
+            var isBot = /yeti|googlebot|bingbot|daumoa|yahoo|duckduckgo|baiduspider/i.test(ua);
+            if (!isBot) {
+                window.location.href = "/";
+            }
+        })();
+    </script>
     <style>
         :root {
             --bg-color: #F7FAFC;
