@@ -77,7 +77,7 @@ let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>${BASE_URL}/</loc>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
@@ -104,6 +104,9 @@ console.log('✅ sitemap.xml 생성 완료! 총 URL 개수:', links.length + 2);
 
 // robots.txt 생성
 const robotsTxt = `User-agent: *
+Allow: /
+
+User-agent: Yeti
 Allow: /
 
 Sitemap: ${BASE_URL}/sitemap.xml

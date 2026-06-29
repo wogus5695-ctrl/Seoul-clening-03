@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: Yeti
+Allow: /
+
 Sitemap: https://www.cleanforme.co.kr/sitemap.xml
