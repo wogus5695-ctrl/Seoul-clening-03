@@ -1081,7 +1081,7 @@ a {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-5 * (var(--marquee-width-desktop) + var(--marquee-gap-desktop))));
+        transform: translateX(calc(-9 * (var(--marquee-width-desktop) + var(--marquee-gap-desktop))));
     }
 }
 @keyframes marquee-infinite-mo {
@@ -1089,7 +1089,7 @@ a {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-5 * (var(--marquee-width-mobile) + var(--marquee-gap-mobile))));
+        transform: translateX(calc(-9 * (var(--marquee-width-mobile) + var(--marquee-gap-mobile))));
     }
 }
 

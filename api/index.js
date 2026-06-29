@@ -583,11 +583,15 @@ module.exports = (req, res) => {
         { task: "유리창청소", label: "유리창/외벽 청소", image: "/images/cleanforme/slide-window-exterior.jpg", alt: "유리창 및 외벽 청소 작업 이미지" },
         { task: "쓰레기집청소", label: "쓰레기집/특수 청소", image: "/images/cleanforme/slide-garbage-special.jpg", alt: "쓰레기집 및 특수 청소 작업 이미지" },
         { task: "준공청소", label: "준공/인테리어 후 청소", image: "/images/cleanforme/slide-postconstruction-interior.jpg", alt: "준공 및 인테리어 후 청소 작업 이미지" },
-        { task: "바닥왁스코팅", label: "바닥 왁스코팅", image: "/images/cleanforme/slide-floor-wax.jpg", alt: "바닥 왁스코팅 작업 이미지" }
+        { task: "바닥왁스코팅", label: "바닥 왁스코팅", image: "/images/cleanforme/slide-floor-wax.jpg", alt: "바닥 왁스코팅 작업 이미지" },
+        { task: "특수청소", label: "수영장 청소", image: "/images/cleanforme/slide-swimming-pool.jpg", alt: "수영장 청소 작업 이미지" },
+        { task: "특수청소", label: "시트지 제거", image: "/images/cleanforme/slide-sticker-removal.jpg", alt: "시트지 제거 작업 이미지" },
+        { task: "특수청소", label: "주차장 청소", image: "/images/cleanforme/slide-parking-lot.jpg", alt: "주차장 청소 작업 이미지" },
+        { task: "특수청소", label: "카펫 청소", image: "/images/cleanforme/slide-carpet-cleaning.jpg", alt: "카펫 청소 작업 이미지" }
     ];
 
     let marqueeHtml = '';
-    const quadItems = [...possibleWorksData, ...possibleWorksData, ...possibleWorksData, ...possibleWorksData];
+    const quadItems = [...possibleWorksData, ...possibleWorksData, ...possibleWorksData];
     quadItems.forEach((item) => {
         marqueeHtml += `
                         <div class="marquee-item">

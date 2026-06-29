@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
         workScopeHeading.innerText = '청소 범위는 현장 상태를 보고 정합니다';
     }
 
-    // Section 5: 가능한 청소 작업 제목/부제목 치환 & 타겟 작업 하이라이트 & 이미지 alt 치환
+    // Section 5: 가능한 청소 작업 섹션 제목 & 부제목 치환
     const possibleWorksHeading = document.getElementById('possible-works-heading');
     if (possibleWorksHeading) {
         possibleWorksHeading.innerText = getDesc(possibleWorksHeadingTemplate[displayTask] || possibleWorksHeadingTemplate["종합청소"]);
@@ -652,7 +652,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const highlightKey = Object.keys(taskMap).find(k => taskMap[k] === displayTask);
     if (highlightKey) {
-        // 기존 highlight 제거 후 새로 설정
         document.querySelectorAll('.works-text-list span').forEach(el => el.classList.remove('highlight-task'));
         const activeSpan = document.querySelector(`.works-text-list span[data-task="${highlightKey}"]`);
         if (activeSpan) {
@@ -660,12 +659,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.querySelectorAll('.marquee-item img').forEach(img => {
-        const baseAlt = img.getAttribute('data-base-alt');
-        if (baseAlt) {
-            img.setAttribute('alt', `${displayLoc} ${baseAlt}`);
-        }
-    });
+    // Render marquee track dynamically
+    const marqueeTrackContainer = document.getElementById('marquee-track-container');
+    if (marqueeTrackContainer) {
+        const possibleWorksData = [
+            { task: "간판청소", label: "간판/어닝 청소", image: "/images/cleanforme/slide-signboard-awning.jpg", alt: "간판 및 어닝 청소 작업 이미지" },
+            { task: "유리창청소", label: "유리창/외벽 청소", image: "/images/cleanforme/slide-window-exterior.jpg", alt: "유리창 및 외벽 청소 작업 이미지" },
+            { task: "쓰레기집청소", label: "쓰레기집/특수 청소", image: "/images/cleanforme/slide-garbage-special.jpg", alt: "쓰레기집 및 특수 청소 작업 이미지" },
+            { task: "준공청소", label: "준공/인테리어 후 청소", image: "/images/cleanforme/slide-postconstruction-interior.jpg", alt: "준공 및 인테리어 후 청소 작업 이미지" },
+            { task: "바닥왁스코팅", label: "바닥 왁스코팅", image: "/images/cleanforme/slide-floor-wax.jpg", alt: "바닥 왁스코팅 작업 이미지" },
+            { task: "특수청소", label: "수영장 청소", image: "/images/cleanforme/slide-swimming-pool.jpg", alt: "수영장 청소 작업 이미지" },
+            { task: "특수청소", label: "시트지 제거", image: "/images/cleanforme/slide-sticker-removal.jpg", alt: "시트지 제거 작업 이미지" },
+            { task: "특수청소", label: "주차장 청소", image: "/images/cleanforme/slide-parking-lot.jpg", alt: "주차장 청소 작업 이미지" },
+            { task: "특수청소", label: "카펫 청소", image: "/images/cleanforme/slide-carpet-cleaning.jpg", alt: "카펫 청소 작업 이미지" }
+        ];
+
+        let marqueeHtml = '';
+        const quadItems = [...possibleWorksData, ...possibleWorksData, ...possibleWorksData];
+        quadItems.forEach((item) => {
+            marqueeHtml += `
+                            <div class="marquee-item">
+                                <img src="${item.image}" alt="${displayLoc} ${item.alt}">
+                                <span class="marquee-label">${item.label}</span>
+                            </div>`;
+        });
+        marqueeTrackContainer.innerHTML = marqueeHtml;
+    }
 
     // Section 6: Process Heading
     const processHeading = document.getElementById('process-heading');
