@@ -579,23 +579,16 @@ module.exports = (req, res) => {
 
     // marquee-track-container 치환
     const possibleWorksData = [
-        { task: "외벽청소", label: "외벽청소", image: "/images/cleanforme/exterior-cleaning.webp", alt: "외벽청소 작업 이미지" },
-        { task: "유리창청소", label: "유리창청소", image: "/images/cleanforme/window-cleaning.webp", alt: "유리창청소 작업 이미지" },
-        { task: "화재청소", label: "화재청소", image: "/images/cleanforme/fire-cleaning.webp", alt: "화재청소 작업 이미지" },
-        { task: "바닥왁스코팅", label: "바닥 왁스코팅", image: "/images/cleanforme/floor-cleaning.webp", alt: "바닥 왁스코팅 작업 이미지" },
-        { task: "바닥청소", label: "바닥청소", image: "/images/cleanforme/floor-cleaning.webp", alt: "바닥청소 작업 이미지" },
-        { task: "어닝청소", label: "어닝청소", image: "/images/cleanforme/awning-cleaning.webp", alt: "어닝청소 작업 이미지" },
-        { task: "간판청소", label: "간판청소", image: "/images/cleanforme/signboard-cleaning.webp", alt: "간판청소 작업 이미지" },
-        { task: "인테리어청소", label: "인테리어 후 청소", image: "/images/cleanforme/interior-cleaning.webp", alt: "인테리어 후 청소 작업 이미지" },
-        { task: "준공청소", label: "준공청소", image: "/images/cleanforme/post-construction-cleaning.webp", alt: "준공청소 작업 이미지" },
-        { task: "후드청소", label: "후드청소", image: "/images/cleanforme/hood-cleaning.webp", alt: "후드청소 작업 이미지" },
-        { task: "쓰레기집청소", label: "쓰레기집청소", image: "/images/cleanforme/garbage-house-cleaning.webp", alt: "쓰레기집청소 작업 이미지" },
-        { task: "특수청소", label: "특수청소", image: "/images/cleanforme/special-cleaning.webp", alt: "특수청소 작업 이미지" }
+        { task: "간판청소", label: "간판/어닝 청소", image: "/images/cleanforme/slide-signboard-awning.jpg", alt: "간판 및 어닝 청소 작업 이미지" },
+        { task: "유리창청소", label: "유리창/외벽 청소", image: "/images/cleanforme/slide-window-exterior.jpg", alt: "유리창 및 외벽 청소 작업 이미지" },
+        { task: "쓰레기집청소", label: "쓰레기집/특수 청소", image: "/images/cleanforme/slide-garbage-special.jpg", alt: "쓰레기집 및 특수 청소 작업 이미지" },
+        { task: "준공청소", label: "준공/인테리어 후 청소", image: "/images/cleanforme/slide-postconstruction-interior.jpg", alt: "준공 및 인테리어 후 청소 작업 이미지" },
+        { task: "바닥왁스코팅", label: "바닥 왁스코팅", image: "/images/cleanforme/slide-floor-wax.jpg", alt: "바닥 왁스코팅 작업 이미지" }
     ];
 
     let marqueeHtml = '';
-    const doubleItems = [...possibleWorksData, ...possibleWorksData];
-    doubleItems.forEach((item) => {
+    const quadItems = [...possibleWorksData, ...possibleWorksData, ...possibleWorksData, ...possibleWorksData];
+    quadItems.forEach((item) => {
         marqueeHtml += `
                         <div class="marquee-item">
                             <img src="${item.image}" alt="${displayLoc} ${item.alt}">
