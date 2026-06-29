@@ -1022,35 +1022,40 @@ a {
 }
 
 /* Infinite Marquee Slider Container */
+:root {
+    --marquee-width-desktop: 460px;
+    --marquee-gap-desktop: 24px;
+    --marquee-width-mobile: 85vw;
+    --marquee-gap-mobile: 16px;
+}
 .marquee-slider-container {
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 .marquee-track {
     display: flex;
-    /* (320px + 20px gap) * 24개 = 8160px */
-    width: 8160px;
-    animation: marquee-infinite 48s linear infinite;
+    width: calc(24 * (var(--marquee-width-desktop) + var(--marquee-gap-desktop)));
+    animation: marquee-infinite-pc 64s linear infinite;
 }
 .marquee-item {
     flex-shrink: 0;
-    width: 320px;
-    margin-right: 20px;
+    width: var(--marquee-width-desktop);
+    margin-right: var(--marquee-gap-desktop);
     position: relative;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 .marquee-item img {
     width: 100%;
-    height: 180px;
+    height: 280px;
     object-fit: cover;
     display: block;
-    border-radius: 11px;
+    border-radius: 15px;
     transition: transform 0.5s ease;
 }
 .marquee-item:hover img {
@@ -1058,26 +1063,33 @@ a {
 }
 .marquee-label {
     position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: rgba(12, 12, 14, 0.75);
-    backdrop-filter: blur(4px);
+    bottom: 16px;
+    left: 16px;
+    background: rgba(12, 12, 14, 0.8);
+    backdrop-filter: blur(6px);
     color: #ffffff;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Keyframes for CSS Marquee */
-@keyframes marquee-infinite {
+@keyframes marquee-infinite-pc {
     0% {
         transform: translateX(0);
     }
     100% {
-        /* 첫 번째 12개 세트의 너비인 (320px + 20px) * 12 = 4080px 만큼 좌측 이동 */
-        transform: translateX(-4080px);
+        transform: translateX(calc(-12 * (var(--marquee-width-desktop) + var(--marquee-gap-desktop))));
+    }
+}
+@keyframes marquee-infinite-mo {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-12 * (var(--marquee-width-mobile) + var(--marquee-gap-mobile))));
     }
 }
 
@@ -1495,7 +1507,38 @@ a {
     color: var(--color-text-muted) !important;
 }
 .works-text-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 16px;
+    margin: 1.5rem auto 2.5rem;
+    max-width: 900px;
+    font-size: 0.95rem;
     color: var(--color-text-muted) !important;
+}
+.works-text-list span {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.works-text-list span.highlight-task {
+    background: rgba(0, 229, 255, 0.08) !important;
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent) !important;
+    font-weight: 700 !important;
+}
+
+.light-theme .works-text-list span {
+    background: #ffffff;
+    border-color: var(--color-border);
+}
+.light-theme .works-text-list span.highlight-task {
+    background: rgba(8, 145, 163, 0.06) !important;
+    border-color: var(--color-accent-dark) !important;
+    color: var(--color-accent-dark) !important;
 }
 .marquee-item {
     background: var(--color-bg-surface) !important;
@@ -1760,9 +1803,48 @@ a {
         padding-bottom: 90px !important; /* 모바일 하단 플로팅 CTA와 겹치지 않게 여백 유지 */
     }
 
-    /* 모바일 이미지 슬라이더 카드 높이 최적화 */
+    /* 모바일 이미지 슬라이더 카드 크기 및 애니메이션 속도 조정 */
+    .marquee-track {
+        width: calc(24 * (var(--marquee-width-mobile) + var(--marquee-gap-mobile))) !important;
+        animation: marquee-infinite-mo 50s linear infinite !important;
+    }
+    .marquee-item {
+        width: var(--marquee-width-mobile) !important;
+        margin-right: var(--marquee-gap-mobile) !important;
+        border-radius: 12px !important;
+    }
     .marquee-item img {
-        height: 130px !important;
+        height: 230px !important;
+        border-radius: 11px !important;
+    }
+    .marquee-label {
+        bottom: 12px !important;
+        left: 12px !important;
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+        border-radius: 6px !important;
+    }
+
+    /* 모바일 작업명 태그 가로 스크롤 적용 */
+    .works-text-list {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        padding: 0 16px 12px !important;
+        margin: 1rem auto 1.5rem !important;
+        gap: 8px !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .works-text-list::-webkit-scrollbar {
+        display: none !important;
+    }
+    .works-text-list span {
+        flex-shrink: 0 !important;
+        font-size: 0.82rem !important;
+        padding: 5px 10px !important;
     }
 }
 
