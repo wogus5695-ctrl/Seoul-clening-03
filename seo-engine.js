@@ -58,6 +58,15 @@ function getRegionContext(loc, task) {
         regionKey = 'suwon';
     } else if (loc.includes('과천') || locationMatch(loc, gwacheonDongs)) {
         regionKey = 'gwacheon';
+    } else if (typeof SEOUL_REGIONS !== 'undefined') {
+        const foundSeoul = SEOUL_REGIONS.some(r => {
+            if (r.variants.some(v => loc.includes(v) || v.includes(loc))) return true;
+            if (r.dongs.includes(loc) || r.dongs.some(d => loc.includes(d) || d.includes(loc))) return true;
+            return false;
+        });
+        if (foundSeoul) {
+            regionKey = 'seoul';
+        }
     }
     
     const templates = {
@@ -75,11 +84,13 @@ function getRegionContext(loc, task) {
         
         jangan: `${locTopic} 유서 깊은 전통 상권과 학교, 주택가가 결합된 구도심 지역으로 건물의 창문 물때와 빗물 자국, 매장 본드 및 페인트 흔적 등 복잡하게 얽힌 세정 케어 요구가 꾸준히 이어집니다. 클린폼은 축적된 자재 복원 노하우를 바탕으로 낡고 취약해진 마감 틈새까지 정성을 다해 안전하게 찌든 때를 분해하여 ${task}${getObjectMarker(task)} 마무리합니다.`,
         
-        gwonseon: `${locTopic} 대형 마트 및 유통점, 대규모 아파트형 공장, 창고형 물류 공간 등 산업 인접 구역이 조화되어 넓은 기계식 바닥 물청소나 고온 유증기 기름때 분해 세정이 주로 요청됩니다. 클린폼은 찌든 오일과 먼지가 누적된 고착층을 불려내어 용해하는 특수 연화제 세정을 투입해 바닥 미끄러움과 화재 요인을 동시에 해소하는 ${task}${getObjectMarker(task)} 시공합니다.`,
+        gwonseon: `${locTopic} 대형 마트 및 유통점, 대규모 아파트형 공장, 창고형 물류 공간 등 산업 인접 구역이 조화되어 넓은 기계식 바닥 물청소나 고온 유증기 기름때 분해 세정이 주로 요청됩니다. 클린폼은 찌든 오일과 먼지가 누적된 고착층을 불려내어 용해하는 특수 연화제 세정을 투입해 바닥 미끄러움 and 화재 요인을 동시에 해소하는 ${task}${getObjectMarker(task)} 시공합니다.`,
         
         paldal: `${locTopic} 대규모 재래시장과 번화한 역세권 중심가로서 유동 인구가 상시 많으므로 고객들의 첫 시선이 머무는 외부 쇼윈도 유리창, 선명한 전면 간판, 입구 대리석 등의 청결도가 매우 중요합니다. 클린폼은 혼잡한 낮 시간을 피해 심야 또는 이른 새벽 작업을 최적 조율하여 유동 인구의 영업 방해를 완전히 통제하고 선명한 ${task} 결과를 선사합니다.`,
         
         yeongtong: `${locTopic} 정보기술(IT) 테크노 밸리 오피스 단지, 고급 입시 학원가, 브랜드 프랜차이즈, 대형 병원 등 위생 등급과 청결 점검 기준이 엄격하게 관리되는 최신형 다목적 공간들이 많습니다. 클린폼은 미세 분진과 도배 풀을 완벽 청소하는 준공 작업부터, 타일 보존력을 극대화하는 왁스 코팅까지 하자 없는 디테일 ${task}${getObjectMarker(task)} 보장합니다.`,
+        
+        seoul: `${locTopic} 서울의 주요 상업 시설, 오피스 빌딩, 주상복합 및 주거 밀집 구역에 걸쳐 다양한 청소 수요가 집중되는 지역입니다. 클린폼은 현장 용도와 오염도에 부합하는 체계적인 마감 가이드를 준수하며, 보행자 통제와 고소차 배치 계획을 철저히 설계하여 안전하고 확실한 ${task}${getObjectMarker(task)} 수행합니다.`,
         
         default: `${locTopic} 지역의 고유한 현장 구조와 오염물 축적 수준, 작업 높이에 맞춤형으로 청소 방식을 조합하여 제공하고 있습니다. 클린폼은 오염의 종류와 자재 특성을 정확히 분석하여 안전하고 차별화된 ${task} 공정을 조율합니다.`
     };

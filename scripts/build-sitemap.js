@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
 const { GYEONGGI_REGIONS } = require('../js/data/regions-gyeonggi.js');
+const { SEOUL_REGIONS } = require('../js/data/regions-seoul.js');
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cleanforme.co.kr';
 
@@ -21,6 +22,7 @@ function addLink(url) {
     return true;
 }
 
+// Add Gyeonggi to links
 GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
@@ -63,6 +65,29 @@ GYEONGGI_REGIONS.forEach(region => {
     const uniqueDongs = [...new Set(allDongsForSitemap)];
 
     uniqueDongs.forEach(dong => {
+        coreServices.forEach(s => {
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+            addLink(url);
+        });
+    });
+});
+
+// Add Seoul to links (skip "서울" itself, just variants and dongs)
+SEOUL_REGIONS.forEach(region => {
+    // 1. District level variants (e.g. 강남구, 강남)
+    region.variants.forEach(dVar => {
+        coreServices.forEach(s => {
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
+            addLink(url);
+        });
+    });
+
+    // 2. Dong level variants
+    region.dongs.forEach(dong => {
         coreServices.forEach(s => {
             const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
             const urlTask = displayName.replace(/\s+/g, '');

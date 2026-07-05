@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { SERVICES_DATA } = require('../js/data/services.js');
 const { GYEONGGI_REGIONS } = require('../js/data/regions-gyeonggi.js');
+const { SEOUL_REGIONS } = require('../js/data/regions-seoul.js');
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cleanforme.co.kr';
 
@@ -19,6 +20,7 @@ function addLink(url, label, regionName) {
     return true;
 }
 
+// Add Gyeonggi to links
 GYEONGGI_REGIONS.forEach(region => {
     // 1. City level variants
     region.cityVariants.forEach(cVar => {
@@ -66,6 +68,29 @@ GYEONGGI_REGIONS.forEach(region => {
             const urlTask = displayName.replace(/\s+/g, '');
             const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
             addLink(url, `${dong} ${displayName}`, region.city);
+        });
+    });
+});
+
+// Add Seoul to links
+SEOUL_REGIONS.forEach(region => {
+    // 1. District level variants (e.g. 강남구, 강남)
+    region.variants.forEach(dVar => {
+        coreServices.forEach(s => {
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
+            addLink(url, `${dVar} ${displayName}`, region.name);
+        });
+    });
+
+    // 2. Dong level variants
+    region.dongs.forEach(dong => {
+        coreServices.forEach(s => {
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+            addLink(url, `${dong} ${displayName}`, region.name);
         });
     });
 });
@@ -376,6 +401,94 @@ GYEONGGI_REGIONS.forEach(region => {
 
     hubHtml += `        </section>\n`;
 });
+
+// Generate Seoul section in seo-hub.html
+hubHtml += `
+    <section class="city-section">
+        <h2 class="city-title">서울특별시 섹션</h2>
+        <div style="background: #eef7f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; font-size: 0.95rem; color: var(--accent-dark);">
+            * 서울특별시는 25개 자치구와 행정동 단위별 상담을 제공합니다. (중복되는 동명의 경우 검색 최적화 및 편의성을 위해 하나의 통합 페이지로 연결됩니다.)
+        </div>
+`;
+
+SEOUL_REGIONS.forEach(region => {
+    hubHtml += `
+        <details style="margin-bottom: 20px; border-left: 4px solid var(--accent); background: #fff;">
+            <summary style="font-size: 1.15rem; padding: 12px 15px; font-weight: bold; cursor: pointer;">📍 ${region.name} (${region.variants.join(' / ')})</summary>
+            <div class="details-content" style="padding: 15px; border-top: 1px solid var(--card-border);">
+                
+                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main); font-weight: bold;">구 단위 키워드</h4>
+                <div class="details-content" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 20px; border: none; padding: 0;">
+    `;
+    
+    // 1. District level links for HTML
+    region.variants.forEach(dVar => {
+        coreServices.forEach(s => {
+            const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+            const urlTask = displayName.replace(/\s+/g, '');
+            const url = `/?k=${encodeURIComponent(dVar + '-' + urlTask)}`;
+            const absUrl = `${SITE_URL}${url}`;
+            if (!renderedHtmlUrls.has(absUrl)) {
+                renderedHtmlUrls.add(absUrl);
+                hubHtml += `                    <a href="${absUrl}">${dVar} ${displayName}</a>\n`;
+            }
+        });
+    });
+    
+    hubHtml += `
+                </div>
+                
+                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main); font-weight: bold;">동 단위 키워드</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+    `;
+    
+    // 2. Dong level links for HTML
+    region.dongs.forEach(dong => {
+        const isDuplicateDong = seenDongs.has(dong);
+        if (!isDuplicateDong) {
+            seenDongs.add(dong);
+        }
+        
+        if (isDuplicateDong) {
+            hubHtml += `
+                <div style="padding: 8px 12px; font-size: 0.9rem; color: var(--text-muted); background: #f9fafb; border-radius: 4px; border: 1px dashed var(--card-border);">
+                    동: <strong>${dong}</strong> (타 구와 중복 동명 - 검색 색인 통합으로 경기/타 구에서 관리)
+                </div>
+            `;
+        } else {
+            hubHtml += `
+                <details style="margin: 2px 0; border: 1px solid var(--card-border); background: #fafafa;">
+                    <summary style="font-size: 0.95rem; padding: 8px 12px; font-weight: normal; color: var(--text-muted); cursor: pointer;">${dong}</summary>
+                    <div class="details-content" style="padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; border-top: 1px solid var(--card-border);">
+            `;
+            
+            coreServices.forEach(s => {
+                const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
+                const urlTask = displayName.replace(/\s+/g, '');
+                const url = `/?k=${encodeURIComponent(dong + '-' + urlTask)}`;
+                const absUrl = `${SITE_URL}${url}`;
+                
+                if (!renderedHtmlUrls.has(absUrl)) {
+                    renderedHtmlUrls.add(absUrl);
+                    hubHtml += `                        <a href="${absUrl}" style="font-size: 0.85rem; padding: 6px;">${dong} ${displayName}</a>\n`;
+                }
+            });
+            
+            hubHtml += `
+                    </div>
+                </details>
+            `;
+        }
+    });
+    
+    hubHtml += `
+                </div>
+            </div>
+        </details>
+    `;
+});
+
+hubHtml += `    </section>\n`;
 
 hubHtml += `
         <div style="text-align:center; margin-top: 50px;">
