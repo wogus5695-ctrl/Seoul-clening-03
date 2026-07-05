@@ -406,22 +406,21 @@ GYEONGGI_REGIONS.forEach(region => {
 hubHtml += `
     <section class="city-section">
         <h2 class="city-title">서울특별시 섹션</h2>
-        <div style="background: #eef7f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; font-size: 0.95rem; color: var(--accent-dark);">
-            * 서울특별시는 25개 자치구와 행정동 단위별 상담을 제공합니다. (중복되는 동명의 경우 검색 최적화 및 편의성을 위해 하나의 통합 페이지로 연결됩니다.)
+        <div style="background: #eef7f8; padding: 15px; border-radius: 8px; margin-bottom: 30px; font-weight: 500; font-size: 0.95rem; color: var(--accent-dark);">
+            서울 25개 구와 주요 동 단위 청소 키워드를 확인할 수 있습니다. 중복 동명은 검색 최적화와 관리 편의를 위해 하나의 URL로 연결됩니다.
         </div>
 `;
 
 SEOUL_REGIONS.forEach(region => {
     hubHtml += `
-        <details style="margin-bottom: 20px; border-left: 4px solid var(--accent); background: #fff;">
-            <summary style="font-size: 1.15rem; padding: 12px 15px; font-weight: bold; cursor: pointer;">📍 ${region.name} (${region.variants.join(' / ')})</summary>
-            <div class="details-content" style="padding: 15px; border-top: 1px solid var(--card-border);">
-                
-                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main); font-weight: bold;">구 단위 키워드</h4>
-                <div class="details-content" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 20px; border: none; padding: 0;">
+        <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 30px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);">
+            <h3 class="city-title" style="font-size: 1.8rem; margin-top: 0; margin-bottom: 25px; color: var(--accent-dark); border-bottom: 2px solid var(--accent); padding-bottom: 10px;">📍 ${region.name} (${region.variants.join(' / ')})</h3>
+            
+            <h4 class="category-title" style="font-size: 1.2rem; font-weight: bold; color: var(--text-main); margin-top: 25px; margin-bottom: 15px;">1. ${region.name} 통합 키워드</h4>
+            <div class="grid" style="margin-bottom: 30px;">
     `;
     
-    // 1. District level links for HTML
+    // 1. District level links
     region.variants.forEach(dVar => {
         coreServices.forEach(s => {
             const displayName = s.serviceNameKo === '인테리어 후 청소' ? '인테리어청소' : s.serviceNameKo;
@@ -430,19 +429,18 @@ SEOUL_REGIONS.forEach(region => {
             const absUrl = `${SITE_URL}${url}`;
             if (!renderedHtmlUrls.has(absUrl)) {
                 renderedHtmlUrls.add(absUrl);
-                hubHtml += `                    <a href="${absUrl}">${dVar} ${displayName}</a>\n`;
+                hubHtml += `                <a href="${absUrl}">${dVar} ${displayName}</a>\n`;
             }
         });
     });
     
     hubHtml += `
-                </div>
-                
-                <h4 style="margin: 0 0 10px 0; font-size: 1rem; color: var(--text-main); font-weight: bold;">동 단위 키워드</h4>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
+            </div>
+            
+            <h4 class="category-title" style="font-size: 1.2rem; font-weight: bold; color: var(--text-main); margin-top: 25px; margin-bottom: 15px;">2. ${region.name} 동 단위 청소 키워드</h4>
     `;
     
-    // 2. Dong level links for HTML
+    // 2. Dong level links
     region.dongs.forEach(dong => {
         const isDuplicateDong = seenDongs.has(dong);
         if (!isDuplicateDong) {
@@ -451,15 +449,15 @@ SEOUL_REGIONS.forEach(region => {
         
         if (isDuplicateDong) {
             hubHtml += `
-                <div style="padding: 8px 12px; font-size: 0.9rem; color: var(--text-muted); background: #f9fafb; border-radius: 4px; border: 1px dashed var(--card-border);">
-                    동: <strong>${dong}</strong> (타 구와 중복 동명 - 검색 색인 통합으로 경기/타 구에서 관리)
-                </div>
+            <div style="padding: 10px 15px; font-size: 0.95rem; color: var(--text-muted); background: #f9fafb; border-radius: 6px; border: 1px dashed var(--card-border); margin-bottom: 10px;">
+                동: <strong>${dong}</strong> (타 구와 중복 동명 - 검색 색인 통합으로 경기/타 구에서 관리)
+            </div>
             `;
         } else {
             hubHtml += `
-                <details style="margin: 2px 0; border: 1px solid var(--card-border); background: #fafafa;">
-                    <summary style="font-size: 0.95rem; padding: 8px 12px; font-weight: normal; color: var(--text-muted); cursor: pointer;">${dong}</summary>
-                    <div class="details-content" style="padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; border-top: 1px solid var(--card-border);">
+            <details>
+                <summary>${dong}</summary>
+                <div class="details-content">
             `;
             
             coreServices.forEach(s => {
@@ -470,21 +468,19 @@ SEOUL_REGIONS.forEach(region => {
                 
                 if (!renderedHtmlUrls.has(absUrl)) {
                     renderedHtmlUrls.add(absUrl);
-                    hubHtml += `                        <a href="${absUrl}" style="font-size: 0.85rem; padding: 6px;">${dong} ${displayName}</a>\n`;
+                    hubHtml += `                    <a href="${absUrl}">${dong} ${displayName}</a>\n`;
                 }
             });
             
             hubHtml += `
-                    </div>
-                </details>
+                </div>
+            </details>
             `;
         }
     });
     
     hubHtml += `
-                </div>
-            </div>
-        </details>
+        </div>
     `;
 });
 
